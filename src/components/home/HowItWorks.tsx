@@ -71,8 +71,8 @@ export default function HowItWorks() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <span className="text-gold text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark mt-4 mb-6">How It Works</h2>
+          <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">How It Works</h2>
           <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed">
             From selection to doorstep delivery — your custom garment in four seamless steps.
           </p>
@@ -88,24 +88,21 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="group relative"
             >
-              {/* Connector line (hidden on last item and mobile) */}
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] border-t border-dashed border-gold/30" />
-              )}
-              
-              <div className="relative bg-cream rounded-2xl p-8 border border-gray-100 hover:border-gold/30 transition-all duration-500 hover:shadow-lg hover:shadow-gold/5">
-                {/* Step number */}
-                <div className="absolute -top-4 -right-2 text-6xl font-serif font-bold text-gold/10 group-hover:text-gold/20 transition-colors select-none">
-                  {step.number}
-                </div>
-                
-                {/* Icon */}
-                <div className="text-maroon mb-6">
-                  {step.icon}
+              <div className="relative bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100 hover:border-[#C5A55A]/30 transition-all duration-500 hover:shadow-lg hover:shadow-[#C5A55A]/10 h-full flex flex-col">
+                <div className="flex justify-between items-start mb-6">
+                  {/* Icon */}
+                  <div className="text-[#7B1E3A]">
+                    {step.icon}
+                  </div>
+                  
+                  {/* Step number */}
+                  <div className="text-5xl font-serif font-bold text-[#C5A55A]/40 group-hover:text-[#C5A55A]/80 transition-colors select-none">
+                    {step.number}
+                  </div>
                 </div>
 
-                <h3 className="text-xl font-serif font-bold text-dark mb-3">{step.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm">{step.description}</p>
+                <h3 className="text-xl font-serif font-bold text-[#1a1a1a] mb-3">{step.title}</h3>
+                <p className="text-gray-500 leading-relaxed text-sm flex-grow">{step.description}</p>
               </div>
             </motion.div>
           ))}
