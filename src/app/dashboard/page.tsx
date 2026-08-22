@@ -14,11 +14,15 @@ export default async function DashboardPage() {
   }
 
   // Fetch user profile to get the role
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', user.id)
     .single()
+
+  console.log('[DEBUG DASHBOARD] user:', user.email, 'id:', user.id)
+  console.log('[DEBUG DASHBOARD] profile:', profile)
+  console.log('[DEBUG DASHBOARD] profileError:', profileError)
 
   let runnerOrders: any[] = []
   if (profile?.role === 'runner') {
@@ -45,7 +49,7 @@ export default async function DashboardPage() {
         status, 
         total_estimated_cost, 
         created_at,
-        item_name,
+        cart_items,
         customer:customer_id(full_name, phone),
         runner:runner_id(full_name),
         tailor:tailor_id(full_name)

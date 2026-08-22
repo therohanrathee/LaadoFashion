@@ -99,7 +99,9 @@ export default function AdminPortal({ orders = [], employees = [] }: { orders: a
                         {order.id.split('-')[0]}...
                       </div>
                       <div className="font-medium text-gray-900">
-                        {order.item_name || 'Custom Order'}
+                        {Array.isArray(order.cart_items) && order.cart_items.length > 0 
+                          ? order.cart_items.map((ci: any) => `${ci.quantity}x ${ci.name}`).join(', ')
+                          : 'Custom Order'}
                       </div>
                       <div className="text-xs text-gray-400 mt-0.5">
                         {new Date(order.created_at).toLocaleDateString()}
