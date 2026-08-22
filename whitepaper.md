@@ -6,12 +6,13 @@ This document serves as the single source of truth for the project's state, arch
 ## Tech Stack
 - **Frontend**: Next.js (App Router), React, Tailwind CSS.
 - **Animations**: Framer Motion (dynamic vector thread unweaving animation mapped 1:1 with scroll height).
-- **Backend & Auth**: Supabase (PostgreSQL, Supabase Auth via Email OTP & Passwords).
+- **Backend & Auth**: Supabase (PostgreSQL, Supabase Auth via Passwords for staff).
 - **State Management**: Zustand / React Context.
+- **Color Palette**: Rani Pink (`#E91E63`) as primary brand accent.
 
 ## System Architecture
 The platform is an ERP and E-commerce system serving 4 roles:
-1. **Customer**: Books orders completely anonymously (geolocation captured). Can log in later via Email OTP to track status. Customers are never forced to set a password.
+1. **Customer**: Books orders completely anonymously (geolocation captured). Tracking is entirely unauthenticated via an Order ID (tracking link sent to email).
 2. **Admin**: Manages pricing, SKUs, employees, and overrides orders. Logs in via Password.
 3. **Runner**: Receives geographically clustered tasks to pick up/deliver orders and collect manual Cash/UPI payments. Logs in via Password.
 4. **Tailor**: Views assigned stitching tasks and customer details. Logs in via Password.
@@ -39,7 +40,8 @@ All Supabase SQL queries are documented for manual execution in the Supabase SQL
 - [x] Tech Stack Finalization
 - [x] Next.js Project Initialization
 - [x] Database Schema Design
-- [x] Authentication Setup (Role-based: OTP for Customers, Password for Staff)
-- [x] Homepage & Frictionless Order Flow
+- [x] Authentication Setup (Staff only via Passwords; Customers track via Order ID)
+- [x] Homepage & Frictionless Order Flow (Updated to 6-step flow)
+- [x] Unauthenticated Tracking Portal
 - [x] Runner Portal & Geographic Clustering
 - [ ] Admin & Tailor Portal Implementations

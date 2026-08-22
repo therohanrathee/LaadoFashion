@@ -28,12 +28,44 @@ export default async function DashboardPage() {
       .eq('runner_id', user.id)
       .neq('status', 'delivered') // Hide completed from runner dashboard
     
-    // Type narrowing since Supabase join returns an array or single object depending on relationship.
-    // In our schema customer_id is a FK to profiles, so it's a single object.
     runnerOrders = data?.map(d => ({
       ...d,
       customer: Array.isArray(d.customer) ? d.customer[0] : d.customer
     })) || []
+  }
+
+  let adminOrders: any[] = []
+  let employees: any[] = []
+  if (profile?.role === 'admin') {
+    // Fetch all orders with customer and assigned staff details
+    const { data: ordersData } = await supabase
+      .from('orders')
+      .select(`
+        id, 
+        status, 
+        total_estimated_cost, 
+        created_at,
+        item_name,
+        customer:customer_id(full_name, phone),
+        runner:runner_id(full_name),
+        tailor:tailor_id(full_name)
+      `)
+      .order('created_at', { ascending: false })
+    
+    adminOrders = ordersData?.map(d => ({
+      ...d,
+      customer: Array.isArray(d.customer) ? d.customer[0] : d.customer,
+      runner: Array.isArray(d.runner) ? d.runner[0] : d.runner,
+      tailor: Array.isArray(d.tailor) ? d.tailor[0] : d.tailor,
+    })) || []
+
+    // Fetch employees
+    const { data: employeesData } = await supabase
+      .from('profiles')
+      .select('id, full_name, role, active')
+      .in('role', ['runner', 'tailor', 'admin'])
+    
+    employees = employeesData || []
   }
 
   return (
@@ -60,7 +92,7 @@ export default async function DashboardPage() {
           </div>
         )}
         
-        {profile?.role === 'admin' && <AdminPortal />}
+        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} />}
 
         {profile?.role === 'runner' && <RunnerPortal orders={runnerOrders} />}
 

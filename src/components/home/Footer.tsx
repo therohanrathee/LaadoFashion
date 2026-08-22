@@ -54,6 +54,16 @@ export default function Footer() {
               <li>Women's clothing alterations</li>
             </ul>
           </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">Quick Links</h4>
+            <div className="space-y-3">
+              <Link href="/order" className="block text-sm hover:text-[#C5A55A] transition-colors">Book a Measurement</Link>
+              <Link href="/track" className="block text-sm hover:text-[#C5A55A] transition-colors">Track Your Order</Link>
+              <Link href="/login" className="block text-sm hover:text-gray-400 transition-colors mt-6 text-white/30">Employee Login</Link>
+            </div>
+          </div>
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">

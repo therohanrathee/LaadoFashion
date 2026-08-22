@@ -6,8 +6,8 @@ import { useRef } from 'react'
 const steps = [
   {
     number: '01',
-    title: 'Choose Your Style',
-    description: 'Browse our catalog of ladies suits, nightwear, and casual styles. Pick your garment and customise with add-ons like lace borders, zigzag sleeves, and embroidery.',
+    title: 'Book Your Order',
+    description: 'Select your garment and custom add-ons through our easy booking portal. Share your location and details to initiate the process effortlessly.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
         <rect x="8" y="6" width="32" height="36" rx="4" stroke="currentColor" strokeWidth="2"/>
@@ -19,8 +19,8 @@ const steps = [
   },
   {
     number: '02',
-    title: 'We Come to You',
-    description: 'Our runner visits your home at a convenient time. They take precise measurements, collect the fabric, and understand your exact design preferences.',
+    title: 'Measurement & Pickup',
+    description: 'Our assigned runner visits your home at a convenient time. They take your precise measurements and collect your unstitched cloth.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
         <path d="M24 4C14 4 6 12 6 22C6 34 24 44 24 44C24 44 42 34 42 22C42 12 34 4 24 4Z" stroke="currentColor" strokeWidth="2"/>
@@ -31,8 +31,8 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Master Craftsmanship',
-    description: 'Our skilled tailors meticulously stitch your garment to exact specifications. Every seam, every fold, every detail is perfected with years of expertise.',
+    title: 'Boutique Tailoring',
+    description: 'We bring your fabric back to our boutique where our master tailors meticulously stitch your garment to your exact specifications.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
         <path d="M12 8L24 20M24 20L36 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -44,8 +44,8 @@ const steps = [
   },
   {
     number: '04',
-    title: 'Delivered to Your Door',
-    description: 'Your perfectly stitched garment is delivered back home. Try it on — if anything needs adjustment, our runner takes it back for alterations at no extra hassle.',
+    title: 'Delivered in 7 Days',
+    description: 'Your perfectly stitched garment is securely packed and delivered right to your doorstep within 7 days, ready for you to wear.',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
         <rect x="4" y="14" width="28" height="20" rx="2" stroke="currentColor" strokeWidth="2"/>
@@ -91,7 +91,7 @@ export default function HowItWorks() {
               <div className="relative bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100 hover:border-[#C5A55A]/30 transition-all duration-500 hover:shadow-lg hover:shadow-[#C5A55A]/10 h-full flex flex-col">
                 <div className="flex justify-between items-start mb-6">
                   {/* Icon */}
-                  <div className="text-[#7B1E3A]">
+                  <div className="text-[#E91E63]">
                     {step.icon}
                   </div>
                   

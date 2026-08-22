@@ -71,9 +71,9 @@ export default function ThreadAnimation() {
         <defs>
           <linearGradient id="thread-grad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#C5A55A" />
-            <stop offset="33%" stopColor="#7B1E3A" />
+            <stop offset="33%" stopColor="#E91E63" />
             <stop offset="66%" stopColor="#C5A55A" />
-            <stop offset="100%" stopColor="#7B1E3A" />
+            <stop offset="100%" stopColor="#E91E63" />
           </linearGradient>
         </defs>
 

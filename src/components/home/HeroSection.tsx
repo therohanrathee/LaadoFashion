@@ -13,7 +13,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `radial-gradient(circle, #7B1E3A 0.8px, transparent 0.8px)`,
+          backgroundImage: `radial-gradient(circle, #E91E63 0.8px, transparent 0.8px)`,
           backgroundSize: '32px 32px',
         }}
       />
@@ -22,7 +22,7 @@ export default function HeroSection() {
       <motion.div 
         animate={{ rotate: 360 }} 
         transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-24 right-16 md:right-32 w-56 md:w-72 h-56 md:h-72 rounded-full border border-[#7B1E3A]/10"
+        className="absolute top-24 right-16 md:right-32 w-56 md:w-72 h-56 md:h-72 rounded-full border border-[#E91E63]/10"
       />
       <motion.div 
         animate={{ rotate: -360 }} 
@@ -37,10 +37,10 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-2 bg-[#7B1E3A]/5 border border-[#7B1E3A]/10 rounded-full px-5 py-2 mb-10"
+          className="inline-flex items-center gap-2 bg-[#E91E63]/5 border border-[#E91E63]/10 rounded-full px-5 py-2 mb-10"
         >
           <span className="w-2 h-2 rounded-full bg-[#C5A55A] animate-pulse" />
-          <span className="text-[#7B1E3A]/70 text-sm tracking-wide font-medium">Bespoke Tailoring at Your Doorstep</span>
+          <span className="text-[#E91E63]/70 text-sm tracking-wide font-medium">Bespoke Tailoring at Your Doorstep</span>
         </motion.div>
 
         {/* Main heading */}
@@ -53,7 +53,7 @@ export default function HeroSection() {
           Laado Fashion
           <br />
           <span className="text-[#C5A55A]">&amp;</span>{' '}
-          <span className="italic font-medium text-[#7B1E3A]">Boutique</span>
+          <span className="italic font-medium text-[#E91E63]">Boutique</span>
         </motion.h1>
 
         {/* Tagline */}
@@ -76,7 +76,7 @@ export default function HeroSection() {
         >
           <Link
             href="/order"
-            className="group bg-[#7B1E3A] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-[#7B1E3A]/20 hover:bg-[#6a1a32]"
+            className="group bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-[#E91E63]/20 hover:bg-[#C2185B]"
           >
             Book a Measurement
           </Link>
@@ -101,7 +101,7 @@ export default function HeroSection() {
             { number: '100%', label: 'Custom Stitched' },
           ].map((stat, i) => (
             <div key={i} className="text-center">
-              <div className="text-2xl md:text-3xl font-serif font-bold text-[#7B1E3A]">{stat.number}</div>
+              <div className="text-2xl md:text-3xl font-serif font-bold text-[#E91E63]">{stat.number}</div>
               <div className="text-xs text-gray-400 uppercase tracking-wider mt-1">{stat.label}</div>
             </div>
           ))}
@@ -114,7 +114,7 @@ export default function HeroSection() {
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-[#7B1E3A]/20 rounded-full flex justify-center pt-2">
+        <div className="w-6 h-10 border-2 border-[#E91E63]/20 rounded-full flex justify-center pt-2">
           <div className="w-1.5 h-3 bg-[#C5A55A]/60 rounded-full" />
         </div>
       </motion.div>

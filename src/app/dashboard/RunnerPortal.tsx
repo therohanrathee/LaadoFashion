@@ -43,7 +43,7 @@ export default function RunnerPortal({ orders }: { orders: Order[] }) {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-semibold text-lg">{order.customer.full_name}</h3>
-                  <a href={`tel:${order.customer.phone}`} className="text-[#8b0000] text-sm hover:underline">
+                  <a href={`tel:${order.customer.phone}`} className="text-[#E91E63] text-sm hover:underline">
                     {order.customer.phone}
                   </a>
                 </div>
@@ -64,7 +64,7 @@ export default function RunnerPortal({ orders }: { orders: Order[] }) {
               </div>
 
               <div className="border-t pt-4 mt-4">
-                <p className="text-sm font-medium mb-3">Amount to Collect: <span className="text-[#8b0000]">₹{order.total_estimated_cost / 2}</span></p>
+                <p className="text-sm font-medium mb-3">Amount to Collect: <span className="text-[#E91E63]">₹{order.total_estimated_cost / 2}</span></p>
                 
                 <div className="flex gap-2">
                   {order.status === 'pending_measurement' && (

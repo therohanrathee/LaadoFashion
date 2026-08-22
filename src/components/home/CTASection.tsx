@@ -19,7 +19,7 @@ export default function CTASection() {
       <motion.div 
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: 'linear' }}
-        className="absolute -left-20 -bottom-20 w-72 h-72 rounded-full border border-[#7B1E3A]/10"
+        className="absolute -left-20 -bottom-20 w-72 h-72 rounded-full border border-[#E91E63]/10"
       />
 
       <div className="max-w-4xl mx-auto text-center relative z-10" ref={ref}>
@@ -30,7 +30,7 @@ export default function CTASection() {
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Get Started Today</span>
           <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6 leading-tight">
-            Ready for the <span className="text-[#7B1E3A] italic">perfect fit</span>?
+            Ready for the <span className="text-[#E91E63] italic">perfect fit</span>?
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
             Book a home measurement today. Our runner will visit you, take your measurements, 
@@ -38,7 +38,7 @@ export default function CTASection() {
           </p>
           <Link
             href="/order"
-            className="inline-block bg-[#7B1E3A] text-white font-bold text-sm uppercase tracking-wider px-12 py-5 rounded-lg hover:bg-[#6a1a32] transition-all shadow-md hover:shadow-lg hover:shadow-[#7B1E3A]/20"
+            className="inline-block bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-12 py-5 rounded-lg hover:bg-[#C2185B] transition-all shadow-md hover:shadow-lg hover:shadow-[#E91E63]/20"
           >
             Start Your Order
           </Link>
