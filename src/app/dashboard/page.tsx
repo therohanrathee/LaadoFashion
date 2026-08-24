@@ -40,6 +40,8 @@ export default async function DashboardPage() {
 
   let adminOrders: any[] = []
   let employees: any[] = []
+  let bulkOrders: any[] = []
+  
   if (profile?.role === 'admin') {
     // Fetch all orders with customer and assigned staff details
     const { data: ordersData } = await supabase
@@ -70,6 +72,14 @@ export default async function DashboardPage() {
       .in('role', ['runner', 'tailor', 'admin'])
     
     employees = employeesData || []
+
+    // Fetch bulk orders
+    const { data: bulkData } = await supabase
+      .from('bulk_orders')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    bulkOrders = bulkData || []
   }
 
   return (
@@ -96,7 +106,7 @@ export default async function DashboardPage() {
           </div>
         )}
         
-        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} />}
+        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} bulkOrders={bulkOrders} />}
 
         {profile?.role === 'runner' && <RunnerPortal orders={runnerOrders} />}
 

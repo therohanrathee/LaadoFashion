@@ -2,104 +2,93 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function HeroSection() {
+  const [hovered, setHovered] = useState(false)
+
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#FAF8F5]">
-      {/* Subtle radial accent behind the text */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#f3ece2] via-[#FAF8F5] to-[#FAF8F5]" />
 
-      {/* Decorative dot pattern */}
       <div 
         className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `radial-gradient(circle, #E91E63 0.8px, transparent 0.8px)`,
-          backgroundSize: '32px 32px',
-        }}
+        style={{ backgroundImage: `radial-gradient(circle, #E91E63 0.8px, transparent 0.8px)`, backgroundSize: '32px 32px' }}
       />
 
-      {/* Floating decorative ring — light maroon */}
-      <motion.div 
-        animate={{ rotate: 360 }} 
-        transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-24 right-16 md:right-32 w-56 md:w-72 h-56 md:h-72 rounded-full border border-[#E91E63]/10"
-      />
-      <motion.div 
-        animate={{ rotate: -360 }} 
-        transition={{ duration: 100, repeat: Infinity, ease: 'linear' }}
-        className="absolute bottom-24 left-12 md:left-24 w-64 md:w-96 h-64 md:h-96 rounded-full border border-[#C5A55A]/10"
-      />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div animate={{ scale: [1, 1.1, 1], x: [0, 50, 0], y: [0, 30, 0] }} transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-[20%] -left-[10%] w-[50%] h-[60%] rounded-full bg-[#E91E63]/[0.03] blur-[120px]" />
+        <motion.div animate={{ scale: [1, 1.2, 1], x: [0, -40, 0], y: [0, -50, 0] }} transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }} className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-[#C5A55A]/[0.04] blur-[120px]" />
+        <motion.div animate={{ scale: [1, 1.15, 1], x: [0, 30, 0], y: [0, -40, 0] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }} className="absolute top-[20%] right-[10%] w-[40%] h-[40%] rounded-full bg-rose-200/20 blur-[100px]" />
+      </div>
 
-      {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-2 bg-[#E91E63]/5 border border-[#E91E63]/10 rounded-full px-5 py-2 mb-10"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#E91E63]/5 border border-[#E91E63]/10 rounded-full px-5 py-2 mb-10">
           <span className="w-2 h-2 rounded-full bg-[#C5A55A] animate-pulse" />
           <span className="text-[#E91E63]/70 text-sm tracking-wide font-medium">Bespoke Tailoring at Your Doorstep</span>
         </motion.div>
 
-        {/* Main heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="text-5xl sm:text-6xl md:text-8xl font-serif font-bold leading-[1.08] mb-6 text-[#1a1a1a]"
-        >
-          Laado Fashion
-          <br />
-          <span className="text-[#C5A55A]">&amp;</span>{' '}
-          <span className="italic font-medium text-[#E91E63]">Boutique</span>
+        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl md:text-8xl font-serif font-bold leading-[1.08] mb-6 text-[#1a1a1a]">
+          Laado Fashion<br /><span className="text-[#C5A55A]">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
         </motion.h1>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-lg md:text-xl text-gray-500 font-light max-w-xl mx-auto mb-14 leading-relaxed"
-        >
-          Where tradition meets elegance. Custom ladies wear stitched to perfection, 
-          measured at your home, delivered to your doorstep.
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-lg md:text-xl text-gray-500 font-light max-w-xl mx-auto mb-14 leading-relaxed">
+          Where tradition meets elegance. Custom ladies wear stitched to perfection, measured at your home, delivered to your doorstep.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Area */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex items-center justify-center gap-4 h-14"
         >
-          <Link
-            href="/order"
-            className="group bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg transition-all hover:shadow-lg hover:shadow-[#E91E63]/20 hover:bg-[#C2185B]"
+          {/* Book button — Hover zone is STRICTLY here */}
+          <div 
+            className="relative inline-grid place-items-center"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
-            Book a Measurement
-          </Link>
+            {/* Layer 1: Default state */}
+            <div className={`col-start-1 row-start-1 bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg shadow-sm whitespace-nowrap cursor-pointer transition-opacity duration-150 ease-out ${hovered ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}>
+              Book a Measurement
+            </div>
+
+            {/* Layer 2: Hover state */}
+            <div className={`col-start-1 row-start-1 flex gap-4 items-center transition-opacity duration-150 ease-out ${hovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+              <Link
+                href="/womens"
+                className={`bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:shadow-[#E91E63]/20 whitespace-nowrap transition-transform duration-150 ease-out ${
+                  hovered ? 'translate-x-0' : 'translate-x-8'
+                }`}
+              >
+                Women&apos;s
+              </Link>
+              <Link
+                href="/mens"
+                className={`bg-[#1a1a1a] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-800 whitespace-nowrap transition-transform duration-150 ease-out ${
+                  hovered ? 'translate-x-0' : '-translate-x-8'
+                }`}
+              >
+                Men&apos;s
+              </Link>
+            </div>
+          </div>
+
+          {/* "How It Works" — shrinks to 0 width and disappears on hover, allowing the Book button to slide to the true center */}
           <Link
             href="#how-it-works"
-            className="text-gray-600 font-medium text-sm uppercase tracking-wider px-10 py-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all"
+            className={`text-gray-600 font-medium text-sm uppercase tracking-wider border border-gray-200 rounded-lg bg-white/50 hover:bg-gray-50 whitespace-nowrap transition-all duration-150 ease-out overflow-hidden ${
+              hovered ? 'opacity-0 w-0 px-0 py-0 border-0 pointer-events-none' : 'opacity-100 px-10 py-4 w-auto'
+            }`}
           >
             How It Works
           </Link>
         </motion.div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.3 }}
-          className="mt-24 flex justify-center gap-12 md:gap-20"
-        >
-          {[
-            { number: '500+', label: 'Orders Delivered' },
-            { number: '4.9★', label: 'Customer Rating' },
-            { number: '100%', label: 'Custom Stitched' },
-          ].map((stat, i) => (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.3 }} className="mt-24 flex justify-center gap-12 md:gap-20">
+          {[ { number: '500+', label: 'Orders Delivered' }, { number: '4.9★', label: 'Customer Rating' }, { number: '100%', label: 'Custom Stitched' } ].map((stat, i) => (
             <div key={i} className="text-center">
               <div className="text-2xl md:text-3xl font-serif font-bold text-[#E91E63]">{stat.number}</div>
               <div className="text-xs text-gray-400 uppercase tracking-wider mt-1">{stat.label}</div>
@@ -107,17 +96,6 @@ export default function HeroSection() {
           ))}
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-[#E91E63]/20 rounded-full flex justify-center pt-2">
-          <div className="w-1.5 h-3 bg-[#C5A55A]/60 rounded-full" />
-        </div>
-      </motion.div>
     </section>
   )
 }

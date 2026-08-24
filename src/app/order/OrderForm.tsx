@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { submitOrder } from '@/app/actions/order'
 import { CATALOG, ADDONS, CatalogCategory, CatalogItem } from './catalogData'
 
@@ -166,9 +167,16 @@ export default function OrderForm() {
                 onClick={() => openModal(item)}
                 className="p-4 border border-gray-200 rounded-lg flex flex-col items-center gap-2 transition-all hover:border-[#E91E63] hover:shadow-sm bg-white"
               >
-                <span className="text-4xl">{item.image}</span>
+                <div className="relative w-20 h-20 mb-2">
+                  <Image src={item.image} alt={item.name} fill className="object-contain mix-blend-multiply" />
+                </div>
                 <span className="font-medium text-center text-sm">{item.name}</span>
-                <span className="text-sm font-semibold text-gray-600">₹{item.basePrice}</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-semibold text-gray-900">₹{item.basePrice}</span>
+                  {item.originalPrice && (
+                    <span className="text-xs text-gray-400 line-through">₹{item.originalPrice}</span>
+                  )}
+                </div>
               </button>
             ))}
           </div>
@@ -239,7 +247,12 @@ export default function OrderForm() {
                           />
                           <span className="text-sm font-medium text-gray-800">{addon.name}</span>
                         </div>
-                        <span className="text-xs font-semibold text-gray-500">+₹{addon.price}/ea</span>
+                        <div className="flex items-center gap-1.5">
+                          {addon.originalPrice && (
+                            <span className="text-xs text-gray-400 line-through">₹{addon.originalPrice}</span>
+                          )}
+                          <span className="text-xs font-semibold text-gray-500">+₹{addon.price}/ea</span>
+                        </div>
                       </label>
                     ))}
                   </div>

@@ -4,7 +4,7 @@ import Navbar from '@/components/home/Navbar'
 import HeroSection from '@/components/home/HeroSection'
 import HowItWorks from '@/components/home/HowItWorks'
 import ServicesSection from '@/components/home/ServicesSection'
-import FeaturesSection from '@/components/home/FeaturesSection'
+import ReviewsSection from '@/components/home/ReviewsSection'
 import CTASection from '@/components/home/CTASection'
 import Footer from '@/components/home/Footer'
 import ThreadAnimation from '@/components/home/ThreadAnimation'
@@ -20,12 +20,12 @@ export default function Home() {
         {/* The thread SVG draws as the user scrolls — sits inside the page flow */}
         <ThreadAnimation />
 
-        {/* Page sections — z-index 2 so content is above thread */}
-        <main className="relative" style={{ zIndex: 2 }}>
+        {/* Page sections */}
+        <main className="relative">
           <HeroSection />
           <HowItWorks />
           <ServicesSection />
-          <FeaturesSection />
+          <ReviewsSection />
           <CTASection />
         </main>
       </div>

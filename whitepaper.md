@@ -33,7 +33,7 @@ The database uses PostgreSQL with the following core tables:
 ### Manual Query Log
 All Supabase SQL queries are documented for manual execution in the Supabase SQL Editor.
 - **Initial schema**: `supabase/migrations/01_initial_schema.sql` (Legacy, executed)
-- **Ongoing query log**: `supabase/queries.sql` (Contains Query 01 - 03 for auth trigger fixes)
+- **Ongoing query log**: `supabase/queries/` directory containing chronologically numbered SQL files (e.g. `02_fix_auth_trigger...sql`)
 
 ## Current State
 - [x] Initial Requirements Gathering

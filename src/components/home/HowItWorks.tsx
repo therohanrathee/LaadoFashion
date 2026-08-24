@@ -69,7 +69,7 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-20 relative z-20"
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">How It Works</h2>
@@ -86,9 +86,9 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="group relative"
+              className="group relative z-20"
             >
-              <div className="relative bg-[#FAF8F5] rounded-2xl p-8 border border-gray-100 hover:border-[#C5A55A]/30 transition-all duration-500 hover:shadow-lg hover:shadow-[#C5A55A]/10 h-full flex flex-col">
+              <div className="relative bg-white/30 backdrop-blur-xl rounded-2xl p-8 border border-white/40 hover:border-[#C5A55A]/40 transition-all duration-500 hover:shadow-xl hover:shadow-[#C5A55A]/10 h-full flex flex-col shadow-sm">
                 <div className="flex justify-between items-start mb-6">
                   {/* Icon */}
                   <div className="text-[#E91E63]">

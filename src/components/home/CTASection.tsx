@@ -3,13 +3,14 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
+import SplitBookButton from '@/components/ui/SplitBookButton'
 
 export default function CTASection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-28 md:py-36 px-6 bg-[#f5f0ea] overflow-hidden">
+    <section className="relative pb-28 pt-12 md:pb-36 md:pt-16 px-6 bg-[#f5f0ea] overflow-hidden">
       {/* Decorative ring */}
       <motion.div 
         animate={{ rotate: 360 }}
@@ -22,7 +23,7 @@ export default function CTASection() {
         className="absolute -left-20 -bottom-20 w-72 h-72 rounded-full border border-[#E91E63]/10"
       />
 
-      <div className="max-w-4xl mx-auto text-center relative z-10" ref={ref}>
+      <div className="max-w-4xl mx-auto text-center relative z-20" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -36,12 +37,11 @@ export default function CTASection() {
             Book a home measurement today. Our runner will visit you, take your measurements, 
             and your custom-stitched garment will be delivered to your doorstep.
           </p>
-          <Link
-            href="/order"
-            className="inline-block bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-12 py-5 rounded-lg hover:bg-[#C2185B] transition-all shadow-md hover:shadow-lg hover:shadow-[#E91E63]/20"
-          >
-            Start Your Order
-          </Link>
+          <SplitBookButton 
+            defaultText="Start Your Order"
+            className="bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-12 py-5 rounded-lg hover:bg-[#C2185B] transition-all shadow-md hover:shadow-lg hover:shadow-[#E91E63]/20"
+            splitClassName="px-8 py-5 text-sm"
+          />
         </motion.div>
       </div>
     </section>

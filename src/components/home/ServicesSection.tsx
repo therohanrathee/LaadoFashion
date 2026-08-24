@@ -3,28 +3,30 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const services = [
-  {
-    title: 'Custom Stitching',
-    subtitle: 'Ladies Suits & More',
-    description: 'Salwar suits, anarkalis, blouses, and kurta sets tailored to your exact measurements with premium finishing and a perfect fit.',
-    price: 'Starting ₹1,500',
-    accent: '#E91E63',
-    bg: 'bg-gradient-to-br from-[#E91E63]/5 to-[#E91E63]/10',
-    border: 'border-[#E91E63]/15',
-    hoverBorder: 'hover:border-[#E91E63]/30',
-  },
-  {
-    title: 'Matching Juttis',
-    subtitle: 'Complete The Look',
-    description: 'Elevate your traditional dress with handcrafted Punjabi juttis, carefully curated to perfectly match your newly stitched outfit.',
-    price: 'Starting ₹800',
+// Generate the 10 leather juttis and 4 plastic juttis based on the processed files
+const allJuttis = [
+  ...[24,25,26,27,28,29,30,31,32,33].map(id => ({
+    title: 'Genuine Leather Jutti',
+    type: 'Genuine Leather',
+    price: '₹799',
+    originalPrice: '₹1299',
     accent: '#C5A55A',
-    bg: 'bg-gradient-to-br from-[#C5A55A]/5 to-[#C5A55A]/10',
-    border: 'border-[#C5A55A]/15',
-    hoverBorder: 'hover:border-[#C5A55A]/30',
-  },
+    bg: 'bg-gradient-to-br from-[#C5A55A]/10 to-white',
+    border: 'border-[#C5A55A]/20',
+    image: `/images/juttis/leather/IMG_85${id}.webp`,
+  })),
+  ...[34,35,36,37].map(id => ({
+    title: 'Handcrafted Jutti',
+    type: 'Handcrafted',
+    price: '₹499',
+    originalPrice: '₹699',
+    accent: '#E91E63',
+    bg: 'bg-gradient-to-br from-[#E91E63]/10 to-white',
+    border: 'border-[#E91E63]/20',
+    image: `/images/juttis/plastic/IMG_85${id}.webp`,
+  }))
 ]
 
 export default function ServicesSection() {
@@ -32,81 +34,81 @@ export default function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-28 md:py-36 px-6 bg-[#f5f0ea]">
-      <div className="max-w-5xl mx-auto" ref={ref}>
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">What We Offer</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">Our Expertise</h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed">
-            Focused exclusively on masterful tailoring and the perfect matching accessories to complete your look.
-          </p>
-        </motion.div>
+    <section className="relative pt-28 pb-12 md:pt-36 md:pb-16 bg-[#f5f0ea] overflow-hidden" ref={ref}>
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="max-w-7xl mx-auto text-center mb-16 px-6 relative z-20"
+      >
+        <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Our Speciality</span>
+        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">Handcrafted Juttis</h2>
+        <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed bg-[#f5f0ea]/80 inline-block px-4 py-1 rounded-full">
+          Swipe through our exclusive collection of beautifully crafted Juttis, now available at discounted prices.
+        </p>
+      </motion.div>
 
-        {/* Service cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {services.map((service, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.15 }}
-            >
-              <Link href="/order" className="block group h-full">
-                <div className={`relative ${service.bg} rounded-2xl overflow-hidden border ${service.border} ${service.hoverBorder} p-10 h-full flex flex-col justify-between transition-all duration-500 hover:shadow-lg`}>
-                  {/* Decorative circle */}
-                  <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full border group-hover:scale-150 transition-transform duration-700" style={{ borderColor: `${service.accent}15` }} />
-
-                  <div>
-                    <span className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: `${service.accent}99` }}>
-                      {service.subtitle}
-                    </span>
-                    <h3 className="text-3xl font-serif font-bold mt-3 mb-4 text-[#1a1a1a]">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 text-base leading-relaxed">
-                      {service.description}
-                    </p>
+      {/* Carousel - Full Bleed */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.7, delay: 0.3 }}
+        className="w-full relative z-20"
+      >
+        {/* Scrollable Container */}
+        <div className="flex overflow-x-auto gap-6 px-6 md:px-12 lg:px-24 pb-12 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {allJuttis.map((jutti, i) => (
+              <div 
+                key={i} 
+                className={`shrink-0 w-[280px] md:w-[320px] snap-center relative z-20 ${jutti.bg} rounded-2xl overflow-hidden border ${jutti.border} p-6 flex flex-col justify-between transition-all hover:shadow-xl group`}
+              >
+                
+                <div className="w-full h-56 relative mb-6 rounded-lg overflow-hidden bg-white shadow-sm border border-black/5 group-hover:-translate-y-2 transition-transform duration-300 p-2 md:p-4">
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src={jutti.image} 
+                      alt={jutti.title}
+                      fill
+                      className="object-contain mix-blend-multiply"
+                      sizes="(max-width: 768px) 280px, 320px"
+                    />
                   </div>
-
-                  <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-300/30">
-                    <span className="font-bold text-sm" style={{ color: service.accent }}>{service.price}</span>
-                    <span className="text-gray-400 text-sm font-medium group-hover:translate-x-1 transition-transform" style={{ color: `${service.accent}99` }}>
-                      Book Now →
-                    </span>
+                  
+                  {/* Discount Badge */}
+                  <div className="absolute top-4 right-4 bg-[#E91E63] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
+                    Sale
                   </div>
                 </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Full Service List Tags (GBP SEO) */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-20 text-center"
-        >
-          <p className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-6">Comprehensive Tailoring Services</p>
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {[
-              "All Types of Ladies Suits", "Custom-made clothing", "Suit tailoring", 
-              "General Tailoring", "Alterations", "Blouse alterations", 
-              "Trouser alterations", "Wedding dress alterations", "Women's clothing alterations"
-            ].map((service, i) => (
-              <span key={i} className="px-4 py-2 bg-white border border-gray-200 text-gray-600 text-sm rounded-full shadow-sm hover:border-[#C5A55A] hover:text-[#E91E63] transition-colors cursor-default">
-                {service}
-              </span>
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: `${jutti.accent}` }}>
+                    {jutti.type} Collection
+                  </span>
+                  <h3 className="text-xl font-serif font-bold mt-1 mb-2 text-[#1a1a1a]">
+                    {jutti.title}
+                  </h3>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-900/10">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-gray-400 line-through decoration-gray-300">{jutti.originalPrice}</span>
+                    <span className="font-bold text-xl leading-none text-gray-900">{jutti.price}</span>
+                  </div>
+                  <Link href="#" className="bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm">
+                    Buy Now
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
+          
+          <style dangerouslySetInnerHTML={{__html: `
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+          `}} />
         </motion.div>
-      </div>
     </section>
   )
 }
