@@ -33,10 +33,10 @@ export default function CartDrawer() {
         <>
           {/* Backdrop */}
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/10 z-[100]"
+            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            animate={{ opacity: 1, backdropFilter: 'blur(4px)' }}
+            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            className="fixed inset-0 bg-black/20 z-[100] backdrop-blur-sm"
             onClick={() => setIsCartOpen(false)}
           />
 

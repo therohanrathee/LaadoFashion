@@ -122,31 +122,66 @@ function triggerFlyToCartAnimation(startX: number, startY: number, imgSrc: strin
   // Create flying element
   const flyEl = document.createElement('img')
   flyEl.src = imgSrc
-  flyEl.className = 'fixed z-[9999] rounded-xl object-cover shadow-2xl pointer-events-none'
-  flyEl.style.width = '150px'
-  flyEl.style.height = '150px'
-  flyEl.style.left = `${startX - 75}px`
-  flyEl.style.top = `${startY - 75}px`
-  flyEl.style.transition = 'all 0.6s cubic-bezier(0.2, 1, 0.3, 1)' // macOS genie curve
+  flyEl.className = 'fixed z-[9999] object-cover shadow-2xl pointer-events-none'
+  
+  // Initialize styles so it exists in DOM properly before animation
+  flyEl.style.left = `${startX}px`
+  flyEl.style.top = `${startY}px`
+  flyEl.style.width = '20px'
+  flyEl.style.height = '20px'
+  flyEl.style.borderRadius = '50%'
   
   document.body.appendChild(flyEl)
 
-  // Force reflow
-  flyEl.getBoundingClientRect()
+  // Determine an upward arc peak position
+  const peakX = startX > cartRect.left ? startX - 100 : startX + 100;
+  const peakY = Math.max(20, startY - 150); // Move up, but don't go off screen top
 
-  // Animate to cart
-  requestAnimationFrame(() => {
-    flyEl.style.left = `${cartRect.left - 10}px`
-    flyEl.style.top = `${cartRect.top - 10}px`
-    flyEl.style.width = '40px'
-    flyEl.style.height = '40px'
-    flyEl.style.opacity = '0'
-    flyEl.style.transform = 'scale(0.2)'
-    flyEl.style.borderRadius = '50%'
-  })
+  // Animate with keyframes
+  const animation = flyEl.animate([
+    {
+      left: `${startX - 10}px`,
+      top: `${startY - 10}px`,
+      width: '20px',
+      height: '20px',
+      opacity: 1,
+      borderRadius: '50%'
+    },
+    {
+      left: `${peakX - 100}px`,
+      top: `${peakY - 100}px`,
+      width: '200px',
+      height: '200px',
+      opacity: 1,
+      borderRadius: '16px',
+      offset: 0.35 // Peaks at 35% of the animation
+    },
+    {
+      left: `${cartRect.left + cartRect.width/2 - 12}px`,
+      top: `${cartRect.top + cartRect.height/2 - 12}px`,
+      width: '24px',
+      height: '24px',
+      opacity: 0.6,
+      borderRadius: '50%',
+      offset: 1
+    }
+  ], {
+    duration: 1000, // Slower animation (1 second)
+    easing: 'ease-in-out'
+  });
 
-  // Cleanup
-  setTimeout(() => {
-    flyEl.remove()
-  }, 600)
+  animation.onfinish = () => {
+    if (document.body.contains(flyEl)) {
+      document.body.removeChild(flyEl);
+    }
+    
+    // Add a bounce effect to the cart icon
+    cartIcon.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(1.3)' },
+      { transform: 'scale(0.9)' },
+      { transform: 'scale(1.1)' },
+      { transform: 'scale(1)' }
+    ], { duration: 400, easing: 'ease-in-out' });
+  }
 }

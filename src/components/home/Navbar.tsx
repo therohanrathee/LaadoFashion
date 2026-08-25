@@ -99,10 +99,11 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Cart Icon (Now on the left of Hamburger) */}
+          {/* Cart Icon */}
           <button 
+            id="cart-icon-target"
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2.5 text-gray-900 hover:text-[#E91E63] transition-colors bg-gray-50 hover:bg-rose-50 rounded-full border border-gray-100 hover:border-rose-100"
+            className="relative p-2.5 text-gray-900 hover:text-[#E91E63] transition-colors bg-gray-50 hover:bg-rose-50 rounded-full border border-gray-100 hover:border-rose-100 shrink-0"
             aria-label="Open cart"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

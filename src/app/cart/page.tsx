@@ -8,9 +8,10 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { CATALOG, ALL_JUTTIS } from '@/app/order/catalogData'
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal } = useCart()
+  const { items, addItem, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal } = useCart()
   const [step, setStep] = useState<'cart' | 'checkout'>('cart')
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -101,11 +102,11 @@ export default function CartPage() {
           {items.length === 0 ? (
             <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100">
               <p className="text-gray-500 mb-6 text-lg">Your cart is currently empty.</p>
-              <div className="flex gap-4 justify-center">
-                <Link href="/womens" className="bg-[#E91E63] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#C2185B] transition-colors">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xs sm:max-w-none mx-auto px-6 sm:px-0">
+                <Link href="/womens" className="w-full sm:w-auto bg-[#E91E63] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#C2185B] transition-colors">
                   Shop Women's
                 </Link>
-                <Link href="/mens" className="bg-[#1a1a1a] text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                <Link href="/mens" className="w-full sm:w-auto bg-[#1a1a1a] text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
                   Shop Men's
                 </Link>
               </div>
@@ -235,6 +236,58 @@ export default function CartPage() {
                         </div>
                       )
                     })}
+
+                    {/* Blinkit-style Impulse Buy / Cross-sell */}
+                    {(() => {
+                      // Only show cross-sell if there is a Women's collection clothing item in the cart
+                      const hasWomensItem = items.some(cartItem => {
+                        const catalogItem = CATALOG.find(c => c.id === cartItem.productId);
+                        return catalogItem?.category === 'Women';
+                      });
+
+                      if (!hasWomensItem) return null;
+
+                      const crossSellJuttis = ALL_JUTTIS;
+                      return (
+                        <div className="mt-12 mb-4 bg-white p-6 rounded-2xl shadow-sm border border-[#C5A55A]/30 relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A55A]/10 rounded-bl-full -z-10" />
+                          <h3 className="text-xl font-serif font-bold text-gray-900 mb-1">Complete Your Look ✨</h3>
+                          <p className="text-sm text-gray-500 mb-6">Add matching handcrafted Juttis to your outfit</p>
+                          
+                          <div className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide">
+                            {crossSellJuttis.map(jutti => (
+                              <div key={jutti.id} className="flex-none w-40 sm:w-52 border border-gray-100 rounded-xl p-3 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-[#FAF8F5]/50">
+                                <div className="h-28 sm:h-32 w-full relative rounded-lg overflow-hidden bg-white border border-gray-50 flex-none">
+                                  <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full mix-blend-multiply p-2" />
+                                </div>
+                                <div>
+                                  <h4 className="text-sm font-bold text-gray-800 line-clamp-1">{jutti.name}</h4>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <span className="font-bold text-[#E91E63]">₹{jutti.basePrice}</span>
+                                    {jutti.originalPrice && (
+                                      <span className="text-xs text-gray-400 line-through">₹{jutti.originalPrice}</span>
+                                    )}
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={(e) => addItem({
+                                    productId: jutti.id,
+                                    name: jutti.name,
+                                    basePrice: jutti.basePrice,
+                                    image: jutti.image,
+                                    addons: [],
+                                    quantity: 1
+                                  }, e)}
+                                  className="mt-auto w-full py-2 bg-white border border-[#C5A55A] text-[#C5A55A] font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
+                                >
+                                  ADD
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    })()}
                   </motion.div>
                 )}
 

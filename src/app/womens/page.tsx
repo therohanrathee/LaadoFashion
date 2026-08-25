@@ -7,7 +7,7 @@ import SplitBookButton from '@/components/ui/SplitBookButton'
 import ProductCard from '@/components/cart/ProductCard'
 
 export default function WomensCollectionPage() {
-  const womensCatalog = CATALOG.filter(item => item.category === 'Women')
+  const womensCatalog = CATALOG.filter(item => item.category === 'Women' && !item.name.toLowerCase().includes('jutti'))
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] flex flex-col">

@@ -9,6 +9,15 @@ export interface CatalogItem {
   category: CatalogCategory
 }
 
+export interface CatalogAddon {
+  id: string
+  name: string
+  price: number
+  originalPrice?: number
+  appliesTo: string[]
+  isCrossSell?: boolean
+}
+
 // Discount rules applied:
 // Price < 5000 = -100
 // Price >= 5000 = -200
@@ -47,8 +56,6 @@ export const CATALOG: CatalogItem[] = [
   // Row 6: Misc & Footwear
   { id: '0c726deb-6e9a-4e2d-bdb0-dfb941c117ca', name: 'Gown', basePrice: 1900, image: '/images/catalog/women/gown.webp', category: 'Women' },
   { id: 'a781ffa2-1329-4db6-a798-955b58e515ae', name: 'Jumpsuit', basePrice: 1900, image: '/images/catalog/women/jumpsuit.webp', category: 'Women' },
-  { id: 'c20011c0-31bf-4bac-87ef-8ad01c2cea9b', name: 'Genuine Leather Jutti', basePrice: 799, originalPrice: 1299, image: '/images/juttis/leather/IMG_8530.webp', category: 'Women' },
-  { id: 'd20011c0-31bf-4bac-87ef-8ad01c2cea9c', name: 'Normal Jutti', basePrice: 499, originalPrice: 699, image: '/images/juttis/plastic/IMG_8535.webp', category: 'Women' },
 
   // MEN
   // Row 1: Formal Basics
@@ -85,11 +92,27 @@ export const CATALOG: CatalogItem[] = [
   { id: 'ceb9e557-98e5-4b44-9e2b-06e160ae5fbb', name: 'Long Coat', basePrice: 4800, image: '/images/catalog/men/long-coat.webp', category: 'Men' },
 ]
 
-export const ADDONS = [
+export const ALL_JUTTIS: CatalogItem[] = [
+  ...[24,25,26,27,28,29,30,31,32,33].map(id => ({
+    id: `jutti-leather-${id}`,
+    name: `Genuine Leather Jutti (${id})`,
+    basePrice: 799,
+    originalPrice: 1299,
+    image: `/images/juttis/leather/IMG_85${id}.webp`,
+    category: 'Women' as CatalogCategory,
+  })),
+  ...[34,35,36,37].map(id => ({
+    id: `jutti-handcrafted-${id}`,
+    name: `Handcrafted Jutti (${id})`,
+    basePrice: 499,
+    originalPrice: 699,
+    image: `/images/juttis/plastic/IMG_85${id}.webp`,
+    category: 'Women' as CatalogCategory,
+  }))
+]
+
+export const ADDONS: CatalogAddon[] = [
   { id: '1bbfb8cb-d181-4328-ad87-8fc4d12c93f0', name: 'Express 3-Day Delivery', price: 1000, appliesTo: CATALOG.map(c => c.id) },
-  { id: 'e96641b9-a51f-4146-abbe-57d8820091e2', name: 'Premium Lining', price: 500, appliesTo: CATALOG.filter(c => c.category === 'Women' && !c.name.includes('Jutti')).map(c => c.id) },
+  { id: 'e96641b9-a51f-4146-abbe-57d8820091e2', name: 'Premium Lining', price: 500, appliesTo: CATALOG.filter(c => c.category === 'Women').map(c => c.id) },
   { id: 'ca152438-6625-412e-9df3-1f19f18a280c', name: 'Intricate Embroidery', price: 1500, appliesTo: CATALOG.filter(c => c.category === 'Women').map(c => c.id) },
-  // Cross-sell items (Blinkit style)
-  { id: 'c20011c0-31bf-4bac-87ef-8ad01c2cea9b', name: 'Genuine Leather Jutti (Cross-sell)', price: 799, originalPrice: 1299, appliesTo: CATALOG.map(c => c.id), isCrossSell: true },
-  { id: 'd20011c0-31bf-4bac-87ef-8ad01c2cea9c', name: 'Normal Jutti (Cross-sell)', price: 499, originalPrice: 699, appliesTo: CATALOG.map(c => c.id), isCrossSell: true },
 ]
