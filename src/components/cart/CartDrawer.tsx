@@ -27,7 +27,7 @@ export default function CartDrawer() {
       />
 
       {/* Slide-over panel */}
-      <div className="fixed inset-y-0 right-0 z-[101] w-full max-w-md bg-white/80 backdrop-blur-2xl shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out sm:rounded-l-2xl border-l border-white/50 overflow-hidden">
+      <div className="fixed inset-y-0 right-0 z-[101] w-full max-w-md bg-white/50 backdrop-blur-2xl shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-white/50 overflow-hidden">
         {/* Header */}
         <div className="px-6 py-5 border-b border-gray-200/50 flex items-center justify-between bg-transparent">
           <h2 className="text-xl font-serif font-bold text-gray-900">Your Cart</h2>
