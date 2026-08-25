@@ -83,7 +83,7 @@ export default function ReviewsSection() {
           {SCROLLING_REVIEWS.map((review, index) => (
             <div 
               key={index} 
-              className="w-80 md:w-96 shrink-0 bg-white/10 backdrop-blur-2xl border border-white/60 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
+              className="w-80 md:w-96 shrink-0 bg-white/5 backdrop-blur-md border border-white/40 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">

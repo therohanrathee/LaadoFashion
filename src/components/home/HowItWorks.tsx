@@ -88,7 +88,7 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="group relative z-20"
             >
-              <div className="relative bg-white/30 backdrop-blur-xl rounded-2xl p-8 border border-white/40 hover:border-[#C5A55A]/40 transition-all duration-500 hover:shadow-xl hover:shadow-[#C5A55A]/10 h-full flex flex-col shadow-sm">
+              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/40 hover:border-[#C5A55A]/40 transition-all duration-500 hover:shadow-xl hover:shadow-[#C5A55A]/10 h-full flex flex-col shadow-sm">
                 <div className="flex justify-between items-start mb-6">
                   {/* Icon */}
                   <div className="text-[#E91E63]">
