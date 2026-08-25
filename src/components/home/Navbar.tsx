@@ -74,6 +74,7 @@ export default function Navbar() {
               <div className="flex gap-2 items-center">
                 <Link
                   href="/womens"
+                  prefetch={true}
                   className={`bg-[#E91E63] text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm hover:shadow-md whitespace-nowrap transition-transform duration-150 ease-out ${
                     hovered ? 'translate-x-0' : 'translate-x-4'
                   }`}
@@ -82,6 +83,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/mens"
+                  prefetch={true}
                   className={`bg-[#1a1a1a] text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm hover:shadow-md whitespace-nowrap transition-transform duration-150 ease-out ${
                     hovered ? 'translate-x-0' : '-translate-x-4'
                   }`}

@@ -58,6 +58,7 @@ export default function HeroSection() {
             <div className={`col-start-1 row-start-1 flex gap-4 items-center transition-opacity duration-150 ease-out ${hovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
               <Link
                 href="/womens"
+                prefetch={true}
                 className={`bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:shadow-[#E91E63]/20 whitespace-nowrap transition-transform duration-150 ease-out ${
                   hovered ? 'translate-x-0' : 'translate-x-8'
                 }`}
@@ -66,6 +67,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/mens"
+                prefetch={true}
                 className={`bg-[#1a1a1a] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-800 whitespace-nowrap transition-transform duration-150 ease-out ${
                   hovered ? 'translate-x-0' : '-translate-x-8'
                 }`}
@@ -76,14 +78,14 @@ export default function HeroSection() {
           </div>
 
           {/* "How It Works" — shrinks to 0 width and disappears on hover, allowing the Book button to slide to the true center */}
-          <Link
+          <a
             href="#how-it-works"
             className={`text-gray-600 font-medium text-sm uppercase tracking-wider border border-gray-200 rounded-lg bg-white/50 hover:bg-gray-50 whitespace-nowrap transition-all duration-150 ease-out overflow-hidden ${
               hovered ? 'opacity-0 w-0 px-0 py-0 border-0 pointer-events-none' : 'opacity-100 px-10 py-4 w-auto'
             }`}
           >
             How It Works
-          </Link>
+          </a>
         </motion.div>
 
         {/* Stats */}

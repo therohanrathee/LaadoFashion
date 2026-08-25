@@ -37,6 +37,7 @@ export default function SplitBookButton({
       }`}>
         <Link
           href="/womens"
+          prefetch={true}
           className={`bg-[#E91E63] text-white font-bold uppercase tracking-wider rounded-lg shadow-sm hover:shadow-lg whitespace-nowrap transition-transform duration-150 ease-out ${splitClassName} ${
             hovered ? 'translate-x-0' : 'translate-x-4'
           }`}
@@ -45,6 +46,7 @@ export default function SplitBookButton({
         </Link>
         <Link
           href="/mens"
+          prefetch={true}
           className={`bg-[#1a1a1a] text-white font-bold uppercase tracking-wider rounded-lg shadow-sm hover:shadow-lg whitespace-nowrap transition-transform duration-150 ease-out ${splitClassName} ${
             hovered ? 'translate-x-0' : '-translate-x-4'
           }`}
