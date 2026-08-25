@@ -14,7 +14,6 @@ export default function ThreadAnimation() {
       setDimensions({ w, h })
 
       // Generate a dynamic path that spans the EXACT pixel height and width of the document.
-      // This prevents any scaling bugs and guarantees the line tip stays on the screen.
       let d = `M ${w / 2} 0`
       const steps = Math.max(6, Math.floor(h / 600)) // Dynamic steps based on page height
       const stepY = h / steps
@@ -40,8 +39,18 @@ export default function ThreadAnimation() {
     }
 
     updatePath()
+    
+    const resizeObserver = new ResizeObserver(() => {
+      updatePath()
+    })
+    
+    resizeObserver.observe(document.body)
     window.addEventListener('resize', updatePath)
-    return () => window.removeEventListener('resize', updatePath)
+    
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updatePath)
+    }
   }, [])
 
   const { scrollYProgress } = useScroll()

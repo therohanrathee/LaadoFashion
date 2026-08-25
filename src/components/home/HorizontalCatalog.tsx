@@ -25,7 +25,7 @@ export default function HorizontalCatalog({ title, subtitle, description, items,
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto text-center mb-12 px-6 relative z-20"
+        className="max-w-7xl mx-auto text-center mb-12 px-6 relative z-5"
       >
         <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>{subtitle}</span>
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">{title}</h2>

@@ -22,7 +22,7 @@ export default function HeroSection() {
         <motion.div animate={{ scale: [1, 1.15, 1], x: [0, 30, 0], y: [0, -40, 0] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }} className="absolute top-[20%] right-[10%] w-[40%] h-[40%] rounded-full bg-rose-200/20 blur-[100px]" />
       </div>
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20">
+      <div className="relative z-5 text-center px-6 max-w-4xl mx-auto pt-20">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#E91E63]/5 border border-[#E91E63]/10 rounded-full px-5 py-2 mb-10">
           <span className="w-2 h-2 rounded-full bg-[#C5A55A] animate-pulse" />
           <span className="text-[#E91E63]/70 text-sm tracking-wide font-medium">Bespoke Tailoring at Your Doorstep</span>

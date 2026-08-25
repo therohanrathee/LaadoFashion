@@ -46,8 +46,8 @@ const SCROLLING_REVIEWS = [...REVIEWS, ...REVIEWS]
 
 export default function ReviewsSection() {
   return (
-    <section className="relative py-24 bg-[#FAF8F5] overflow-hidden z-20">
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
+    <section className="relative py-24 bg-[#FAF8F5] overflow-hidden">
+      <div className="relative z-5 max-w-7xl mx-auto px-6 mb-12 text-center">
         <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Testimonials</span>
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
           Loved by Our Customers
@@ -58,7 +58,7 @@ export default function ReviewsSection() {
       </div>
 
       {/* Marquee Container */}
-      <div className="relative w-full flex overflow-hidden">
+      <div className="relative z-20 w-full flex overflow-hidden">
         {/* Left Fade */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10" />
         

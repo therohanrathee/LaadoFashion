@@ -42,7 +42,7 @@ export default function ServicesSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto text-center mb-16 px-6 relative z-20"
+        className="max-w-7xl mx-auto text-center mb-16 px-6 relative z-5"
       >
         <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Our Speciality</span>
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">Handcrafted Juttis</h2>
