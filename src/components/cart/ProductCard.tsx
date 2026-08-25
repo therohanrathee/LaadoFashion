@@ -15,14 +15,14 @@ interface ProductCardProps {
 export default function ProductCard({ item }: ProductCardProps) {
   return (
     <div className="w-full group relative">
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-[#f5f5f5]">
+      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white">
         {/* Fixed Aspect Ratio Container to normalize heights */}
         <div className="w-full aspect-[3/4] relative">
           <img 
             src={item.image} 
             alt={item.name} 
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-contain p-4 mix-blend-multiply transition-transform duration-700 group-hover:scale-105" 
+            className="absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105" 
           />
         </div>
         
