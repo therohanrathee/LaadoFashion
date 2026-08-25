@@ -40,7 +40,7 @@ export const CATALOG: CatalogItem[] = [
 
   // Row 5: Suits & Formal
   { id: '45d39f0c-415a-4600-94a4-bc4819e02ae4', name: 'Trouser', basePrice: 700, image: '/images/catalog/women/trousers.webp', category: 'Women' },
-  { id: '8c3c8b92-73be-48d4-9050-519453b993ee', name: 'Cord set', basePrice: 1700, image: '/images/catalog/women/2-piece-suit.webp', category: 'Women' },
+  { id: '8c3c8b92-73be-48d4-9050-519453b993ee', name: 'Cord set', basePrice: 1700, image: '/images/catalog/women/cordset.webp', category: 'Women' },
   { id: '0e14d529-4119-4499-8bf6-f7700857b9ae', name: 'Two Piece Suit', basePrice: 5300, image: '/images/catalog/women/2-piece-suit.webp', category: 'Women' },
   { id: 'ed29fcf4-36d4-41b4-a30a-7c867a6fd13e', name: 'Blazer', basePrice: 4700, image: '/images/catalog/women/blazer.webp', category: 'Women' },
 
