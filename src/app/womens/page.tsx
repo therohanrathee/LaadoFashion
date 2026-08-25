@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { CATALOG } from '@/app/order/catalogData'
 import SplitBookButton from '@/components/ui/SplitBookButton'
+import ProductCard from '@/components/cart/ProductCard'
 
 export default function WomensCollectionPage() {
   const womensCatalog = CATALOG.filter(item => item.category === 'Women')
@@ -34,38 +35,7 @@ export default function WomensCollectionPage() {
             ].map((columnItems, colIndex) => (
               <div key={colIndex} className="flex-1 w-full flex flex-col gap-4">
                 {columnItems.map((item) => (
-                  <div 
-                    key={item.id} 
-                    className="w-full group cursor-pointer"
-                  >
-                    <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-gray-100">
-                      {/* Image taking its natural aspect ratio and filling the card */}
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
-                        loading="lazy"
-                        className="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-105" 
-                      />
-                      
-                      {/* Glassmorphic Overlay permanently visible at the bottom of the image */}
-                      <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-white/15 backdrop-blur-lg border-t border-white/20 flex justify-between items-center">
-                        <h3 className="text-lg font-serif font-bold text-gray-900 drop-shadow-sm truncate mr-3">{item.name}</h3>
-                        <div className="flex items-center gap-2 shrink-0">
-                          {item.originalPrice && (
-                            <span className="text-xs font-medium text-gray-700 line-through decoration-gray-500 drop-shadow-sm hidden lg:inline-block">₹{item.originalPrice}</span>
-                          )}
-                          <span className="text-lg font-bold text-[#E91E63] drop-shadow-sm">₹{item.basePrice}</span>
-                        </div>
-                      </div>
-
-                      {/* Hover Overlay Button */}
-                      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 pointer-events-none">
-                        <Link href="/order" className="bg-[#E91E63] text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-transform pointer-events-auto">
-                          Add to Cart
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                  <ProductCard key={item.id} item={item} />
                 ))}
               </div>
             ))}

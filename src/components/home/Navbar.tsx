@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useCart } from '@/context/CartContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const { items, setIsCartOpen } = useCart()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -95,17 +97,24 @@ export default function Navbar() {
           </div>
 
           {/* Cart Icon */}
-          <Link href="#" className="relative text-gray-700 hover:text-[#E91E63] transition-colors">
+          <button 
+            id="cart-icon-target"
+            onClick={() => setIsCartOpen(true)}
+            className="relative text-gray-700 hover:text-[#E91E63] transition-colors p-1"
+            aria-label="Open Cart"
+          >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="8" cy="21" r="1"/>
               <circle cx="19" cy="21" r="1"/>
               <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
             </svg>
-            {/* Badge — will show count later */}
-            <span className="absolute -top-1.5 -right-1.5 bg-[#E91E63] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-              0
-            </span>
-          </Link>
+            {/* Dynamic Badge */}
+            {items.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-[#E91E63] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                {items.length}
+              </span>
+            )}
+          </button>
         </div>
       </div>
     </motion.nav>
