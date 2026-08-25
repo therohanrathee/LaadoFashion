@@ -22,7 +22,7 @@ export default function CartDrawer() {
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/20 z-[100] transition-opacity duration-300"
+        className="fixed inset-0 bg-transparent z-[100]"
         onClick={() => setIsCartOpen(false)}
       />
 
