@@ -20,8 +20,10 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAddons, setSelectedAddons] = useState<string[]>([])
 
-  // Hardcoded add-on for now
-  const addonsList = [
+  const isJutti = item.name.toLowerCase().includes('jutti')
+
+  // Hardcoded add-on for now (none for Juttis)
+  const addonsList = isJutti ? [] : [
     { id: 'express', name: 'Express 3 Day Delivery', price: 999 }
   ]
 
@@ -51,7 +53,15 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
   return (
     <>
       <button 
-        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsModalOpen(true); }}
+        onClick={(e) => { 
+          e.preventDefault(); 
+          e.stopPropagation(); 
+          if (addonsList.length > 0) {
+            setIsModalOpen(true); 
+          } else {
+            handleConfirmAdd(e);
+          }
+        }}
         className={className}
       >
         {label}
