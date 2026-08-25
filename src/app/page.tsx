@@ -12,8 +12,8 @@ import HorizontalCatalog from '@/components/home/HorizontalCatalog'
 import { CATALOG } from '@/app/order/catalogData'
 
 export default function Home() {
-  const womensCatalog = CATALOG.filter(item => item.category === 'Women').slice(0, 10) // Show top 10
-  const mensCatalog = CATALOG.filter(item => item.category === 'Men').slice(0, 10) // Show top 10
+  const womensCatalog = CATALOG.filter(item => item.category === 'Women')
+  const mensCatalog = CATALOG.filter(item => item.category === 'Men')
 
   return (
     <div className="relative bg-[#FAF8F5]">
