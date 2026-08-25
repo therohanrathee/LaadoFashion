@@ -77,21 +77,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* "How It Works" — absolutely positioned to the right of the center button, fades out on hover */}
-          <div className={`absolute left-1/2 ml-[120px] transition-opacity duration-150 ease-out hidden sm:block ${
-            hovered ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
-          }`}>
-            <a
-              href="#how-it-works"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-gray-600 font-medium text-sm uppercase tracking-wider border border-gray-200 rounded-lg bg-white/50 hover:bg-gray-50 whitespace-nowrap px-10 py-4 block"
-            >
-              How It Works
-            </a>
-          </div>
         </motion.div>
 
         {/* Stats */}
