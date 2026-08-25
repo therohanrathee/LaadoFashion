@@ -2,12 +2,13 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
+import AddToCartButton from '@/components/cart/AddToCartButton'
 
 // Generate the 10 leather juttis and 4 plastic juttis based on the processed files
 const allJuttis = [
   ...[24,25,26,27,28,29,30,31,32,33].map(id => ({
+    id: `jutti-leather-${id}`,
     title: 'Genuine Leather Jutti',
     type: 'Genuine Leather',
     price: '₹799',
@@ -18,6 +19,7 @@ const allJuttis = [
     image: `/images/juttis/leather/IMG_85${id}.webp`,
   })),
   ...[34,35,36,37].map(id => ({
+    id: `jutti-handcrafted-${id}`,
     title: 'Handcrafted Jutti',
     type: 'Handcrafted',
     price: '₹499',
@@ -95,9 +97,15 @@ export default function ServicesSection() {
                     <span className="text-xs text-gray-400 line-through decoration-gray-300">{jutti.originalPrice}</span>
                     <span className="font-bold text-xl leading-none text-gray-900">{jutti.price}</span>
                   </div>
-                  <Link href="#" className="bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm">
-                    Buy Now
-                  </Link>
+                  <AddToCartButton 
+                    item={{
+                      id: jutti.id,
+                      name: jutti.title,
+                      basePrice: parseInt(jutti.price.replace('₹', '')),
+                      image: jutti.image
+                    }}
+                    className="bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm"
+                  />
                 </div>
               </div>
             ))}
