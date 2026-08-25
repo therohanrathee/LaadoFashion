@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useCart } from '@/context/CartContext'
 
 interface AddToCartButtonProps {
@@ -57,8 +58,8 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
       </button>
 
       {/* Add-ons Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center text-left">
+      {isModalOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center text-left">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }} />
           <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm z-10 relative overflow-hidden transform transition-all scale-100 cursor-default" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Select Add-ons</h3>
@@ -101,7 +102,8 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )
