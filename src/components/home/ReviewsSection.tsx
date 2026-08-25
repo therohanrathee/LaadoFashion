@@ -47,6 +47,12 @@ const SCROLLING_REVIEWS = [...REVIEWS, ...REVIEWS]
 export default function ReviewsSection() {
   return (
     <section className="relative py-24 bg-[#FAF8F5] overflow-hidden">
+      {/* Background Orbs to make the glassmorphic blur visible */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[20%] left-[10%] w-[40%] h-[60%] rounded-full bg-[#E91E63]/[0.08] blur-[120px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[50%] h-[50%] rounded-full bg-[#C5A55A]/[0.08] blur-[120px]" />
+      </div>
+
       <div className="relative z-5 max-w-7xl mx-auto px-6 mb-12 text-center">
         <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Testimonials</span>
         <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
@@ -58,7 +64,7 @@ export default function ReviewsSection() {
       </div>
 
       {/* Marquee Container */}
-      <div className="relative z-20 w-full flex overflow-hidden">
+      <div className="relative z-20 w-full flex overflow-hidden py-4">
         {/* Left Fade */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10" />
         
@@ -77,7 +83,7 @@ export default function ReviewsSection() {
           {SCROLLING_REVIEWS.map((review, index) => (
             <div 
               key={index} 
-              className="w-80 md:w-96 shrink-0 bg-white/30 backdrop-blur-2xl border border-white/50 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col"
+              className="w-80 md:w-96 shrink-0 bg-white/10 backdrop-blur-2xl border border-white/60 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
