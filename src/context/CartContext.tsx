@@ -23,6 +23,9 @@ interface CartContextType {
   addItem: (item: Omit<CartItem, 'cartItemId'>, event?: React.MouseEvent) => void;
   removeItem: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, quantity: number) => void;
+  removeAddon: (cartItemId: string, addonId: string) => void;
+  addAddon: (cartItemId: string, addon: CartAddon) => void;
+  clearCart: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
   cartTotal: number;
@@ -63,12 +66,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
     ))
   }
 
+  const removeAddon = (cartItemId: string, addonId: string) => {
+    setItems(prev => prev.map(item => 
+      item.cartItemId === cartItemId 
+        ? { ...item, addons: item.addons.filter(a => a.id !== addonId) }
+        : item
+    ))
+  }
+  const addAddon = (cartItemId: string, addon: CartAddon) => {
+    setItems(prev => prev.map(item => {
+      if (item.cartItemId === cartItemId) {
+        if (item.addons.some(a => a.id === addon.id)) return item;
+        return { ...item, addons: [...item.addons, addon] }
+      }
+      return item
+    }))
+  }
+
+  const clearCart = () => setItems([])
+
   return (
     <CartContext.Provider value={{
       items,
       addItem,
       removeItem,
       updateQuantity,
+      removeAddon,
+      addAddon,
+      clearCart,
       isCartOpen,
       setIsCartOpen,
       cartTotal

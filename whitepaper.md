@@ -23,25 +23,20 @@ The platform is an ERP and E-commerce system serving 4 roles:
 
 ## Database Schema (Supabase)
 The database uses PostgreSQL with the following core tables:
-1. `profiles`: Extends `auth.users` with `full_name`, `phone`, `role` (customer, admin, runner, tailor), and `active` status.
-2. `catalog_items`: Available garments for stitching (`name`, `base_price`, `image_url`).
-3. `addons`: Add-on options linked to catalog items (`name`, `price`).
-4. `orders`: Tracks the order lifecycle with statuses (`pending_measurement`, `in_stitching`, etc.), geocoordinates, total cost, and assigned runner/tailor.
-5. `order_addons`: Junction table linking orders to selected add-ons.
-6. `task_logs`: Audit log for employee actions (runner/tailor) to facilitate billing.
+1. `profiles`: Extends `auth.users` with `full_name`, `phone`, `role` (customer, admin, runner, tailor).
+2. `promo_codes`: Manages dynamic discounting (fixed, percentage, free delivery/visit) with expiry and usage limits.
+3. `orders`: The core transactional table. Supports a **Global Cart System**. Stores a `cart_items` JSONB array of all items and selected addons. Also stores comprehensive checkout data: `customer_name`, `delivery_address`, `location_lat`, `location_lng`, `subtotal`, `visit_charge`, `delivery_charge`, `promo_code_id`, and `total_amount`. Tracks order lifecycle statuses (`pending_measurement`, `in_stitching`, etc.) and assigned runner/tailor.
+4. `bulk_orders`: Captures lead generation data from the B2B contact form.
 
 ### Manual Query Log
 All Supabase SQL queries are documented for manual execution in the Supabase SQL Editor.
-- **Initial schema**: `supabase/migrations/01_initial_schema.sql` (Legacy, executed)
-- **Ongoing query log**: `supabase/queries/` directory containing chronologically numbered SQL files (e.g. `02_fix_auth_trigger...sql`)
+- **Ongoing query log**: `supabase/queries/` directory containing chronologically numbered SQL files. The latest migration is `09_checkout_and_promo_schema.sql`.
 
 ## Current State
-- [x] Initial Requirements Gathering
-- [x] Tech Stack Finalization
-- [x] Next.js Project Initialization
+- [x] Initial Requirements Gathering & Tech Stack
 - [x] Database Schema Design
 - [x] Authentication Setup (Staff only via Passwords; Customers track via Order ID)
-- [x] Homepage & Frictionless Order Flow (Updated to 6-step flow)
+- [x] Homepage & Global Cart System (Architecture shifted from 6-step wizard to a standard persistent E-Commerce Cart with Add-ons).
 - [x] Unauthenticated Tracking Portal
-- [x] Runner Portal & Geographic Clustering
+- [ ] Runner Portal & Geographic Clustering
 - [ ] Admin & Tailor Portal Implementations

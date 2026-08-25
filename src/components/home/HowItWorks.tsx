@@ -78,15 +78,15 @@ export default function HowItWorks() {
           </p>
         </motion.div>
 
-        {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Steps grid / Carousel */}
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
           {steps.map((step, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="group relative z-20"
+              className="group relative z-20 shrink-0 w-[85vw] sm:w-[320px] md:w-auto snap-center"
             >
               <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/40 hover:border-[#C5A55A]/40 transition-all duration-500 hover:shadow-xl hover:shadow-[#C5A55A]/10 h-full flex flex-col shadow-sm">
                 <div className="flex justify-between items-start mb-6">

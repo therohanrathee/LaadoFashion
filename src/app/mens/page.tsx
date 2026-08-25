@@ -25,18 +25,11 @@ export default function MensCollectionPage() {
             </p>
           </div>
 
-          {/* True Masonry-style Grid using Flexbox for rock-solid stability */}
-          <div className="flex flex-col md:flex-row gap-4 items-start">
-            {[
-              mensCatalog.filter((_, i) => i % 4 === 0),
-              mensCatalog.filter((_, i) => i % 4 === 1),
-              mensCatalog.filter((_, i) => i % 4 === 2),
-              mensCatalog.filter((_, i) => i % 4 === 3),
-            ].map((columnItems, colIndex) => (
-              <div key={colIndex} className="flex-1 w-full flex flex-col gap-4">
-                {columnItems.map((item) => (
-                  <ProductCard key={item.id} item={item} />
-                ))}
+          {/* Responsive Masonry Grid using CSS Columns */}
+          <div className="columns-2 md:columns-4 gap-4 space-y-4">
+            {mensCatalog.map((item) => (
+              <div key={item.id} className="break-inside-avoid">
+                <ProductCard item={item} />
               </div>
             ))}
           </div>

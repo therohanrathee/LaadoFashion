@@ -2,32 +2,52 @@
 
 import { useCart } from '@/context/CartContext'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, removeItem, updateQuantity, cartTotal } = useCart()
 
-  // Close on escape key
+  const [isMobile, setIsMobile] = useState(true)
+
+  // Close on escape key and track window size
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsCartOpen(false)
     }
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    
+    checkMobile()
     window.addEventListener('keydown', handleEsc)
-    return () => window.removeEventListener('keydown', handleEsc)
+    window.addEventListener('resize', checkMobile)
+    
+    return () => {
+      window.removeEventListener('keydown', handleEsc)
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [setIsCartOpen])
 
-  if (!isCartOpen) return null
-
   return (
-    <>
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-transparent z-[100]"
-        onClick={() => setIsCartOpen(false)}
-      />
+    <AnimatePresence>
+      {isCartOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/10 z-[100]"
+            onClick={() => setIsCartOpen(false)}
+          />
 
-      {/* Slide-over panel */}
-      <div className="fixed inset-y-0 right-0 z-[101] w-full max-w-md bg-white/50 backdrop-blur-2xl shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-white/50 overflow-hidden">
+          {/* Slide-over panel */}
+          <motion.div 
+            initial={isMobile ? { y: '100%' } : { x: '100%' }}
+            animate={isMobile ? { y: 0 } : { x: 0 }}
+            exit={isMobile ? { y: '100%' } : { x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed z-[101] w-full max-w-md bg-white/80 backdrop-blur-3xl shadow-2xl flex flex-col border-white/50 overflow-hidden bottom-0 inset-x-0 h-[85vh] rounded-t-3xl md:bottom-auto md:inset-y-0 md:right-0 md:left-auto md:h-full md:rounded-none md:border-l"
+          >
         {/* Header */}
         <div className="px-6 py-5 border-b border-gray-200/50 flex items-center justify-between bg-transparent">
           <h2 className="text-xl font-serif font-bold text-gray-900">Your Cart</h2>
@@ -121,7 +141,9 @@ export default function CartDrawer() {
             </Link>
           </div>
         )}
-      </div>
-    </>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   )
 }

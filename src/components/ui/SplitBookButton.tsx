@@ -21,6 +21,7 @@ export default function SplitBookButton({
       className="relative inline-grid place-items-center"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => setHovered(!hovered)}
     >
       {/* Original button */}
       <div 

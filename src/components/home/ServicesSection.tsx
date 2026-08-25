@@ -87,7 +87,7 @@ export default function ServicesSection() {
                   <span className="text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: `${jutti.accent}` }}>
                     {jutti.type} Collection
                   </span>
-                  <h3 className="text-xl font-serif font-bold mt-1 mb-2 text-[#1a1a1a]">
+                  <h3 className="text-lg font-sans font-semibold tracking-tight mt-1 mb-2 text-[#1a1a1a]">
                     {jutti.title}
                   </h3>
                 </div>
@@ -95,7 +95,10 @@ export default function ServicesSection() {
                 <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-900/10">
                   <div className="flex flex-col">
                     <span className="text-xs text-gray-400 line-through decoration-gray-300">{jutti.originalPrice}</span>
-                    <span className="font-bold text-xl leading-none text-gray-900">{jutti.price}</span>
+                    <div className="flex items-baseline gap-1.5 mt-0.5">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500">From</span>
+                      <span className="font-bold text-xl leading-none text-gray-900">{jutti.price}</span>
+                    </div>
                   </div>
                   <AddToCartButton 
                     item={{

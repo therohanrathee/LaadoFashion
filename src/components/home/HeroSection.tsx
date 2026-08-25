@@ -33,7 +33,7 @@ export default function HeroSection() {
         </motion.h1>
 
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-lg md:text-xl text-gray-500 font-light max-w-xl mx-auto mb-14 leading-relaxed">
-          Where tradition meets elegance. Custom ladies wear stitched to perfection, measured at your home, delivered to your doorstep.
+          Where tradition meets elegance. Custom tailoring for men and women, stitched to perfection, measured at your home, and delivered to your doorstep.
         </motion.p>
 
         {/* CTA Area */}
@@ -48,6 +48,7 @@ export default function HeroSection() {
             className="relative inline-grid place-items-center"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={() => setHovered(!hovered)}
           >
             {/* Layer 1: Default state */}
             <div className={`col-start-1 row-start-1 bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg shadow-sm whitespace-nowrap cursor-pointer transition-opacity duration-150 ease-out ${hovered ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}>

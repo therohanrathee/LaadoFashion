@@ -13,9 +13,10 @@ interface AddToCartButtonProps {
   }
   className?: string;
   label?: string;
+  children?: React.ReactNode;
 }
 
-export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm", label = "Add to Cart" }: AddToCartButtonProps) {
+export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm", label = "Add to Cart", children }: AddToCartButtonProps) {
   const { addItem } = useCart()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAddons, setSelectedAddons] = useState<string[]>([])
@@ -64,7 +65,7 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
         }}
         className={className}
       >
-        {label}
+        {children || label}
       </button>
 
       {/* Add-ons Modal */}

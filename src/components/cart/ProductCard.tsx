@@ -15,29 +15,44 @@ interface ProductCardProps {
 export default function ProductCard({ item }: ProductCardProps) {
   return (
     <div className="w-full group relative">
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-gray-100">
-        <img 
-          src={item.image} 
-          alt={item.name} 
-          loading="lazy"
-          className="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-105" 
-        />
-        
-        <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-white/15 backdrop-blur-lg border-t border-white/20 flex justify-between items-center">
-          <h3 className="text-lg font-serif font-bold text-gray-900 drop-shadow-sm truncate mr-3">{item.name}</h3>
-          <div className="flex items-center gap-2 shrink-0">
-            {item.originalPrice && (
-              <span className="text-xs font-medium text-gray-700 line-through decoration-gray-500 drop-shadow-sm hidden lg:inline-block">₹{item.originalPrice}</span>
-            )}
-            <span className="text-lg font-bold text-[#E91E63] drop-shadow-sm">₹{item.basePrice}</span>
-          </div>
-        </div>
-
-        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-          <AddToCartButton 
-            item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
-            className="bg-[#E91E63] text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-transform"
+      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white border border-gray-100 flex flex-col">
+        {/* Image Container */}
+        <div className="relative w-full bg-gray-50">
+          <img 
+            src={item.image} 
+            alt={item.name} 
+            loading="lazy"
+            className="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-105" 
           />
+        </div>
+        
+        {/* Text Area Below Image */}
+        <div className="px-4 py-4 flex flex-col gap-1.5 flex-grow justify-between relative">
+          <h3 className="text-[14px] md:text-[15px] font-sans font-semibold tracking-tight text-gray-900 leading-tight pr-8">
+            {item.name}
+          </h3>
+          
+          <div className="flex items-baseline gap-1.5 mt-1 pr-8">
+            {item.originalPrice && (
+              <span className="text-[10px] md:text-xs font-medium text-gray-400 line-through decoration-gray-400 mr-1">
+                ₹{item.originalPrice}
+              </span>
+            )}
+            <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500">From</span>
+            <span className="text-[16px] md:text-lg font-bold text-[#E91E63]">₹{item.basePrice}</span>
+          </div>
+
+          {/* Persistent Add to Cart Button (All devices) */}
+          <div className="absolute bottom-4 right-4 z-20">
+            <AddToCartButton 
+              item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
+              className="bg-[#E91E63] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </AddToCartButton>
+          </div>
         </div>
       </div>
     </div>
