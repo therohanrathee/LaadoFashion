@@ -41,9 +41,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex items-center justify-center gap-4 h-14"
+          className="relative flex items-center justify-center h-14 mt-4"
         >
-          {/* Book button — Hover zone is STRICTLY here */}
+          {/* Book button — ALWAYS in the dead center of the page */}
           <div 
             className="relative inline-grid place-items-center"
             onMouseEnter={() => setHovered(true)}
@@ -77,15 +77,21 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* "How It Works" — shrinks to 0 width and disappears on hover, allowing the Book button to slide to the true center */}
-          <a
-            href="#how-it-works"
-            className={`text-gray-600 font-medium text-sm uppercase tracking-wider border border-gray-200 rounded-lg bg-white/50 hover:bg-gray-50 whitespace-nowrap transition-all duration-150 ease-out overflow-hidden ${
-              hovered ? 'opacity-0 w-0 px-0 py-0 border-0 pointer-events-none' : 'opacity-100 px-10 py-4 w-auto'
-            }`}
-          >
-            How It Works
-          </a>
+          {/* "How It Works" — absolutely positioned to the right of the center button, fades out on hover */}
+          <div className={`absolute left-1/2 ml-[120px] transition-opacity duration-150 ease-out hidden sm:block ${
+            hovered ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+          }`}>
+            <a
+              href="#how-it-works"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="text-gray-600 font-medium text-sm uppercase tracking-wider border border-gray-200 rounded-lg bg-white/50 hover:bg-gray-50 whitespace-nowrap px-10 py-4 block"
+            >
+              How It Works
+            </a>
+          </div>
         </motion.div>
 
         {/* Stats */}
