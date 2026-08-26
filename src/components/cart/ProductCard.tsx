@@ -21,13 +21,12 @@ export default function ProductCard({ item }: ProductCardProps) {
     <div className="w-full group relative">
       <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white/70 dark:bg-[#141414]/70 backdrop-blur-sm border border-gray-100 dark:border-white/5 flex flex-col">
         {/* Image Container */}
-        <div className="relative w-full bg-gray-50 dark:bg-transparent">
+        <div className="relative w-full bg-gray-50/50 dark:bg-transparent">
           <img 
             src={item.image} 
-            alt={item.name} 
-            loading="lazy"
-            className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${
-              isJutti ? 'h-64 object-contain p-4' : 'h-80'
+            alt={item.name}
+            className={`w-full h-auto block transition-transform duration-700 group-hover:scale-105 ${
+              isJutti ? 'object-contain p-4 aspect-[4/5]' : 'object-cover'
             }`}
           />
         </div>
