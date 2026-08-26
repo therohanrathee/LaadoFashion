@@ -41,8 +41,8 @@ export default function Home() {
         {/* Page sections */}
         <main className="relative">
           <HeroSection />
-          <HowItWorks />
           <TailoringProcess />
+          <HowItWorks />
           
           <HorizontalCatalog 
             title="Women's Tailoring"
