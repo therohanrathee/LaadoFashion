@@ -30,7 +30,7 @@ The database uses PostgreSQL with the following core tables:
 
 ### Manual Query Log
 All Supabase SQL queries are documented for manual execution in the Supabase SQL Editor.
-- **Ongoing query log**: `supabase/queries/` directory containing chronologically numbered SQL files. The latest migration is `09_checkout_and_promo_schema.sql`.
+- **Ongoing query log**: `supabase/queries/` directory containing chronologically numbered SQL files. The latest migration is `10_remove_obsolete_order_columns.sql`.
 
 ## Current State
 - [x] Initial Requirements Gathering & Tech Stack

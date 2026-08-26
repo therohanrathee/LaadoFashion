@@ -93,23 +93,35 @@ export const CATALOG: CatalogItem[] = [
 ]
 
 export const ALL_JUTTIS: CatalogItem[] = [
-  ...[24,25,26,27,28,29,30,31,32,33].map(id => ({
-    id: `jutti-leather-${id}`,
-    name: `Genuine Leather Jutti (${id})`,
-    basePrice: 799,
-    originalPrice: 1299,
-    image: `/images/juttis/leather/IMG_85${id}.webp`,
-    category: 'Women' as CatalogCategory,
-  })),
-  ...[34,35,36,37].map(id => ({
-    id: `jutti-handcrafted-${id}`,
-    name: `Handcrafted Jutti (${id})`,
-    basePrice: 499,
-    originalPrice: 699,
-    image: `/images/juttis/plastic/IMG_85${id}.webp`,
-    category: 'Women' as CatalogCategory,
-  }))
-]
+  { type: 'leather', id: 24 },
+  { type: 'handcrafted', id: 34 },
+  { type: 'leather', id: 25 },
+  { type: 'leather', id: 26 },
+  { type: 'handcrafted', id: 35 },
+  { type: 'leather', id: 27 },
+  { type: 'leather', id: 28 },
+  { type: 'handcrafted', id: 36 },
+  { type: 'leather', id: 29 },
+  { type: 'leather', id: 30 },
+  { type: 'handcrafted', id: 37 },
+  { type: 'leather', id: 31 },
+  { type: 'leather', id: 32 },
+  { type: 'leather', id: 33 },
+].map(({ type, id }) => type === 'leather' ? {
+  id: `jutti-leather-${id}`,
+  name: `Genuine Leather Jutti (${id})`,
+  basePrice: 799,
+  originalPrice: 1299,
+  image: `/images/juttis/leather/IMG_85${id}.webp`,
+  category: 'Women' as CatalogCategory,
+} : {
+  id: `jutti-handcrafted-${id}`,
+  name: `Handcrafted Jutti (${id})`,
+  basePrice: 499,
+  originalPrice: 699,
+  image: `/images/juttis/plastic/IMG_85${id}.webp`,
+  category: 'Women' as CatalogCategory,
+})
 
 export const ADDONS: CatalogAddon[] = [
   { id: '1bbfb8cb-d181-4328-ad87-8fc4d12c93f0', name: 'Express 3-Day Delivery', price: 1000, appliesTo: CATALOG.map(c => c.id) },

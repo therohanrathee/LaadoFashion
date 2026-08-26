@@ -48,14 +48,31 @@ export default function CartPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    const isFreeEligible = cartTotal >= 1000;
-    const visitCharge = isFreeEligible ? 0 : 500;
-    const deliveryCharge = isFreeEligible ? 0 : 100;
-    const finalTotal = cartTotal + visitCharge + deliveryCharge;
-    const discountApplied = isFreeEligible ? 600 : 0;
+    const visitCharge = 500;
+    const deliveryCharge = 100;
+    const discountApplied = cartTotal >= 1000 ? (visitCharge + deliveryCharge) : 0;
+    const finalTotal = cartTotal + visitCharge + deliveryCharge - discountApplied;
 
     const supabase = createClient()
+    
+    // 1. Check if user is a repeating customer based on phone number
+    const { data: existingOrders } = await supabase
+      .from('orders')
+      .select('customer_id')
+      .eq('customer_phone', formData.phone)
+      .limit(1)
+
+    let customerId;
+    if (existingOrders && existingOrders.length > 0 && existingOrders[0].customer_id) {
+      // Returning user
+      customerId = existingOrders[0].customer_id;
+    } else {
+      // First time user
+      customerId = crypto.randomUUID();
+    }
+
     const { data, error } = await supabase.from('orders').insert([{
+      customer_id: customerId,
       customer_name: formData.name,
       customer_phone: formData.phone,
       delivery_address: formData.address,
@@ -78,8 +95,25 @@ export default function CartPage() {
       return
     }
 
-    clearCart()
-    router.push('/track?order_id=' + data[0].id)
+    // Attempt to send email if provided (runs in background)
+    if (formData.email) {
+      import('@/app/actions/email').then(({ sendOrderConfirmationEmail }) => {
+        sendOrderConfirmationEmail({
+          orderId: data[0].id,
+          email: formData.email,
+          name: formData.name,
+          totalAmount: finalTotal
+        })
+      });
+    }
+
+    // Redirect to tracking page with correct parameter name `id`
+    router.push('/track?id=' + data[0].id)
+    
+    // Clear cart slightly later so the user doesn't see a flash of the empty cart state before redirect finishes
+    setTimeout(() => {
+      clearCart()
+    }, 1000)
   }
 
   return (
@@ -256,16 +290,16 @@ export default function CartPage() {
                           
                           <div className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide">
                             {crossSellJuttis.map(jutti => (
-                              <div key={jutti.id} className="flex-none w-40 sm:w-52 border border-gray-100 rounded-xl p-3 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-[#FAF8F5]/50">
-                                <div className="h-28 sm:h-32 w-full relative rounded-lg overflow-hidden bg-white border border-gray-50 flex-none">
+                              <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-[#FAF8F5]/50">
+                                <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-white border border-gray-50 flex-none">
                                   <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full mix-blend-multiply p-2" />
                                 </div>
                                 <div>
-                                  <h4 className="text-sm font-bold text-gray-800 line-clamp-1">{jutti.name}</h4>
+                                  <h4 className="text-sm sm:text-base font-bold text-gray-800 line-clamp-1">{jutti.name}</h4>
                                   <div className="flex items-center gap-2 mt-1">
-                                    <span className="font-bold text-[#E91E63]">₹{jutti.basePrice}</span>
+                                    <span className="font-bold sm:text-lg text-[#E91E63]">₹{jutti.basePrice}</span>
                                     {jutti.originalPrice && (
-                                      <span className="text-xs text-gray-400 line-through">₹{jutti.originalPrice}</span>
+                                      <span className="text-xs sm:text-sm text-gray-400 line-through">₹{jutti.originalPrice}</span>
                                     )}
                                   </div>
                                 </div>
@@ -278,7 +312,7 @@ export default function CartPage() {
                                     addons: [],
                                     quantity: 1
                                   }, e)}
-                                  className="mt-auto w-full py-2 bg-white border border-[#C5A55A] text-[#C5A55A] font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
+                                  className="mt-auto w-full py-2 sm:py-2.5 bg-white border border-[#C5A55A] text-[#C5A55A] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
                                 >
                                   ADD
                                 </button>
