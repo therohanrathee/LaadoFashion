@@ -4,11 +4,11 @@
 This document serves as the single source of truth for the project's state, architecture, database schemas, and current progress. It is designed to be easily analyzed by another AI to continue development from any point.
 
 ## Tech Stack
-- **Frontend**: Next.js (App Router), React, Tailwind CSS.
+- **Frontend**: Next.js (App Router), React, Tailwind CSS v4 (with full system-native Dark Mode support).
 - **Animations**: Framer Motion (dynamic vector thread unweaving animation mapped 1:1 with scroll height).
 - **Backend & Auth**: Supabase (PostgreSQL, Supabase Auth via Passwords for staff).
 - **State Management**: Zustand / React Context.
-- **Color Palette**: Rani Pink (`#E91E63`) as primary brand accent.
+- **Color Palette**: Rani Pink (`#E91E63`) as primary brand accent. Deep Onyx and Charcoal themes for Dark Mode.
 
 ## System Architecture
 The platform is an ERP and E-commerce system serving 4 roles:
@@ -49,6 +49,7 @@ All Supabase SQL queries are documented for manual execution in the Supabase SQL
 - [x] Advanced Checkout Flow (Geo-location, Promo Validation, Financial Math)
 - [x] Full Admin Dashboard (Visual Order Cards, Catalog CRUD, Promos CRUD, Staff assignments)
 - [x] Bulk Orders Contact Form, Email Notification & DB persistence
+- [x] Complete System-Native Dark Mode UI Overhaul across all pages
 - [ ] Runner Portal & Geographic K-Means clustering algorithm logic
 - [ ] Tailor Portal Implementation
 - [ ] SMS / Order status notification trigger
