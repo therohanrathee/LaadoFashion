@@ -9,25 +9,25 @@ const steps = [
     number: '01',
     title: 'Book Your Order',
     description: 'Select your garment and custom add-ons through our easy booking portal. Share your location to initiate the process effortlessly.',
-    image: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=800&auto=format&fit=crop'
+    image: '/images/home/step_booking.jpg'
   },
   {
     number: '02',
     title: 'Measurement & Pickup',
     description: 'Our assigned runner visits your home at a convenient time. They take your precise measurements and collect your unstitched cloth.',
-    image: 'https://images.unsplash.com/photo-1556228578-8d89cb7acb5a?q=80&w=800&auto=format&fit=crop'
+    image: '/images/home/step_measurement.jpg'
   },
   {
     number: '03',
     title: 'Boutique Tailoring',
     description: 'We bring your fabric back to our boutique where our master tailors meticulously stitch your garment to your exact specifications.',
-    image: 'https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=800&auto=format&fit=crop'
+    image: '/images/home/step_tailoring.jpg'
   },
   {
     number: '04',
     title: 'Delivered in 7 Days',
     description: 'Your perfectly stitched garment is securely packed and delivered right to your doorstep within 7 days, ready for you to wear.',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=800&auto=format&fit=crop'
+    image: '/images/home/step_delivery.jpg'
   },
 ]
 

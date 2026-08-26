@@ -45,7 +45,7 @@ export default function TailoringProcess() {
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <Image 
-                src="https://images.unsplash.com/photo-1594968973184-9040a5ac79e0?q=80&w=2000&auto=format&fit=crop" 
+                src="/images/home/process_cutting_fabric.jpg" 
                 alt="Master tailor cutting fabric" 
                 fill 
                 className="object-cover"

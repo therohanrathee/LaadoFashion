@@ -117,7 +117,7 @@ export default function HeroSection() {
             className="relative hidden lg:block h-[700px] w-full rounded-2xl overflow-hidden shadow-2xl"
           >
             <Image 
-              src="https://images.unsplash.com/photo-1605280263929-1c42c62ef169?q=80&w=2000&auto=format&fit=crop" 
+              src="/images/home/hero_sewing_machine.jpg" 
               alt="Master tailor operating a sewing machine" 
               fill 
               className="object-cover"
