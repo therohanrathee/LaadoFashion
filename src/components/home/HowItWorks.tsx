@@ -138,27 +138,27 @@ export default function HowItWorks() {
             <div 
               key={i}
               data-index={i}
-              className="carousel-card snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-[600px] xl:w-[700px] bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-gray-100 flex flex-col"
+              className="carousel-card snap-center shrink-0 w-[85vw] sm:w-[380px] lg:w-[420px] xl:w-[480px] bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-gray-100 flex flex-col"
             >
               {/* Text Area (Top) */}
-              <div className="p-8 lg:p-12 lg:pb-8 flex flex-col flex-grow">
-                <div className="flex items-baseline gap-4 mb-4">
-                  <span className="text-[#C5A55A]/40 font-serif text-5xl font-bold">{step.number}</span>
-                  <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1a1a1a]">{step.title}</h3>
+              <div className="p-6 lg:p-8 lg:pb-6 flex flex-col flex-grow">
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-[#C5A55A]/40 font-serif text-3xl font-bold">{step.number}</span>
+                  <h3 className="text-xl lg:text-2xl font-serif font-bold text-[#1a1a1a]">{step.title}</h3>
                 </div>
-                <p className="text-gray-600 text-base lg:text-lg leading-relaxed max-w-md">
+                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
               {/* Image Area (Bottom) */}
-              <div className="relative h-[250px] lg:h-[350px] w-full shrink-0 overflow-hidden group">
+              <div className="relative h-[200px] lg:h-[240px] w-full shrink-0 overflow-hidden group">
                 <Image 
                   src={step.image} 
                   alt={step.title} 
                   fill 
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 85vw, 700px"
+                  sizes="(max-width: 1024px) 85vw, 480px"
                 />
               </div>
             </div>
