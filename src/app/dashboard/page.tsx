@@ -112,7 +112,9 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Laado Fashion</h1>
+        <h1 className="font-serif font-bold text-[#1a1a1a] text-xl tracking-tight whitespace-nowrap">
+          Laado Fashion <span className="text-[#C5A55A] font-sans px-0.5 text-sm">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
+        </h1>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">
             {profile?.full_name} ({profile?.role})
