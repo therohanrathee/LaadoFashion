@@ -328,7 +328,7 @@ export default function CartPage() {
                             {crossSellJuttis.map(jutti => (
                               <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 dark:border-white/5 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-background/50">
                                 <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-white dark:bg-[#141414] border border-gray-50 flex-none">
-                                  <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full mix-blend-multiply p-2" />
+                                  <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full p-2" />
                                 </div>
                                 <div>
                                   <h4 className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 line-clamp-1">{jutti.name}</h4>

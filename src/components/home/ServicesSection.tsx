@@ -66,13 +66,13 @@ export default function ServicesSection() {
                 className={`shrink-0 w-[280px] md:w-[320px] snap-center relative z-20 ${jutti.bg} rounded-2xl overflow-hidden border ${jutti.border} p-6 flex flex-col justify-between transition-all hover:shadow-xl group`}
               >
                 
-                <div className="w-full h-56 relative mb-6 rounded-lg overflow-hidden bg-white/80 dark:bg-[#1a1a1a]/60 backdrop-blur-sm shadow-sm border border-black/5 dark:border-white/5 group-hover:-translate-y-2 transition-transform duration-300 p-2 md:p-4">
+                <div className="w-full h-56 relative mb-6 rounded-lg overflow-hidden bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-sm border border-black/5 dark:border-white/5 group-hover:-translate-y-2 transition-transform duration-300 p-2 md:p-4">
                   <div className="relative w-full h-full">
                     <Image 
                       src={jutti.image} 
                       alt={jutti.title}
                       fill
-                      className="object-contain mix-blend-multiply"
+                      className="object-contain"
                       sizes="(max-width: 768px) 280px, 320px"
                     />
                   </div>
