@@ -36,58 +36,68 @@ export default function HowItWorks() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="how-it-works" className="relative py-24 md:py-32 px-6 bg-[#FAF8F5]">
-      <div className="max-w-7xl mx-auto" ref={ref}>
+    <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden w-full">
+      <div className="max-w-7xl mx-auto px-6" ref={ref}>
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 relative z-5"
+          className="text-center mb-12 lg:mb-16 relative z-5"
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6">How It Works</h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">How It Works</h2>
           <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed">
             From selection to doorstep delivery — your custom garment in four seamless steps.
           </p>
         </motion.div>
+      </div>
 
-        {/* Vertical visual layout for Desktop, Stacked for Mobile */}
-        <div className="space-y-16 lg:space-y-24">
+      {/* Horizontal Carousel */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="w-full relative"
+      >
+        <div 
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2))] pb-12 pt-4"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+        >
+          <style dangerouslySetInnerHTML={{__html: `
+            .flex::-webkit-scrollbar { display: none; }
+          `}} />
+          
           {steps.map((step, i) => (
-            <motion.div
+            <div 
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-20 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+              className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-[600px] xl:w-[700px] bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-gray-100 flex flex-col"
             >
-              {/* Image */}
-              <div className="w-full lg:w-1/2 relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl group">
+              {/* Text Area (Top) */}
+              <div className="p-8 lg:p-12 lg:pb-8 flex flex-col flex-grow">
+                <div className="flex items-baseline gap-4 mb-4">
+                  <span className="text-[#C5A55A]/40 font-serif text-5xl font-bold">{step.number}</span>
+                  <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1a1a1a]">{step.title}</h3>
+                </div>
+                <p className="text-gray-600 text-base lg:text-lg leading-relaxed max-w-md">
+                  {step.description}
+                </p>
+              </div>
+
+              {/* Image Area (Bottom) */}
+              <div className="relative h-[250px] lg:h-[350px] w-full shrink-0 overflow-hidden group">
                 <Image 
                   src={step.image} 
                   alt={step.title} 
                   fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 85vw, 700px"
                 />
-                <div className="absolute inset-0 bg-[#E91E63]/0 group-hover:bg-[#E91E63]/10 transition-colors duration-500" />
               </div>
-
-              {/* Text */}
-              <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                <div className="text-[#C5A55A]/30 font-serif text-8xl font-bold mb-4 leading-none select-none">
-                  {step.number}
-                </div>
-                <h3 className="text-3xl font-serif font-bold text-[#1a1a1a] mb-4">{step.title}</h3>
-                <p className="text-gray-600 text-lg leading-relaxed max-w-md">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
