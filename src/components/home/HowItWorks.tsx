@@ -116,13 +116,13 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden w-full">
-      <div className="max-w-7xl mx-auto px-6" ref={ref}>
+      <div className="max-w-7xl mx-auto px-6 relative z-20" ref={ref}>
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 lg:mb-16 relative z-5"
+          className="text-center mb-12 lg:mb-16"
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">How It Works</h2>
@@ -137,7 +137,7 @@ export default function HowItWorks() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full relative"
+        className="w-full relative z-20"
       >
         <div 
           ref={scrollRef}
