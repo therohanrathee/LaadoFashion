@@ -47,6 +47,18 @@ export async function createCatalogItem(data: any) {
   return { success: true }
 }
 
+export async function deleteCatalogItem(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('catalog_items').delete().eq('id', id)
+  if (error) return { error: error.message }
+  revalidatePath('/')
+  revalidatePath('/mens')
+  revalidatePath('/womens')
+  revalidatePath('/cart')
+  revalidatePath('/dashboard')
+  return { success: true }
+}
+
 // Promo Code Management
 export async function updatePromoCode(id: string, data: any) {
   const supabase = await createClient()

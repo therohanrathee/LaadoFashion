@@ -2,16 +2,18 @@
 
 import { useState } from 'react'
 import { reclusterOrders } from '@/app/actions/runner'
-import { updateOrderStatus, assignOrderStaff, updateCatalogItem, updatePromoCode } from '@/app/actions/admin'
+import { updateOrderStatus, assignOrderStaff, updateCatalogItem, createCatalogItem, deleteCatalogItem, updatePromoCode } from '@/app/actions/admin'
 import OrderCard from '@/components/admin/OrderCard'
 
 export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [] }: any) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  console.log('AdminPortal render catalog:', catalog)
   
   const [activeTab, setActiveTab] = useState<'orders' | 'catalog' | 'promos' | 'bulk_orders'>('orders')
   const [newPromoType, setNewPromoType] = useState('fixed_amount')
+  
+  // Catalog Modal State
+  const [catalogModal, setCatalogModal] = useState<{isOpen: boolean, mode: 'create' | 'edit', item: any | null}>({ isOpen: false, mode: 'create', item: null })
 
   const handleRecluster = async () => {
     setLoading(true)
@@ -139,37 +141,53 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
             )}
 
             {activeTab === 'catalog' && (
-              <div className="overflow-x-auto rounded-lg border border-gray-200">
-                <table className="w-full text-sm text-left bg-white">
-                  <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
-                    <tr>
-                      <th className="px-4 py-3">Image / Item</th>
-                      <th className="px-4 py-3">Category</th>
-                      <th className="px-4 py-3">Price</th>
-                      <th className="px-4 py-3 text-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {catalog.map((item: any) => (
-                      <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="px-4 py-3 flex items-center gap-3">
-                          <img src={item.image_url} alt={item.name} className="w-10 h-10 rounded object-cover border border-gray-100" />
-                          <span className="font-medium text-gray-900">{item.name}</span>
-                        </td>
-                        <td className="px-4 py-3 text-gray-600">{item.category}</td>
-                        <td className="px-4 py-3 text-gray-900">₹{item.base_price}</td>
-                        <td className="px-4 py-3 text-right">
-                          <button 
-                            onClick={() => handleToggleCatalogItem(item)}
-                            className={`px-3 py-1 text-xs font-semibold rounded-full border transition-colors ${item.is_active ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' : 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100'}`}
-                          >
-                            {item.is_active ? 'Active' : 'Disabled'}
-                          </button>
-                        </td>
+              <div className="space-y-4">
+                <div className="flex justify-end">
+                  <button 
+                    onClick={() => setCatalogModal({ isOpen: true, mode: 'create', item: null })}
+                    className="bg-[#1a1a1a] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors"
+                  >
+                    + Add New Product
+                  </button>
+                </div>
+                <div className="overflow-x-auto rounded-lg border border-gray-200">
+                  <table className="w-full text-sm text-left bg-white">
+                    <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
+                      <tr>
+                        <th className="px-4 py-3">Image / Item</th>
+                        <th className="px-4 py-3">Category</th>
+                        <th className="px-4 py-3">Price</th>
+                        <th className="px-4 py-3 text-right">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {catalog.map((item: any) => (
+                        <tr key={item.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-3 flex items-center gap-3">
+                            <img src={item.image_url} alt={item.name} className="w-10 h-10 rounded object-cover border border-gray-100" />
+                            <span className="font-medium text-gray-900">{item.name}</span>
+                          </td>
+                          <td className="px-4 py-3 text-gray-600">{item.category}</td>
+                          <td className="px-4 py-3 text-gray-900">₹{item.base_price}</td>
+                          <td className="px-4 py-3 text-right space-x-2">
+                            <button 
+                              onClick={() => handleToggleCatalogItem(item)}
+                              className={`px-3 py-1 text-xs font-semibold rounded-full border transition-colors ${item.is_active ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' : 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100'}`}
+                            >
+                              {item.is_active ? 'Active' : 'Disabled'}
+                            </button>
+                            <button 
+                              onClick={() => setCatalogModal({ isOpen: true, mode: 'edit', item })}
+                              className="px-3 py-1 text-xs font-semibold rounded-full border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+                            >
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
 
@@ -326,6 +344,96 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
         </div>
 
       </div>
+
+      {catalogModal.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+              <h3 className="font-bold text-lg">{catalogModal.mode === 'create' ? 'Add New Product' : 'Edit Product'}</h3>
+              <button onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <form action={async (formData) => {
+              const data = {
+                name: formData.get('name'),
+                category: formData.get('category'),
+                base_price: Number(formData.get('base_price')),
+                original_price: formData.get('original_price') ? Number(formData.get('original_price')) : null,
+                image_url: formData.get('image_url'),
+                is_active: formData.get('is_active') === 'on'
+              }
+              
+              if (catalogModal.mode === 'create') {
+                await createCatalogItem(data)
+              } else {
+                await updateCatalogItem(catalogModal.item.id, data)
+              }
+              
+              setCatalogModal({ isOpen: false, mode: 'create', item: null })
+              window.location.reload() // Quick refresh to show new data
+            }}>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                  <input type="text" name="name" required defaultValue={catalogModal.item?.name} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <select name="category" required defaultValue={catalogModal.item?.category || 'Women'} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]">
+                    <option value="Women">Women</option>
+                    <option value="Men">Men</option>
+                    <option value="Jutti">Jutti</option>
+                  </select>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Selling Price (₹)</label>
+                    <input type="number" name="base_price" required defaultValue={catalogModal.item?.base_price} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Original Price (Optional)</label>
+                    <input type="number" name="original_price" defaultValue={catalogModal.item?.original_price} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                  <input type="text" name="image_url" required defaultValue={catalogModal.item?.image_url} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" placeholder="/images/catalog/..." />
+                </div>
+                <div className="flex items-center gap-2 pt-2">
+                  <input type="checkbox" name="is_active" id="is_active_modal" defaultChecked={catalogModal.mode === 'create' ? true : catalogModal.item?.is_active} className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
+                  <label htmlFor="is_active_modal" className="text-sm text-gray-700">Active (Visible on store)</label>
+                </div>
+              </div>
+              
+              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center">
+                {catalogModal.mode === 'edit' ? (
+                  <button 
+                    type="button" 
+                    onClick={async () => {
+                      if (confirm('Are you sure you want to delete this product?')) {
+                        await deleteCatalogItem(catalogModal.item.id)
+                        setCatalogModal({ isOpen: false, mode: 'create', item: null })
+                        window.location.reload()
+                      }
+                    }}
+                    className="text-red-600 hover:text-red-800 text-sm font-medium px-2 py-1"
+                  >
+                    Delete Product
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+                
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900">Cancel</button>
+                  <button type="submit" className="bg-[#E91E63] text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-[#C2185B] transition-colors">
+                    {catalogModal.mode === 'create' ? 'Create Product' : 'Save Changes'}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
