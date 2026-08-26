@@ -9,8 +9,8 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="text-2xl font-serif font-bold text-white mb-4">Laado Fashion & Boutique</div>
             <p className="text-sm leading-relaxed max-w-sm">
-              Where tradition meets elegance. Custom ladies wear stitched to perfection, 
-              measured at your home, and delivered to your doorstep.
+              Where tradition meets elegance. Custom men's and women's wear stitched to perfection, 
+              measured at your home in Gurugram, and delivered to your doorstep.
             </p>
           </div>
 
@@ -25,6 +25,7 @@ export default function Footer() {
                   Ashok Vihar Phase III Extension,<br/>
                   Gurugram, Haryana 122006<br/>
                   <span className="text-gray-500 mt-1 block">Plus Code: F2VF+MX Gurugram</span>
+                  <span className="text-gray-500 text-xs mt-0.5 block">GPS: 28.494207, 77.025033</span>
                 </a>
               </p>
               
