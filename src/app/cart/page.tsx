@@ -23,7 +23,7 @@ export default function CartPage() {
     fetchAddons().then(data => setAvailableDbAddons(data.filter(a => a.isActive)))
   }, [])
   
-  const allJuttis = catalogItems.filter(item => item.category === 'Jutti' && item.isActive)
+  const allJuttis = catalogItems.filter(item => item.name.toLowerCase().includes('jutti') && item.isActive)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -309,6 +309,16 @@ export default function CartPage() {
 
                     {/* Blinkit-style Impulse Buy / Cross-sell */}
                     {(() => {
+                      // Only show cross-sell if there is a Women's collection clothing item in the cart
+                      const hasWomensItem = items.some(cartItem => {
+                        const catalogItem = catalogItems.find(c => c.id === cartItem.productId);
+                        // Make sure it's a Women's item but NOT a Jutti itself
+                        return catalogItem?.category === 'Women' && !catalogItem.name.toLowerCase().includes('jutti');
+                      });
+
+                      if (!hasWomensItem) return null;
+
+                      // Filter out Juttis already in the cart
                       const crossSellJuttis = allJuttis.filter(jutti => !items.some(cartItem => cartItem.productId === jutti.id));
                       
                       if (crossSellJuttis.length === 0) return null;
