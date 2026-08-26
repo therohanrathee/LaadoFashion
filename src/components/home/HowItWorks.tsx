@@ -124,10 +124,10 @@ export default function HowItWorks() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 lg:mb-16"
         >
-          <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">How It Works</h2>
+          <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Tailoring Process</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">How Doorstep Tailoring Works</h2>
           <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-lg leading-relaxed">
-            From selection to doorstep delivery — your custom garment in four seamless steps.
+            From fabric selection to free doorstep delivery in Gurugram — your custom stitched garment in four seamless steps.
           </p>
         </motion.div>
       </div>

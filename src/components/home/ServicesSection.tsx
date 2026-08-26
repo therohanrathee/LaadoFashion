@@ -44,10 +44,10 @@ export default function ServicesSection() {
         transition={{ duration: 0.8 }}
         className="max-w-7xl mx-auto text-center mb-16 px-6 relative z-5"
       >
-        <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Our Speciality</span>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-6">Handcrafted Juttis</h2>
+        <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Premium Footwear in Gurugram</span>
+        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-6">Handcrafted Punjabi Juttis</h2>
         <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed bg-[#f5f0ea]/80 dark:bg-[#0a0a0a]/80 dark:text-gray-400 inline-block px-4 py-1 rounded-full">
-          Swipe through our exclusive collection of beautifully crafted Juttis, now available at discounted prices.
+          Swipe through our exclusive collection of beautifully crafted Punjabi Juttis in Gurugram. Perfect to pair with your custom stitched lehengas and suits, now available at discounted prices.
         </p>
       </motion.div>
 

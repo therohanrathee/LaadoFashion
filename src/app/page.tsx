@@ -45,18 +45,18 @@ export default function Home() {
           <HowItWorks />
           
           <HorizontalCatalog 
-            title="Women's Tailoring"
-            subtitle="Exquisite Designs"
-            description="Our top picks of beautifully crafted women's wear."
+            title="Women's Boutique Stitching in Gurugram"
+            subtitle="Exquisite Custom Designs"
+            description="Our top picks of beautifully crafted women's wear, from custom blouses to bridal lehenga stitching near you."
             items={womensCatalog}
             bgClass="bg-[#FAF8F5] dark:bg-[#0a0a0a]"
             accentColor="#E91E63"
           />
           
           <HorizontalCatalog 
-            title="Men's Tailoring"
+            title="Men's Tailoring Near You"
             subtitle="Sharp & Sophisticated"
-            description="Premium tailored formal and traditional menswear."
+            description="Premium 2-piece suits, sherwanis, and bespoke menswear tailored to your exact measurements at your doorstep."
             items={mensCatalog}
             bgClass="bg-white dark:bg-[#141414]"
             accentColor="#C5A55A"

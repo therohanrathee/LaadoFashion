@@ -38,7 +38,7 @@ export default function TailoringProcess() {
         
         {/* Mobile Title (Appears above the image) */}
         <div className="lg:hidden text-center mb-10">
-          <span className="text-[#E91E63] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">Bespoke Services</span>
+          <span className="text-[#E91E63] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">Gurugram Bespoke Services</span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1a1a1a] dark:text-white leading-tight">
             Not just ready-made. <br/>
             <span className="italic font-light text-gray-500 dark:text-gray-400">True Custom Tailoring.</span>
@@ -86,15 +86,15 @@ export default function TailoringProcess() {
           >
             {/* Desktop Title */}
             <div className="hidden lg:block">
-              <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Bespoke Services</span>
+              <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Gurugram's Best Bespoke Services</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mb-6 leading-tight">
                 Not just ready-made. <br/>
-                <span className="italic font-light text-gray-500 dark:text-gray-400">True Custom Tailoring.</span>
+                <span className="italic font-light text-gray-500 dark:text-gray-400">True Custom Tailoring in Gurugram.</span>
               </h2>
             </div>
             
             <p className="text-gray-600 dark:text-gray-300 text-base lg:text-lg mb-10 leading-relaxed text-center lg:text-left">
-              We bring the premium boutique experience directly to your living room. Our garments aren&apos;t pulled from a rack—they are brought to life from scratch, uniquely patterned and stitched just for you.
+              We bring the premium boutique tailoring experience directly to your living room in Gurugram. Our 2-piece suits, sherwanis, and bridal lehengas aren&apos;t pulled from a rack—they are brought to life from scratch, uniquely patterned and stitched just for you.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-x-8 lg:gap-y-10">
