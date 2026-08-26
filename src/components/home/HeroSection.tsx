@@ -28,12 +28,16 @@ export default function HeroSection() {
           <span className="text-[#E91E63]/70 text-sm tracking-wide font-medium">Bespoke Tailoring at Your Doorstep</span>
         </motion.div>
 
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl md:text-8xl font-serif font-bold leading-[1.08] mb-6 text-[#1a1a1a]">
+        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl md:text-8xl font-serif font-bold leading-[1.08] mb-4 text-[#1a1a1a]">
           Laado Fashion<br /><span className="text-[#C5A55A]">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
         </motion.h1>
 
+        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="text-xl md:text-2xl font-serif font-semibold text-gray-800 mb-6">
+          Premium Doorstep Tailoring • 7-Day Delivery
+        </motion.h2>
+
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-lg md:text-xl text-gray-500 font-light max-w-xl mx-auto mb-14 leading-relaxed">
-          Where tradition meets elegance. Custom tailoring for men and women, stitched to perfection, measured at your home, and delivered to your doorstep.
+          Get expert bespoke stitching without leaving your home. We offer free measurement pickup, premium craftsmanship, and guaranteed doorstep delivery in just 7 days.
         </motion.p>
 
         {/* CTA Area */}
@@ -64,7 +68,7 @@ export default function HeroSection() {
                   hovered ? 'translate-x-0' : 'translate-x-8'
                 }`}
               >
-                Women&apos;s
+                Women&apos;s Tailoring
               </Link>
               <Link
                 href="/mens"
@@ -73,7 +77,7 @@ export default function HeroSection() {
                   hovered ? 'translate-x-0' : '-translate-x-8'
                 }`}
               >
-                Men&apos;s
+                Men&apos;s Tailoring
               </Link>
             </div>
           </div>
