@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Image from 'next/image'
 
 const steps = [
@@ -33,7 +33,28 @@ const steps = [
 
 export default function HowItWorks() {
   const ref = useRef(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [isHovered, setIsHovered] = useState(false)
+
+  useEffect(() => {
+    if (!isInView || !scrollRef.current || isHovered) return
+
+    const interval = setInterval(() => {
+      if (!scrollRef.current) return
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      
+      // If we're at or very near the end, snap back to start
+      if (scrollLeft + clientWidth >= scrollWidth - 20) {
+        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        // Scroll roughly one card width (snap will correct the exact alignment)
+        scrollRef.current.scrollBy({ left: window.innerWidth > 1024 ? 600 : 350, behavior: 'smooth' })
+      }
+    }, 3500)
+
+    return () => clearInterval(interval)
+  }, [isInView, isHovered])
 
   return (
     <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden w-full">
@@ -61,6 +82,11 @@ export default function HowItWorks() {
         className="w-full relative"
       >
         <div 
+          ref={scrollRef}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
           className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2))] pb-12 pt-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
