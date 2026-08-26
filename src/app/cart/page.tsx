@@ -309,15 +309,10 @@ export default function CartPage() {
 
                     {/* Blinkit-style Impulse Buy / Cross-sell */}
                     {(() => {
-                      // Only show cross-sell if there is a Women's collection clothing item in the cart
-                      const hasWomensItem = items.some(cartItem => {
-                        const catalogItem = catalogItems.find(c => c.id === cartItem.productId);
-                        return catalogItem?.category === 'Women';
-                      });
+                      const crossSellJuttis = allJuttis.filter(jutti => !items.some(cartItem => cartItem.productId === jutti.id));
+                      
+                      if (crossSellJuttis.length === 0) return null;
 
-                      if (!hasWomensItem) return null;
-
-                      const crossSellJuttis = allJuttis;
                       return (
                         <div className="mt-12 mb-4 bg-white dark:bg-[#141414] p-6 rounded-2xl shadow-sm border border-[#C5A55A]/30 relative overflow-hidden">
                           <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A55A]/10 rounded-bl-full -z-10" />
