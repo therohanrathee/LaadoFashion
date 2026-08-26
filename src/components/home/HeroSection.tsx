@@ -1,16 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
 import { Scissors, Ruler, Truck } from 'lucide-react'
+import SplitBookButton from '@/components/ui/SplitBookButton'
 
 export default function HeroSection() {
-  const [hovered, setHovered] = useState(false)
-
   return (
-    <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#FAF8F5]">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] pt-16">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#f3ece2]/50 via-[#FAF8F5] to-[#FAF8F5]" />
       <div 
@@ -22,11 +19,11 @@ export default function HeroSection() {
         <motion.div animate={{ scale: [1, 1.2, 1], x: [0, -40, 0], y: [0, -50, 0] }} transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[0%] right-[10%] w-[40%] h-[60%] rounded-full bg-[#C5A55A]/[0.04] blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20 pb-12 lg:py-0">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left Column: Text & CTA */}
-          <div className="text-left pt-10">
+          <div className="text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#E91E63]/5 border border-[#E91E63]/10 rounded-full px-5 py-2 mb-8">
               <span className="w-2 h-2 rounded-full bg-[#E91E63] animate-pulse" />
               <span className="text-[#E91E63] text-sm tracking-wide font-semibold uppercase">Doorstep Tailoring Service</span>
@@ -63,39 +60,11 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="relative flex items-center h-14 mt-4"
             >
-              <div 
-                className="relative inline-grid place-items-start"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                onClick={() => setHovered(!hovered)}
-              >
-                {/* Layer 1: Default state */}
-                <div className={`col-start-1 row-start-1 bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg shadow-sm whitespace-nowrap cursor-pointer transition-opacity duration-150 ease-out ${hovered ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}>
-                  Book a Measurement
-                </div>
-
-                {/* Layer 2: Hover state */}
-                <div className={`col-start-1 row-start-1 flex gap-4 items-center transition-opacity duration-150 ease-out ${hovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                  <Link
-                    href="/womens"
-                    prefetch={true}
-                    className={`bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:shadow-[#E91E63]/20 whitespace-nowrap transition-transform duration-150 ease-out ${
-                      hovered ? 'translate-x-0' : '-translate-x-8'
-                    }`}
-                  >
-                    Women&apos;s Tailoring
-                  </Link>
-                  <Link
-                    href="/mens"
-                    prefetch={true}
-                    className={`bg-[#1a1a1a] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-800 whitespace-nowrap transition-transform duration-150 ease-out ${
-                      hovered ? 'translate-x-0' : 'translate-x-8'
-                    }`}
-                  >
-                    Men&apos;s Tailoring
-                  </Link>
-                </div>
-              </div>
+              <SplitBookButton 
+                defaultText="Book a Measurement"
+                className="bg-[#E91E63] text-white font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-lg shadow-sm hover:bg-[#C2185B] transition-colors whitespace-nowrap"
+                splitClassName="px-8 py-4 text-sm"
+              />
             </motion.div>
 
             {/* Stats */}
@@ -114,7 +83,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 1, delay: 0.5 }} 
-            className="relative hidden lg:block h-[700px] w-full rounded-2xl overflow-hidden shadow-2xl"
+            className="relative hidden lg:block aspect-[4/5] max-h-[75vh] min-h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl"
           >
             <Image 
               src="/images/home/hero_sewing_machine.jpg" 
