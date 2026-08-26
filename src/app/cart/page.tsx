@@ -255,7 +255,7 @@ export default function CartPage() {
                               {/* Available Add-ons */}
                               {(() => {
                                 const isJutti = item.name.toLowerCase().includes('jutti');
-                                const allAddons = isJutti ? [] : availableDbAddons;
+                                const allAddons = isJutti ? [] : availableDbAddons.filter(a => !a.catalogItemId || a.catalogItemId === item.productId);
                                 const availableAddons = allAddons.filter(a => !item.addons.some((selected: any) => selected.id === a.id));
                                 
                                 if (availableAddons.length === 0) return null;

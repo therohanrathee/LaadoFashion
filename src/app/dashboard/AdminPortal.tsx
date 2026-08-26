@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { reclusterOrders } from '@/app/actions/runner'
-import { updateOrderStatus, assignOrderStaff, updateCatalogItem, createCatalogItem, deleteCatalogItem, updatePromoCode } from '@/app/actions/admin'
+import { updateOrderStatus, assignOrderStaff, updateCatalogItem, createCatalogItem, deleteCatalogItem, updatePromoCode, createAddon, deleteAddon } from '@/app/actions/admin'
 import OrderCard from '@/components/admin/OrderCard'
 
-export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [] }: any) {
+export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [], addons = [] }: any) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   
@@ -424,6 +424,60 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                   <input type="checkbox" name="is_active" id="is_active_modal" defaultChecked={catalogModal.mode === 'create' ? true : catalogModal.item?.is_active} className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
                   <label htmlFor="is_active_modal" className="text-sm text-gray-700">Active (Visible on store)</label>
                 </div>
+                
+                {catalogModal.mode === 'edit' && (
+                  <div className="pt-4 border-t border-gray-100">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Item-Specific Add-Ons</h4>
+                    <div className="space-y-2 mb-3">
+                      {addons.filter((a: any) => a.catalog_item_id === catalogModal.item.id).map((addon: any) => (
+                        <div key={addon.id} className="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-100">
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">{addon.name}</p>
+                            <p className="text-xs text-gray-500">₹{addon.price}</p>
+                          </div>
+                          <button 
+                            type="button" 
+                            onClick={async () => {
+                              if (confirm('Delete this add-on?')) {
+                                await deleteAddon(addon.id)
+                                window.location.reload()
+                              }
+                            }}
+                            className="text-red-500 hover:text-red-700 text-xs font-semibold px-2"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                      {addons.filter((a: any) => a.catalog_item_id === catalogModal.item.id).length === 0 && (
+                        <p className="text-xs text-gray-500 italic">No specific add-ons for this item.</p>
+                      )}
+                    </div>
+                    <div className="flex gap-2">
+                      <input type="text" id="new_addon_name" placeholder="Add-on Name" className="flex-1 border-gray-200 rounded p-2 text-sm" />
+                      <input type="number" id="new_addon_price" placeholder="Price (₹)" className="w-24 border-gray-200 rounded p-2 text-sm" />
+                      <button 
+                        type="button" 
+                        onClick={async () => {
+                          const nameInput = document.getElementById('new_addon_name') as HTMLInputElement
+                          const priceInput = document.getElementById('new_addon_price') as HTMLInputElement
+                          const name = nameInput.value
+                          const price = priceInput.value
+                          
+                          if (name && price) {
+                            nameInput.value = ''
+                            priceInput.value = ''
+                            await createAddon({ name, price: Number(price), catalog_item_id: catalogModal.item.id, is_active: true })
+                            window.location.reload()
+                          }
+                        }}
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-semibold px-3 rounded transition-colors"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center">

@@ -19,6 +19,7 @@ export interface CatalogAddon {
   name: string
   price: number
   isActive: boolean
+  catalogItemId: string | null
 }
 
 export async function fetchCatalogItems(): Promise<CatalogItem[]> {
@@ -54,6 +55,7 @@ export async function fetchAddons(): Promise<CatalogAddon[]> {
     id: addon.id,
     name: addon.name,
     price: addon.price,
-    isActive: addon.is_active
+    isActive: addon.is_active,
+    catalogItemId: addon.catalog_item_id || null
   }))
 }

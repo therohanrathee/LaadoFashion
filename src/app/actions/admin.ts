@@ -59,6 +59,24 @@ export async function deleteCatalogItem(id: string) {
   return { success: true }
 }
 
+export async function createAddon(data: any) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('addons').insert(data)
+  if (error) return { error: error.message }
+  revalidatePath('/cart')
+  revalidatePath('/dashboard')
+  return { success: true }
+}
+
+export async function deleteAddon(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('addons').delete().eq('id', id)
+  if (error) return { error: error.message }
+  revalidatePath('/cart')
+  revalidatePath('/dashboard')
+  return { success: true }
+}
+
 // Promo Code Management
 export async function updatePromoCode(id: string, data: any) {
   const supabase = await createClient()
