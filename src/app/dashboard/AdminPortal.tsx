@@ -350,12 +350,12 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
 
       {catalogModal.isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg flex flex-col max-h-[90vh]">
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center shrink-0">
               <h3 className="font-bold text-lg">{catalogModal.mode === 'create' ? 'Add New Product' : 'Edit Product'}</h3>
               <button onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
-            <form action={async (formData) => {
+            <form className="flex flex-col overflow-hidden" action={async (formData) => {
               let imageUrl = formData.get('existing_image_url')?.toString() || ''
               const imageFile = formData.get('imageFile') as File | null
               
@@ -388,7 +388,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               setCatalogModal({ isOpen: false, mode: 'create', item: null })
               window.location.reload() // Quick refresh to show new data
             }}>
-              <div className="p-6 space-y-4">
+              <div className="p-6 space-y-4 overflow-y-auto">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
                   <input type="text" name="name" required defaultValue={catalogModal.item?.name} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" />
@@ -483,7 +483,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                 )}
               </div>
               
-              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center">
+              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center shrink-0">
                 {catalogModal.mode === 'edit' ? (
                   <button 
                     type="button" 
