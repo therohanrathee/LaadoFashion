@@ -7,7 +7,7 @@ import SplitBookButton from '@/components/ui/SplitBookButton'
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF8F5] dark:bg-[#0a0a0a] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-center">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] dark:bg-[#0a0a0a] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-start lg:items-center">
       
       {/* Mobile Background Image (Starts below the header to prevent muddying the translucent navbar) */}
       <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-black">
@@ -34,7 +34,7 @@ export default function HeroSection() {
         <motion.div animate={{ scale: [1, 1.2, 1], x: [0, -40, 0], y: [0, -50, 0] }} transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }} className="absolute bottom-[0%] right-[10%] w-[40%] h-[60%] rounded-full bg-[#C5A55A]/[0.04] blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-10 lg:py-12 mt-4 lg:mt-0">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-4 pb-10 lg:py-12 mt-0">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           
           {/* Left Column: Text & CTA */}
