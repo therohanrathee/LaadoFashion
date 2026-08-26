@@ -83,7 +83,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 1, delay: 0.5 }} 
-            className="relative hidden lg:block aspect-[4.2/5] w-full max-w-[460px] xl:max-w-[500px] lg:ml-auto rounded-2xl overflow-hidden shadow-2xl lg:-translate-y-2 xl:-translate-y-4"
+            className="relative hidden lg:block aspect-[4.2/5] w-full max-w-[460px] xl:max-w-[500px] lg:mx-auto rounded-2xl overflow-hidden shadow-2xl lg:-translate-y-2 xl:-translate-y-4"
           >
             <Image 
               src="/images/home/hero_sewing_machine.jpg" 
