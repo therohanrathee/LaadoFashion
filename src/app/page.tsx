@@ -54,7 +54,7 @@ export default function Home() {
           />
           
           <HorizontalCatalog 
-            title="Men's Tailoring Near You"
+            title="Men's Tailoring Near Me"
             subtitle="Sharp & Sophisticated"
             description="Premium 2-piece suits, sherwanis, and bespoke menswear tailored to your exact measurements at your doorstep."
             items={mensCatalog}
