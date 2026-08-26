@@ -14,7 +14,7 @@ const allJuttis = [
     price: '₹799',
     originalPrice: '₹1299',
     accent: '#C5A55A',
-    bg: 'bg-gradient-to-br from-[#C5A55A]/10 to-white dark:to-[#1a1a1a]',
+    bg: 'bg-gradient-to-br from-[#C5A55A]/20 to-white/60 dark:to-[#141414]/60 backdrop-blur-sm',
     border: 'border-[#C5A55A]/20',
     image: `/images/juttis/leather/IMG_85${id}.webp`,
   })),
@@ -25,7 +25,7 @@ const allJuttis = [
     price: '₹499',
     originalPrice: '₹699',
     accent: '#E91E63',
-    bg: 'bg-gradient-to-br from-[#E91E63]/10 to-white dark:to-[#1a1a1a]',
+    bg: 'bg-gradient-to-br from-[#E91E63]/20 to-white/60 dark:to-[#141414]/60 backdrop-blur-sm',
     border: 'border-[#E91E63]/20',
     image: `/images/juttis/plastic/IMG_85${id}.webp`,
   }))
@@ -62,11 +62,11 @@ export default function ServicesSection() {
         <div className="flex overflow-x-auto gap-6 px-6 md:px-12 lg:px-24 pb-12 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {allJuttis.map((jutti, i) => (
               <div 
-                key={i} 
+                key={jutti.id} 
                 className={`shrink-0 w-[280px] md:w-[320px] snap-center relative z-20 ${jutti.bg} rounded-2xl overflow-hidden border ${jutti.border} p-6 flex flex-col justify-between transition-all hover:shadow-xl group`}
               >
                 
-                <div className="w-full h-56 relative mb-6 rounded-lg overflow-hidden bg-white dark:bg-[#1a1a1a] shadow-sm border border-black/5 dark:border-white/5 group-hover:-translate-y-2 transition-transform duration-300 p-2 md:p-4">
+                <div className="w-full h-56 relative mb-6 rounded-lg overflow-hidden bg-white/80 dark:bg-[#1a1a1a]/60 backdrop-blur-sm shadow-sm border border-black/5 dark:border-white/5 group-hover:-translate-y-2 transition-transform duration-300 p-2 md:p-4">
                   <div className="relative w-full h-full">
                     <Image 
                       src={jutti.image} 

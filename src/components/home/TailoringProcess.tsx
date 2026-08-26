@@ -99,7 +99,7 @@ export default function TailoringProcess() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-x-8 lg:gap-y-10">
               {features.map((feature, i) => (
-                <div key={i} className="flex gap-4 lg:flex-col items-start lg:items-stretch bg-gray-50/50 dark:bg-white/5 lg:bg-transparent lg:dark:bg-transparent p-4 rounded-2xl lg:p-0 lg:rounded-none border border-gray-100/50 dark:border-white/5 lg:border-none lg:dark:border-none">
+                <div key={i} className="flex gap-4 lg:flex-col items-start lg:items-stretch bg-gray-50/60 dark:bg-white/5 backdrop-blur-sm lg:backdrop-blur-sm lg:bg-gray-50/50 lg:dark:bg-white/5 p-4 rounded-2xl lg:p-6 lg:rounded-2xl border border-gray-100/50 dark:border-white/5 lg:border-gray-100/50 lg:dark:border-white/5">
                   <div className="w-12 h-12 lg:w-10 lg:h-10 rounded-full bg-[#C5A55A]/10 flex items-center justify-center shrink-0">
                     {feature.icon}
                   </div>
