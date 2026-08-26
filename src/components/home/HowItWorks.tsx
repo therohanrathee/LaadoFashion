@@ -41,20 +41,24 @@ export default function HowItWorks() {
   const [isHovered, setIsHovered] = useState(false)
   const [userPaused, setUserPaused] = useState(false)
 
-  // Robust scroll listener to track active index
+  // Robust scroll listener to track active index based on visual center
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return
     const container = scrollRef.current
-    const scrollLeft = container.scrollLeft
-    const center = scrollLeft + container.clientWidth / 2
+    
+    // Get precise viewport coordinates
+    const containerRect = container.getBoundingClientRect()
+    const containerCenter = containerRect.left + containerRect.width / 2
 
     const cards = container.querySelectorAll('.carousel-card')
     let closestIndex = 0
     let minDistance = Infinity
 
     cards.forEach((card, index) => {
-      const cardCenter = (card as HTMLElement).offsetLeft - container.offsetLeft + (card.clientWidth / 2)
-      const distance = Math.abs(center - cardCenter)
+      const rect = card.getBoundingClientRect()
+      const cardCenter = rect.left + rect.width / 2
+      const distance = Math.abs(containerCenter - cardCenter)
+      
       if (distance < minDistance) {
         minDistance = distance
         closestIndex = index
@@ -70,8 +74,7 @@ export default function HowItWorks() {
     const container = scrollRef.current
     if (container) {
       container.addEventListener('scroll', handleScroll, { passive: true })
-      // Trigger once on mount to set initial state correctly
-      handleScroll()
+      handleScroll() // Initial calculation
       return () => container.removeEventListener('scroll', handleScroll)
     }
   }, [handleScroll])
@@ -85,17 +88,22 @@ export default function HowItWorks() {
     const timer = setTimeout(() => {
       if (!scrollRef.current) return
       
-      const cards = scrollRef.current.querySelectorAll('.carousel-card')
+      const container = scrollRef.current
+      const cards = container.querySelectorAll('.carousel-card')
       const nextIndex = (activeIndex + 1) % steps.length
       
       if (cards[nextIndex]) {
-        // Find the offset to center the next card
-        const container = scrollRef.current
-        const card = cards[nextIndex] as HTMLElement
-        const scrollLeftPos = card.offsetLeft - (container.clientWidth / 2) + (card.clientWidth / 2)
+        // Calculate the exact distance to scroll to center the next card
+        const containerRect = container.getBoundingClientRect()
+        const containerCenter = containerRect.left + containerRect.width / 2
         
-        container.scrollTo({
-          left: scrollLeftPos,
+        const cardRect = cards[nextIndex].getBoundingClientRect()
+        const cardCenter = cardRect.left + cardRect.width / 2
+        
+        const scrollDistance = cardCenter - containerCenter
+        
+        container.scrollBy({
+          left: scrollDistance,
           behavior: 'smooth'
         })
       }
