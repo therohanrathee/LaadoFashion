@@ -41,30 +41,40 @@ export default function HowItWorks() {
   const [isHovered, setIsHovered] = useState(false)
   const [userPaused, setUserPaused] = useState(false)
 
-  // Track which card is currently centered in the scroll view
-  useEffect(() => {
+  // Robust scroll listener to track active index
+  const handleScroll = useCallback(() => {
     if (!scrollRef.current) return
+    const container = scrollRef.current
+    const scrollLeft = container.scrollLeft
+    const center = scrollLeft + container.clientWidth / 2
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'))
-            setActiveIndex(index)
-          }
-        })
-      },
-      {
-        root: scrollRef.current,
-        threshold: 0.6, // Fire when the card is at least 60% visible
+    const cards = container.querySelectorAll('.carousel-card')
+    let closestIndex = 0
+    let minDistance = Infinity
+
+    cards.forEach((card, index) => {
+      const cardCenter = (card as HTMLElement).offsetLeft - container.offsetLeft + (card.clientWidth / 2)
+      const distance = Math.abs(center - cardCenter)
+      if (distance < minDistance) {
+        minDistance = distance
+        closestIndex = index
       }
-    )
+    })
 
-    const cards = scrollRef.current.querySelectorAll('.carousel-card')
-    cards.forEach((card) => observer.observe(card))
+    if (closestIndex !== activeIndex) {
+      setActiveIndex(closestIndex)
+    }
+  }, [activeIndex])
 
-    return () => observer.disconnect()
-  }, [])
+  useEffect(() => {
+    const container = scrollRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true })
+      // Trigger once on mount to set initial state correctly
+      handleScroll()
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [handleScroll])
 
   // Auto-scroller
   const isPlaying = isInView && !isHovered && !userPaused
@@ -149,16 +159,16 @@ export default function HowItWorks() {
                 sizes="(max-width: 1024px) 85vw, 420px"
               />
               
-              {/* Cinematic Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 transition-colors duration-500 group-hover:from-black" />
+              {/* Cinematic Gradient (Top-Down) */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/40 to-transparent transition-colors duration-500 group-hover:from-black" />
 
-              {/* Text Area (Bottom Overlay) */}
-              <div className="absolute inset-0 p-8 lg:p-10 flex flex-col justify-end transform transition-transform duration-500">
+              {/* Text Area (Top Overlay) */}
+              <div className="absolute inset-x-0 top-0 p-8 lg:p-10 flex flex-col justify-start">
                 <div className="flex items-baseline gap-4 mb-3">
                   <span className="text-[#C5A55A] font-serif text-3xl lg:text-4xl font-bold">{step.number}</span>
                   <h3 className="text-2xl lg:text-3xl font-serif font-bold text-white leading-tight">{step.title}</h3>
                 </div>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed max-w-sm">
+                <p className="text-gray-200 text-sm lg:text-base leading-relaxed max-w-sm">
                   {step.description}
                 </p>
               </div>
