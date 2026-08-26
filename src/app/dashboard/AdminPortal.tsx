@@ -8,7 +8,10 @@ import OrderCard from '@/components/admin/OrderCard'
 export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [] }: any) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  console.log('AdminPortal render catalog:', catalog)
+  
   const [activeTab, setActiveTab] = useState<'orders' | 'catalog' | 'promos' | 'bulk_orders'>('orders')
+  const [newPromoType, setNewPromoType] = useState('fixed_amount')
 
   const handleRecluster = async () => {
     setLoading(true)
@@ -187,7 +190,8 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                     if (data.code) {
                       const { createPromoCode } = await import('@/app/actions/admin')
                       await createPromoCode(data)
-                      // Ideally we'd reset the form here
+                      // Quick refresh
+                      window.location.reload()
                     }
                   }} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
                     <div>
@@ -196,17 +200,24 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                     </div>
                     <div>
                       <label className="block text-xs text-gray-500 mb-1">Type</label>
-                      <select name="discount_type" className="w-full text-sm border-gray-200 rounded p-2">
+                      <select 
+                        name="discount_type" 
+                        value={newPromoType}
+                        className="w-full text-sm border-gray-200 rounded p-2"
+                        onChange={(e) => setNewPromoType(e.target.value)}
+                      >
                         <option value="fixed_amount">Fixed Amount (₹)</option>
                         <option value="percentage">Percentage (%)</option>
                         <option value="free_visit">Free Visit</option>
                         <option value="free_delivery">Free Delivery</option>
                       </select>
                     </div>
-                    <div>
-                      <label className="block text-xs text-gray-500 mb-1">Amount (if applicable)</label>
-                      <input type="number" name="discount_amount" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
-                    </div>
+                    {newPromoType !== 'free_visit' && newPromoType !== 'free_delivery' && (
+                      <div>
+                        <label className="block text-xs text-gray-500 mb-1">Amount</label>
+                        <input type="number" name="discount_amount" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
+                      </div>
+                    )}
                     <div className="flex items-center gap-2 pb-2">
                       <input type="checkbox" name="one_time_per_user" id="one_time" className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
                       <label htmlFor="one_time" className="text-xs text-gray-600">One time per user?</label>
