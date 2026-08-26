@@ -83,13 +83,13 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 1, delay: 0.5 }} 
-            className="relative hidden lg:block aspect-[4/5] w-full max-w-[460px] xl:max-w-[500px] lg:ml-auto rounded-2xl overflow-hidden shadow-2xl"
+            className="relative hidden lg:block aspect-[4.2/5] w-full max-w-[460px] xl:max-w-[500px] lg:ml-auto rounded-2xl overflow-hidden shadow-2xl -translate-y-6 lg:-translate-y-10"
           >
             <Image 
               src="/images/home/hero_sewing_machine.jpg" 
               alt="Master tailor operating a sewing machine" 
               fill 
-              className="object-cover"
+              className="object-cover object-[center_65%]"
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
