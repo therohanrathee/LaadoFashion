@@ -144,7 +144,10 @@ export default function HowItWorks() {
             .flex::-webkit-scrollbar { display: none; }
           `}} />
           
-          {steps.map((step, i) => (
+          {steps.map((step, i) => {
+            const isTextBottom = i === 0 || i === 2
+            
+            return (
             <div 
               key={i}
               data-index={i}
@@ -159,21 +162,23 @@ export default function HowItWorks() {
                 sizes="(max-width: 1024px) 85vw, 420px"
               />
               
-              {/* Cinematic Gradient (Top-Down) */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/40 to-transparent transition-colors duration-500 group-hover:from-black" />
+              {/* Cinematic Gradient */}
+              <div className={`absolute inset-0 ${isTextBottom ? 'bg-gradient-to-t from-black/95 via-black/40 to-transparent' : 'bg-gradient-to-b from-black/95 via-black/40 to-transparent'} transition-colors duration-500 group-hover:from-black`} />
 
-              {/* Text Area (Top Overlay) */}
-              <div className="absolute inset-x-0 top-0 p-8 lg:p-10 flex flex-col justify-start">
+              {/* Text Area */}
+              <div className={`absolute inset-x-0 ${isTextBottom ? 'bottom-0 justify-end' : 'top-0 justify-start'} p-8 lg:p-10 flex flex-col`}>
                 <div className="flex items-baseline gap-4 mb-3">
                   <span className="text-[#C5A55A] font-serif text-3xl lg:text-4xl font-bold">{step.number}</span>
                   <h3 className="text-2xl lg:text-3xl font-serif font-bold text-white leading-tight">{step.title}</h3>
                 </div>
-                <p className="text-gray-200 text-sm lg:text-base leading-relaxed max-w-sm">
-                  {step.description}
-                </p>
+                {i !== 3 && (
+                  <p className="text-gray-200 text-sm lg:text-base leading-relaxed max-w-sm">
+                    {step.description}
+                  </p>
+                )}
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
         {/* Apple-style Progress Indicator */}
