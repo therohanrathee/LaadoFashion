@@ -331,8 +331,8 @@ export default function CartPage() {
                           
                           <div className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide">
                             {crossSellJuttis.map(jutti => (
-                              <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 dark:border-white/5 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-background/50">
-                                <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-white dark:bg-[#141414] border border-gray-50 flex-none">
+                              <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 dark:border-white/10 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 dark:hover:border-[#C5A55A]/80 transition-colors bg-white dark:bg-white/5">
+                                <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-gray-50 dark:bg-black/20 border border-gray-100 dark:border-white/5 flex-none">
                                   <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full p-2" />
                                 </div>
                                 <div>
@@ -353,7 +353,7 @@ export default function CartPage() {
                                     addons: [],
                                     quantity: 1
                                   }, e)}
-                                  className="mt-auto w-full py-2 sm:py-2.5 bg-white dark:bg-[#141414] border border-[#C5A55A] text-[#C5A55A] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
+                                  className="mt-auto w-full py-2 sm:py-2.5 bg-white dark:bg-transparent border border-[#C5A55A] text-[#C5A55A] dark:text-[#C5A55A] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] dark:hover:bg-[#C5A55A] hover:text-white dark:hover:text-white transition-colors"
                                 >
                                   ADD
                                 </button>
