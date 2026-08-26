@@ -59,10 +59,10 @@ export default function TailoringProcess() {
               </div>
             </div>
             
-            {/* Floating Typography */}
-            <div className="absolute -right-10 -bottom-8 lg:-right-16 lg:-bottom-12 hidden md:block z-10 pointer-events-none">
-              <div className="text-6xl lg:text-[5.5rem] font-serif text-[#E91E63] font-bold leading-none mb-2 drop-shadow-2xl">20+</div>
-              <div className="text-base lg:text-lg text-gray-800 font-bold uppercase tracking-wider leading-snug max-w-[150px] drop-shadow-md">Years of Experience</div>
+            {/* Floating badge */}
+            <div className="absolute -right-4 -top-4 lg:-right-8 lg:-top-8 bg-white p-5 lg:p-6 rounded-xl shadow-2xl max-w-[180px] lg:max-w-[220px] border border-gray-100 hidden md:block z-10">
+              <div className="text-4xl lg:text-5xl font-serif text-[#E91E63] font-bold mb-2">20+</div>
+              <div className="text-xs lg:text-sm text-gray-800 font-bold uppercase tracking-wider leading-relaxed">Years of Experience</div>
             </div>
           </motion.div>
 
