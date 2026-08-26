@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useCart } from '@/context/CartContext'
+import { useAddons } from '@/hooks/useAddons'
 
 interface AddToCartButtonProps {
   item: {
@@ -20,13 +21,15 @@ export default function AddToCartButton({ item, className = "bg-[#1a1a1a] text-w
   const { addItem } = useCart()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAddons, setSelectedAddons] = useState<string[]>([])
+  
+  const { addons } = useAddons()
 
   const isJutti = item.name.toLowerCase().includes('jutti')
 
-  // Hardcoded add-on for now (none for Juttis)
-  const addonsList = isJutti ? [] : [
-    { id: 'express', name: 'Express 3 Day Delivery', price: 999 }
-  ]
+  // Use the fetched addons, filtering for active ones that apply globally (no catalogItemId) or specifically to this item
+  const addonsList = isJutti ? [] : addons.filter(a => 
+    a.isActive && (!a.catalogItemId || a.catalogItemId === item.id)
+  );
 
   const toggleAddon = (id: string) => {
     setSelectedAddons(prev => 
