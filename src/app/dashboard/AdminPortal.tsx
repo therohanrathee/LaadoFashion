@@ -199,17 +199,20 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                     const data = {
                       code: formData.get('code')?.toString().toUpperCase(),
                       discount_type: formData.get('discount_type'),
-                      discount_amount: Number(formData.get('discount_amount')) || null,
-                      min_order_amount: Number(formData.get('min_order_amount')) || null,
+                      discount_value: Number(formData.get('discount_value')) || null,
+                      min_cart_value: Number(formData.get('min_cart_value')) || null,
                       usage_limit: Number(formData.get('usage_limit')) || null,
                       one_time_per_user: formData.get('one_time_per_user') === 'on',
                       is_active: true
                     }
                     if (data.code) {
                       const { createPromoCode } = await import('@/app/actions/admin')
-                      await createPromoCode(data)
-                      // Quick refresh
-                      window.location.reload()
+                      const res = await createPromoCode(data)
+                      if (res.error) {
+                        alert('Error creating promo: ' + res.error)
+                      } else {
+                        window.location.reload()
+                      }
                     }
                   }} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
                     <div>
@@ -233,7 +236,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                     {newPromoType !== 'free_visit' && newPromoType !== 'free_delivery' && (
                       <div>
                         <label className="block text-xs text-gray-500 mb-1">Amount</label>
-                        <input type="number" name="discount_amount" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
+                        <input type="number" name="discount_value" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
                       </div>
                     )}
                     <div className="flex items-center gap-2 pb-2">
