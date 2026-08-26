@@ -12,10 +12,10 @@ export default function HeroSection() {
       {/* Mobile Background Image (Full Bleed) */}
       <div className="absolute inset-0 z-0 lg:hidden block">
         <Image 
-          src="/images/home/mobile_hero_tailor.jpg" 
+          src="/images/home/mobile_hero_tailor_v5.jpg" 
           alt="Master tailor" 
           fill 
-          className="object-cover object-right"
+          className="object-cover"
           priority
           sizes="100vw"
         />
