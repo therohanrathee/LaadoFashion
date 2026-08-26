@@ -335,7 +335,7 @@ export default function CartPage() {
                                   <div className="flex items-center gap-2 mt-1">
                                     <span className="font-bold sm:text-lg text-[#E91E63]">₹{jutti.basePrice}</span>
                                     {jutti.originalPrice && (
-                                      <span className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 line-through">₹{jutti.originalPrice}</span>
+                                      <span className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 line-through decoration-[2px]">₹{jutti.originalPrice}</span>
                                     )}
                                   </div>
                                 </div>
@@ -570,7 +570,7 @@ function OrderSummaryContent({
           </div>
           {isFreeEligible ? (
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 dark:text-gray-500 line-through text-xs">₹500</span>
+              <span className="text-gray-400 dark:text-gray-500 line-through decoration-[2px] text-xs">₹500</span>
               <span className="font-bold text-green-600">FREE</span>
             </div>
           ) : (
@@ -582,7 +582,7 @@ function OrderSummaryContent({
           <span>Delivery Charge</span>
           {isFreeEligible ? (
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 dark:text-gray-500 line-through text-xs">₹100</span>
+              <span className="text-gray-400 dark:text-gray-500 line-through decoration-[2px] text-xs">₹100</span>
               <span className="font-bold text-green-600">FREE</span>
             </div>
           ) : (
@@ -596,7 +596,7 @@ function OrderSummaryContent({
           <span className="font-bold text-gray-900 dark:text-white text-lg">Total</span>
           <div className="text-right">
             {isFreeEligible && (
-              <div className="text-xs text-gray-400 dark:text-gray-500 line-through mb-1 font-medium">₹{cartTotal + 600}</div>
+              <div className="text-xs text-gray-400 dark:text-gray-500 line-through decoration-[2px] mb-1 font-medium">₹{cartTotal + 600}</div>
             )}
             <span className="font-bold text-[#E91E63] text-3xl">₹{finalTotal}</span>
           </div>

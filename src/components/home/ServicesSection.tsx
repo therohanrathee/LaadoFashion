@@ -94,7 +94,7 @@ export default function ServicesSection() {
 
                 <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-900/10">
                   <div className="flex flex-col">
-                    <span className="text-xs text-gray-400 line-through decoration-gray-300 dark:decoration-gray-600">{jutti.originalPrice}</span>
+                    <span className="text-xs text-gray-400 line-through decoration-[2px] decoration-gray-300 dark:decoration-gray-600">{jutti.originalPrice}</span>
                     <div className="flex items-baseline gap-1.5 mt-0.5">
                       <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500">From</span>
                       <span className="font-bold text-xl leading-none text-gray-900 dark:text-white">{jutti.price}</span>
