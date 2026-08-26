@@ -355,7 +355,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               <h3 className="font-bold text-lg">{catalogModal.mode === 'create' ? 'Add New Product' : 'Edit Product'}</h3>
               <button onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
-            <form className="flex flex-col overflow-hidden" action={async (formData) => {
+            <form className="flex flex-col flex-1 min-h-0 overflow-hidden" action={async (formData) => {
               let imageUrl = formData.get('existing_image_url')?.toString() || ''
               const imageFile = formData.get('imageFile') as File | null
               
@@ -387,7 +387,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               
               setCatalogModal({ isOpen: false, mode: 'create', item: null })
             }}>
-              <div className="p-6 space-y-4 overflow-y-auto">
+              <div className="p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
                   <input type="text" name="name" required defaultValue={catalogModal.item?.name} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" />
