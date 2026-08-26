@@ -1,8 +1,9 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
+import { Play, Pause } from 'lucide-react'
 
 const steps = [
   {
@@ -35,26 +36,65 @@ export default function HowItWorks() {
   const ref = useRef(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  
+  const [activeIndex, setActiveIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+  const [userPaused, setUserPaused] = useState(false)
+
+  // Track which card is currently centered in the scroll view
+  useEffect(() => {
+    if (!scrollRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute('data-index'))
+            setActiveIndex(index)
+          }
+        })
+      },
+      {
+        root: scrollRef.current,
+        threshold: 0.6, // Fire when the card is at least 60% visible
+      }
+    )
+
+    const cards = scrollRef.current.querySelectorAll('.carousel-card')
+    cards.forEach((card) => observer.observe(card))
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Auto-scroller
+  const isPlaying = isInView && !isHovered && !userPaused
 
   useEffect(() => {
-    if (!isInView || !scrollRef.current || isHovered) return
+    if (!isPlaying || !scrollRef.current) return
 
-    const interval = setInterval(() => {
+    const timer = setTimeout(() => {
       if (!scrollRef.current) return
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
       
-      // If we're at or very near the end, snap back to start
-      if (scrollLeft + clientWidth >= scrollWidth - 20) {
-        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
-      } else {
-        // Scroll roughly one card width (snap will correct the exact alignment)
-        scrollRef.current.scrollBy({ left: window.innerWidth > 1024 ? 600 : 350, behavior: 'smooth' })
+      const cards = scrollRef.current.querySelectorAll('.carousel-card')
+      const nextIndex = (activeIndex + 1) % steps.length
+      
+      if (cards[nextIndex]) {
+        // Find the offset to center the next card
+        const container = scrollRef.current
+        const card = cards[nextIndex] as HTMLElement
+        const scrollLeftPos = card.offsetLeft - (container.clientWidth / 2) + (card.clientWidth / 2)
+        
+        container.scrollTo({
+          left: scrollLeftPos,
+          behavior: 'smooth'
+        })
       }
-    }, 3500)
+    }, 4000)
 
-    return () => clearInterval(interval)
-  }, [isInView, isHovered])
+    return () => clearTimeout(timer)
+  }, [activeIndex, isPlaying])
+
+  const togglePause = () => setUserPaused(!userPaused)
 
   return (
     <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden w-full">
@@ -87,7 +127,7 @@ export default function HowItWorks() {
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={() => setIsHovered(true)}
           onTouchEnd={() => setIsHovered(false)}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2))] pb-12 pt-4"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2))] pb-6 pt-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           <style dangerouslySetInnerHTML={{__html: `
@@ -97,7 +137,8 @@ export default function HowItWorks() {
           {steps.map((step, i) => (
             <div 
               key={i}
-              className="snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-[600px] xl:w-[700px] bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-gray-100 flex flex-col"
+              data-index={i}
+              className="carousel-card snap-center shrink-0 w-[85vw] sm:w-[500px] lg:w-[600px] xl:w-[700px] bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-gray-100 flex flex-col"
             >
               {/* Text Area (Top) */}
               <div className="p-8 lg:p-12 lg:pb-8 flex flex-col flex-grow">
@@ -122,6 +163,41 @@ export default function HowItWorks() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Apple-style Progress Indicator */}
+        <div className="flex justify-center mt-6">
+          <div className="flex items-center gap-4 bg-gray-200/50 backdrop-blur-md px-6 py-3 rounded-full">
+            <button 
+              onClick={togglePause}
+              className="text-gray-500 hover:text-gray-900 transition-colors focus:outline-none"
+              aria-label={userPaused ? "Play carousel" : "Pause carousel"}
+            >
+              {userPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
+            </button>
+            <div className="flex gap-2 items-center">
+              {steps.map((_, idx) => (
+                <div 
+                  key={idx} 
+                  className="h-1.5 rounded-full bg-gray-300 overflow-hidden transition-all duration-300" 
+                  style={{ width: activeIndex === idx ? '32px' : '8px' }}
+                >
+                  {activeIndex === idx && isPlaying && (
+                    <motion.div 
+                      key={`progress-${idx}`}
+                      initial={{ width: '0%' }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 4, ease: 'linear' }}
+                      className="h-full bg-gray-600"
+                    />
+                  )}
+                  {activeIndex === idx && !isPlaying && (
+                    <div className="h-full w-full bg-gray-600" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>
