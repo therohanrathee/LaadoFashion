@@ -203,6 +203,8 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                       min_cart_value: Number(formData.get('min_cart_value')) || null,
                       usage_limit: Number(formData.get('usage_limit')) || null,
                       one_time_per_user: formData.get('one_time_per_user') === 'on',
+                      starts_at: formData.get('starts_at') ? new Date(formData.get('starts_at') as string).toISOString() : new Date().toISOString(),
+                      expires_at: formData.get('expires_at') ? new Date(formData.get('expires_at') as string).toISOString() : null,
                       is_active: true
                     }
                     if (data.code) {
@@ -214,7 +216,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                         (document.getElementById('promo_form') as HTMLFormElement).reset()
                       }
                     }
-                  }} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                  }} className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
                     <div>
                       <label className="block text-xs text-gray-500 mb-1">Code</label>
                       <input type="text" name="code" required className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. DIWALI50" />
@@ -239,7 +241,15 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                         <input type="number" name="discount_value" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
                       </div>
                     )}
-                    <div className="flex items-center gap-2 pb-2">
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Start Date (Optional)</label>
+                      <input type="datetime-local" name="starts_at" className="w-full text-sm border-gray-200 rounded p-2 text-gray-600" />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Expiry Date (Optional)</label>
+                      <input type="datetime-local" name="expires_at" className="w-full text-sm border-gray-200 rounded p-2 text-gray-600" />
+                    </div>
+                    <div className="flex items-center gap-2 pb-2 md:col-span-2">
                       <input type="checkbox" name="one_time_per_user" id="one_time" className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
                       <label htmlFor="one_time" className="text-xs text-gray-600">One time per user?</label>
                     </div>
