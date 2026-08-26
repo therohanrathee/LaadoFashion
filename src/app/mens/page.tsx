@@ -20,7 +20,7 @@ export default async function MensCollectionPage() {
           <div className="text-center mb-16">
             <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Sharp & Sophisticated</span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
-              Men's Collection
+              Men's Tailoring
             </h1>
             <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
               Explore our premium men's tailoring services. From classic formal suits to intricate traditional wear, we stitch to perfection.

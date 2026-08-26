@@ -159,8 +159,8 @@ export default function Navbar() {
             <Link href="/mens" onClick={() => setIsMobileMenuOpen(false)} className="flex-1 bg-[#1a1a1a] text-white text-center text-sm font-semibold py-3 rounded-lg">Book Men&apos;s</Link>
           </div>
           <div className="h-px bg-gray-100 w-full mb-2"></div>
-          <Link href="/womens" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-800 font-medium py-2 uppercase text-sm tracking-wider">Women&apos;s Collection</Link>
-          <Link href="/mens" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-800 font-medium py-2 uppercase text-sm tracking-wider">Men&apos;s Collection</Link>
+          <Link href="/womens" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-800 font-medium py-2 uppercase text-sm tracking-wider">Women&apos;s Tailoring</Link>
+          <Link href="/mens" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-800 font-medium py-2 uppercase text-sm tracking-wider">Men&apos;s Tailoring</Link>
           <Link href="/bulk-order" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-800 font-medium py-2 uppercase text-sm tracking-wider">Bulk Order</Link>
         </div>
       )}

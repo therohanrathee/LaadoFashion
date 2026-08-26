@@ -8,6 +8,7 @@ import ReviewsSection from '@/components/home/ReviewsSection'
 import CTASection from '@/components/home/CTASection'
 import Footer from '@/components/home/Footer'
 import ThreadAnimation from '@/components/home/ThreadAnimation'
+import TailoringProcess from '@/components/home/TailoringProcess'
 import HorizontalCatalog from '@/components/home/HorizontalCatalog'
 import { fetchCatalogItems } from '@/app/actions/catalog'
 import { useState, useEffect } from 'react'
@@ -41,9 +42,10 @@ export default function Home() {
         <main className="relative">
           <HeroSection />
           <HowItWorks />
+          <TailoringProcess />
           
           <HorizontalCatalog 
-            title="Women's Collection"
+            title="Women's Tailoring"
             subtitle="Exquisite Designs"
             description="Our top picks of beautifully crafted women's wear."
             items={womensCatalog}
@@ -52,7 +54,7 @@ export default function Home() {
           />
           
           <HorizontalCatalog 
-            title="Men's Collection"
+            title="Men's Tailoring"
             subtitle="Sharp & Sophisticated"
             description="Premium tailored formal and traditional menswear."
             items={mensCatalog}
