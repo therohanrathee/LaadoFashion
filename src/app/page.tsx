@@ -9,11 +9,21 @@ import CTASection from '@/components/home/CTASection'
 import Footer from '@/components/home/Footer'
 import ThreadAnimation from '@/components/home/ThreadAnimation'
 import HorizontalCatalog from '@/components/home/HorizontalCatalog'
-import { CATALOG } from '@/app/order/catalogData'
+import { fetchCatalogItems } from '@/app/actions/catalog'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
-  const womensCatalog = CATALOG.filter(item => item.category === 'Women')
-  const mensCatalog = CATALOG.filter(item => item.category === 'Men')
+  const [womensCatalog, setWomensCatalog] = useState<any[]>([])
+  const [mensCatalog, setMensCatalog] = useState<any[]>([])
+  
+  useEffect(() => {
+    async function loadCatalog() {
+      const catalog = await fetchCatalogItems()
+      setWomensCatalog(catalog.filter(item => item.category === 'Women'))
+      setMensCatalog(catalog.filter(item => item.category === 'Men'))
+    }
+    loadCatalog()
+  }, [])
 
   return (
     <div className="relative bg-[#FAF8F5]">

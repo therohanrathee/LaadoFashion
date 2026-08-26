@@ -28,31 +28,35 @@ export default async function DashboardPage() {
   if (profile?.role === 'runner') {
     const { data } = await supabase
       .from('orders')
-      .select('id, status, address, total_estimated_cost, customer:customer_id(full_name, phone)')
+      .select('id, status, delivery_address, total_amount, customer_name, customer_phone')
       .eq('runner_id', user.id)
       .neq('status', 'delivered') // Hide completed from runner dashboard
     
     runnerOrders = data?.map(d => ({
       ...d,
-      customer: Array.isArray(d.customer) ? d.customer[0] : d.customer
+      address: d.delivery_address, // map back to old prop for RunnerPortal if it expects it
+      customer: { full_name: d.customer_name, phone: d.customer_phone }
     })) || []
   }
 
   let adminOrders: any[] = []
   let employees: any[] = []
   let bulkOrders: any[] = []
+  let adminCatalog: any[] = []
+  let adminPromos: any[] = []
   
   if (profile?.role === 'admin') {
-    // Fetch all orders with customer and assigned staff details
+    // Fetch all orders with inline customer details and assigned staff details
     const { data: ordersData } = await supabase
       .from('orders')
       .select(`
         id, 
         status, 
-        total_estimated_cost, 
+        total_amount, 
         created_at,
         cart_items,
-        customer:customer_id(full_name, phone),
+        customer_name,
+        customer_phone,
         runner:runner_id(full_name),
         tailor:tailor_id(full_name)
       `)
@@ -60,7 +64,7 @@ export default async function DashboardPage() {
     
     adminOrders = ordersData?.map(d => ({
       ...d,
-      customer: Array.isArray(d.customer) ? d.customer[0] : d.customer,
+      customer: { full_name: d.customer_name, phone: d.customer_phone },
       runner: Array.isArray(d.runner) ? d.runner[0] : d.runner,
       tailor: Array.isArray(d.tailor) ? d.tailor[0] : d.tailor,
     })) || []
@@ -80,6 +84,21 @@ export default async function DashboardPage() {
       .order('created_at', { ascending: false })
 
     bulkOrders = bulkData || []
+
+    // Fetch Catalog for editing
+    const { data: catalogData } = await supabase
+      .from('catalog_items')
+      .select('*')
+      .order('category')
+      .order('name')
+    adminCatalog = catalogData || []
+    
+    // Fetch Promo Codes for editing
+    const { data: promoData } = await supabase
+      .from('promo_codes')
+      .select('*')
+      .order('created_at', { ascending: false })
+    adminPromos = promoData || []
   }
 
   return (
@@ -106,7 +125,7 @@ export default async function DashboardPage() {
           </div>
         )}
         
-        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} bulkOrders={bulkOrders} />}
+        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} bulkOrders={bulkOrders} catalog={adminCatalog} promos={adminPromos} />}
 
         {profile?.role === 'runner' && <RunnerPortal orders={runnerOrders} />}
 

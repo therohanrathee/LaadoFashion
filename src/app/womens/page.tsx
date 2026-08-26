@@ -2,12 +2,13 @@ import Navbar from '@/components/home/Navbar'
 import Footer from '@/components/home/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
-import { CATALOG } from '@/app/order/catalogData'
+import { fetchCatalogItems } from '@/app/actions/catalog'
 import SplitBookButton from '@/components/ui/SplitBookButton'
 import ProductCard from '@/components/cart/ProductCard'
 
-export default function WomensCollectionPage() {
-  const womensCatalog = CATALOG.filter(item => item.category === 'Women' && !item.name.toLowerCase().includes('jutti'))
+export default async function WomensCollectionPage() {
+  const catalog = await fetchCatalogItems()
+  const womensCatalog = catalog.filter(item => item.category === 'Women' && !item.name.toLowerCase().includes('jutti'))
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] flex flex-col">

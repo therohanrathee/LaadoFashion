@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { CatalogItem } from '@/app/order/catalogData'
+import { CatalogItem } from '@/app/actions/catalog'
 import ProductCard from '@/components/cart/ProductCard'
 
 interface HorizontalCatalogProps {

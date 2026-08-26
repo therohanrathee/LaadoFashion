@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { reclusterOrders } from '@/app/actions/runner'
+import { updateOrderStatus, assignOrderStaff, updateCatalogItem, updatePromoCode } from '@/app/actions/admin'
+import OrderCard from '@/components/admin/OrderCard'
 
-export default function AdminPortal({ orders = [], employees = [], bulkOrders = [] }: { orders: any[], employees: any[], bulkOrders: any[] }) {
+export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [] }: any) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [activeTab, setActiveTab] = useState<'orders' | 'bulk_orders'>('orders')
+  const [activeTab, setActiveTab] = useState<'orders' | 'catalog' | 'promos' | 'bulk_orders'>('orders')
 
   const handleRecluster = async () => {
     setLoading(true)
@@ -20,7 +22,27 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
     setLoading(false)
   }
 
-  const activeRunnersCount = employees.filter(e => e.role === 'runner' && e.active).length
+  const handleStatusChange = async (orderId: string, status: string) => {
+    await updateOrderStatus(orderId, status)
+  }
+
+  const handleAssignRunner = async (orderId: string, runnerId: string) => {
+    await assignOrderStaff(orderId, runnerId, 'runner')
+  }
+
+  const handleAssignTailor = async (orderId: string, tailorId: string) => {
+    await assignOrderStaff(orderId, tailorId, 'tailor')
+  }
+
+  const handleToggleCatalogItem = async (item: any) => {
+    await updateCatalogItem(item.id, { is_active: !item.is_active })
+  }
+
+  const handleTogglePromo = async (promo: any) => {
+    await updatePromoCode(promo.id, { is_active: !promo.is_active })
+  }
+
+  const activeRunnersCount = employees.filter((e: any) => e.role === 'runner' && e.active).length
 
   return (
     <div className="space-y-8">
@@ -40,13 +62,13 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-sm font-medium text-gray-500 mb-1">Pending Measurement</p>
           <p className="text-3xl font-bold text-blue-600">
-            {orders.filter(o => o.status === 'pending_measurement').length}
+            {orders.filter((o: any) => o.status === 'pending_measurement').length}
           </p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-sm font-medium text-gray-500 mb-1">In Stitching</p>
           <p className="text-3xl font-bold text-orange-500">
-            {orders.filter(o => o.status === 'in_stitching').length}
+            {orders.filter((o: any) => o.status === 'in_stitching').length}
           </p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -78,118 +100,198 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
         {/* Main Content Area */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
           {/* Tabs */}
-          <div className="flex border-b border-gray-100 bg-gray-50">
-            <button 
-              onClick={() => setActiveTab('orders')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${activeTab === 'orders' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}
-            >
+          <div className="flex overflow-x-auto border-b border-gray-100 bg-gray-50">
+            <button onClick={() => setActiveTab('orders')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'orders' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}>
               Recent Orders
             </button>
-            <button 
-              onClick={() => setActiveTab('bulk_orders')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${activeTab === 'bulk_orders' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}
-            >
-              Bulk Orders Inquiries ({bulkOrders.length})
+            <button onClick={() => setActiveTab('catalog')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'catalog' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}>
+              Catalog
+            </button>
+            <button onClick={() => setActiveTab('promos')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'promos' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}>
+              Promos
+            </button>
+            <button onClick={() => setActiveTab('bulk_orders')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'bulk_orders' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white' : 'text-gray-600 hover:text-gray-900'}`}>
+              Inquiries ({bulkOrders.length})
             </button>
           </div>
 
-          <div className="overflow-x-auto">
-            {activeTab === 'orders' ? (
-              <table className="w-full text-sm text-left">
-                <thead className="text-xs text-gray-500 uppercase bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3">Order / Date</th>
-                    <th className="px-6 py-3">Customer</th>
-                    <th className="px-6 py-3">Status</th>
-                    <th className="px-6 py-3">Assigned To</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {orders.length === 0 ? (
-                    <tr><td colSpan={4} className="px-6 py-8 text-center text-gray-500">No orders found.</td></tr>
-                  ) : orders.map(order => (
-                    <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="font-mono text-xs text-gray-500 mb-1" title={order.id}>
-                          {order.id.split('-')[0]}...
-                        </div>
-                        <div className="font-medium text-gray-900">
-                          {Array.isArray(order.cart_items) && order.cart_items.length > 0 
-                            ? order.cart_items.map((ci: any) => `${ci.quantity}x ${ci.name}`).join(', ')
-                            : 'Custom Order'}
-                        </div>
-                        <div className="text-xs text-gray-400 mt-0.5">
-                          {new Date(order.created_at).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="font-medium">{order.customer?.full_name || 'N/A'}</div>
-                        <div className="text-gray-500 text-xs">{order.customer?.phone}</div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium
-                          ${order.status === 'pending_measurement' ? 'bg-blue-100 text-blue-700' : ''}
-                          ${order.status === 'in_stitching' ? 'bg-orange-100 text-orange-700' : ''}
-                          ${order.status === 'ready_for_delivery' ? 'bg-purple-100 text-purple-700' : ''}
-                          ${order.status === 'delivered' ? 'bg-green-100 text-green-700' : ''}
-                        `}>
-                          {order.status.replace(/_/g, ' ').toUpperCase()}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-600">
-                        {order.runner && <div className="text-xs">🏃 {order.runner.full_name}</div>}
-                        {order.tailor && <div className="text-xs mt-1">✂️ {order.tailor.full_name}</div>}
-                        {!order.runner && !order.tailor && <span className="text-xs text-gray-400">Unassigned</span>}
-                      </td>
+          <div className="p-4 bg-gray-50/50">
+            {activeTab === 'orders' && (
+              <div className="space-y-4">
+                {orders.length === 0 ? (
+                  <div className="p-8 text-center text-gray-500">No orders found.</div>
+                ) : (
+                  orders.map((order: any) => (
+                    <OrderCard 
+                      key={order.id} 
+                      order={order} 
+                      employees={employees} 
+                      onStatusChange={handleStatusChange}
+                      onAssignRunner={handleAssignRunner}
+                      onAssignTailor={handleAssignTailor}
+                    />
+                  ))
+                )}
+              </div>
+            )}
+
+            {activeTab === 'catalog' && (
+              <div className="overflow-x-auto rounded-lg border border-gray-200">
+                <table className="w-full text-sm text-left bg-white">
+                  <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th className="px-4 py-3">Image / Item</th>
+                      <th className="px-4 py-3">Category</th>
+                      <th className="px-4 py-3">Price</th>
+                      <th className="px-4 py-3 text-right">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <table className="w-full text-sm text-left">
-                <thead className="text-xs text-gray-500 uppercase bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3">Date</th>
-                    <th className="px-6 py-3">Contact</th>
-                    <th className="px-6 py-3">Details</th>
-                    <th className="px-6 py-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {bulkOrders.length === 0 ? (
-                    <tr><td colSpan={4} className="px-6 py-8 text-center text-gray-500">No bulk orders found.</td></tr>
-                  ) : bulkOrders.map(bo => (
-                    <tr key={bo.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="text-xs text-gray-500">
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {catalog.map((item: any) => (
+                      <tr key={item.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 flex items-center gap-3">
+                          <img src={item.image_url} alt={item.name} className="w-10 h-10 rounded object-cover border border-gray-100" />
+                          <span className="font-medium text-gray-900">{item.name}</span>
+                        </td>
+                        <td className="px-4 py-3 text-gray-600">{item.category}</td>
+                        <td className="px-4 py-3 text-gray-900">₹{item.base_price}</td>
+                        <td className="px-4 py-3 text-right">
+                          <button 
+                            onClick={() => handleToggleCatalogItem(item)}
+                            className={`px-3 py-1 text-xs font-semibold rounded-full border transition-colors ${item.is_active ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' : 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100'}`}
+                          >
+                            {item.is_active ? 'Active' : 'Disabled'}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {activeTab === 'promos' && (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200">
+                  <h4 className="font-semibold text-sm mb-3">Launch New Promo Code</h4>
+                  <form action={async (formData) => {
+                    const data = {
+                      code: formData.get('code')?.toString().toUpperCase(),
+                      discount_type: formData.get('discount_type'),
+                      discount_amount: Number(formData.get('discount_amount')) || null,
+                      min_order_amount: Number(formData.get('min_order_amount')) || null,
+                      usage_limit: Number(formData.get('usage_limit')) || null,
+                      one_time_per_user: formData.get('one_time_per_user') === 'on',
+                      is_active: true
+                    }
+                    if (data.code) {
+                      const { createPromoCode } = await import('@/app/actions/admin')
+                      await createPromoCode(data)
+                      // Ideally we'd reset the form here
+                    }
+                  }} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Code</label>
+                      <input type="text" name="code" required className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. DIWALI50" />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Type</label>
+                      <select name="discount_type" className="w-full text-sm border-gray-200 rounded p-2">
+                        <option value="fixed_amount">Fixed Amount (₹)</option>
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="free_visit">Free Visit</option>
+                        <option value="free_delivery">Free Delivery</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 mb-1">Amount (if applicable)</label>
+                      <input type="number" name="discount_amount" className="w-full text-sm border-gray-200 rounded p-2" placeholder="e.g. 500" />
+                    </div>
+                    <div className="flex items-center gap-2 pb-2">
+                      <input type="checkbox" name="one_time_per_user" id="one_time" className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
+                      <label htmlFor="one_time" className="text-xs text-gray-600">One time per user?</label>
+                    </div>
+                    <div className="md:col-span-2 text-right pb-1">
+                      <button type="submit" className="bg-[#1a1a1a] text-white px-4 py-2 rounded text-sm font-semibold hover:bg-gray-800">Create Promo</button>
+                    </div>
+                  </form>
+                </div>
+                
+                <div className="overflow-x-auto rounded-lg border border-gray-200">
+                  <table className="w-full text-sm text-left bg-white">
+                    <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
+                    <tr>
+                      <th className="px-4 py-3">Code</th>
+                      <th className="px-4 py-3">Type & Amount</th>
+                      <th className="px-4 py-3">Limits</th>
+                      <th className="px-4 py-3 text-right">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {promos.length === 0 ? <tr><td colSpan={4} className="p-4 text-center text-gray-500">No promo codes.</td></tr> : promos.map((promo: any) => (
+                      <tr key={promo.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 font-mono font-bold text-[#E91E63]">{promo.code}</td>
+                        <td className="px-4 py-3">
+                          <span className="capitalize">{promo.discount_type.replace('_', ' ')}</span>
+                          {promo.discount_amount && ` (₹${promo.discount_amount})`}
+                        </td>
+                        <td className="px-4 py-3 text-xs text-gray-500">
+                          {promo.min_order_amount && <div>Min: ₹{promo.min_order_amount}</div>}
+                          {promo.usage_limit && <div>Limit: {promo.usage_limit} total</div>}
+                          {promo.one_time_per_user && <div>1 per user</div>}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <button 
+                            onClick={() => handleTogglePromo(promo)}
+                            className={`px-3 py-1 text-xs font-semibold rounded-full border transition-colors ${promo.is_active ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' : 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100'}`}
+                          >
+                            {promo.is_active ? 'Active' : 'Disabled'}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            )}
+
+            {activeTab === 'bulk_orders' && (
+              <div className="overflow-x-auto rounded-lg border border-gray-200">
+                <table className="w-full text-sm text-left bg-white">
+                  <thead className="text-xs text-gray-500 uppercase bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3">Date</th>
+                      <th className="px-4 py-3">Contact</th>
+                      <th className="px-4 py-3">Details</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {bulkOrders.length === 0 ? (
+                      <tr><td colSpan={3} className="px-4 py-8 text-center text-gray-500">No bulk orders found.</td></tr>
+                    ) : bulkOrders.map((bo: any) => (
+                      <tr key={bo.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
                           {new Date(bo.created_at).toLocaleDateString()}
-                        </div>
-                        <div className="text-xs text-gray-400 mt-0.5">
-                          {new Date(bo.created_at).toLocaleTimeString()}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="font-medium text-gray-900">{bo.name}</div>
-                        <div className="text-gray-500 text-xs mt-1">{bo.contact_info}</div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <p className="text-gray-700 text-sm whitespace-pre-wrap max-w-xs">{bo.details}</p>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 capitalize">
-                          {bo.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="font-medium text-gray-900">{bo.name}</div>
+                          <div className="text-gray-500 text-xs mt-1">{bo.contact_info}</div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <p className="text-gray-700 text-sm whitespace-pre-wrap">{bo.details}</p>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>
 
         {/* Staff Overview */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-fit">
           <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
             <h3 className="font-semibold text-gray-900">Staff Roster</h3>
           </div>
@@ -197,7 +299,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
             <ul className="divide-y divide-gray-50">
               {employees.length === 0 ? (
                 <li className="p-4 text-sm text-gray-500 text-center">No staff found.</li>
-              ) : employees.map(emp => (
+              ) : employees.map((emp: any) => (
                 <li key={emp.id} className="p-4 flex items-center justify-between hover:bg-gray-50 rounded-lg transition-colors">
                   <div>
                     <p className="font-medium text-sm text-gray-900">{emp.full_name}</p>

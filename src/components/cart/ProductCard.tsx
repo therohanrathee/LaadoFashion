@@ -9,6 +9,8 @@ interface ProductCardProps {
     basePrice: number;
     originalPrice?: number;
     image: string;
+    category?: string;
+    isActive?: boolean;
   }
 }
 
@@ -26,7 +28,7 @@ export default function ProductCard({ item }: ProductCardProps) {
           />
         </div>
         
-        {/* Text Area Below Image */}
+          {/* Text Area Below Image */}
         <div className="px-4 py-4 flex flex-col gap-1.5 flex-grow justify-between relative">
           <h3 className="text-[14px] md:text-[15px] font-sans font-semibold tracking-tight text-gray-900 leading-tight pr-8">
             {item.name}
@@ -44,16 +46,27 @@ export default function ProductCard({ item }: ProductCardProps) {
 
           {/* Persistent Add to Cart Button (All devices) */}
           <div className="absolute bottom-4 right-4 z-20">
-            <AddToCartButton 
-              item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
-              className="bg-[#E91E63] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14"/><path d="M12 5v14"/>
-              </svg>
-            </AddToCartButton>
+            {item.isActive !== false && (
+              <AddToCartButton 
+                item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
+                className="bg-[#E91E63] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14"/><path d="M12 5v14"/>
+                </svg>
+              </AddToCartButton>
+            )}
           </div>
         </div>
+        
+        {/* Inactive Overlay */}
+        {item.isActive === false && (
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-30 flex items-center justify-center">
+            <span className="bg-white px-4 py-2 rounded-lg text-sm font-bold text-gray-700 shadow-sm border border-gray-100 transform -rotate-12">
+              {item.category === 'Jutti' ? 'Out of stock' : 'Not available currently'}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   )

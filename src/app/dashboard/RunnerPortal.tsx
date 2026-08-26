@@ -7,7 +7,7 @@ type Order = {
   id: string
   status: string
   address: string
-  total_estimated_cost: number
+  total_amount: number
   customer: {
     full_name: string
     phone: string
@@ -64,7 +64,7 @@ export default function RunnerPortal({ orders }: { orders: Order[] }) {
               </div>
 
               <div className="border-t pt-4 mt-4">
-                <p className="text-sm font-medium mb-3">Amount to Collect: <span className="text-[#E91E63]">₹{order.total_estimated_cost / 2}</span></p>
+                <p className="text-sm font-medium mb-3">Amount to Collect: <span className="text-[#E91E63]">₹{order.total_amount / 2}</span></p>
                 
                 <div className="flex gap-2">
                   {order.status === 'pending_measurement' && (

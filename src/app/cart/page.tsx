@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCart } from '@/context/CartContext'
 import Navbar from '@/components/home/Navbar'
 import Footer from '@/components/home/Footer'
@@ -8,13 +8,22 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { CATALOG, ALL_JUTTIS } from '@/app/order/catalogData'
+import { fetchCatalogItems, fetchAddons, CatalogAddon } from '@/app/actions/catalog'
 
 export default function CartPage() {
   const { items, addItem, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal } = useCart()
   const [step, setStep] = useState<'cart' | 'checkout'>('cart')
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [catalogItems, setCatalogItems] = useState<any[]>([])
+  const [availableDbAddons, setAvailableDbAddons] = useState<CatalogAddon[]>([])
+  
+  useEffect(() => {
+    fetchCatalogItems().then(data => setCatalogItems(data))
+    fetchAddons().then(data => setAvailableDbAddons(data.filter(a => a.isActive)))
+  }, [])
+  
+  const allJuttis = catalogItems.filter(item => item.category === 'Jutti' && item.isActive)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -23,22 +32,36 @@ export default function CartPage() {
     remarks: '',
     email: ''
   })
+  
+  // Promo Code State
+  const [discountCode, setDiscountCode] = useState('')
+  const [promoError, setPromoError] = useState('')
+  const [promoSuccess, setPromoSuccess] = useState('')
+  const [promoData, setPromoData] = useState<any>(null)
+  const [isApplyingPromo, setIsApplyingPromo] = useState(false)
+  
   const [locationCoords, setLocationCoords] = useState<{lat: number, lng: number} | null>(null)
   const [isGettingLocation, setIsGettingLocation] = useState(false)
 
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your browser")
+      alert("Geolocation is not supported by your browser.")
       return
     }
+    
     setIsGettingLocation(true)
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setLocationCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+      (position) => {
+        setLocationCoords({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        })
+        setFormData(prev => ({ ...prev, remarks: prev.remarks + ` [Location: ${position.coords.latitude}, ${position.coords.longitude}]` }))
         setIsGettingLocation(false)
       },
-      () => {
-        alert("Unable to retrieve your location. Please ensure permissions are granted.")
+      (error) => {
+        console.error("Error getting location:", error)
+        alert("Could not get your location. Please enter your address manually.")
         setIsGettingLocation(false)
       }
     )
@@ -48,10 +71,21 @@ export default function CartPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    const visitCharge = 500;
-    const deliveryCharge = 100;
-    const discountApplied = cartTotal >= 1000 ? (visitCharge + deliveryCharge) : 0;
-    const finalTotal = cartTotal + visitCharge + deliveryCharge - discountApplied;
+    const isFreeEligible = cartTotal >= 1000;
+    
+    let visitCharge = isFreeEligible ? 0 : 500;
+    let deliveryCharge = isFreeEligible ? 0 : 100;
+    let customDiscount = 0;
+
+    if (promoData) {
+      if (promoData.discount_type === 'free_visit') visitCharge = 0;
+      if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
+      if (promoData.discount_type === 'fixed_amount') customDiscount = promoData.discount_amount;
+      if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (promoData.discount_amount / 100);
+    }
+    
+    const finalTotal = cartTotal + visitCharge + deliveryCharge - customDiscount;
+    const discountApplied = (isFreeEligible ? 600 : 0) + customDiscount;
 
     const supabase = createClient()
     
@@ -86,7 +120,9 @@ export default function CartPage() {
       delivery_charge: deliveryCharge,
       discount_applied: discountApplied,
       total_amount: finalTotal,
-      status: 'pending_measurement'
+      status: 'pending_measurement',
+      promo_code_id: promoData?.id || null,
+      promo_code_code: promoData?.code || null
     }]).select()
 
     if (error) {
@@ -219,8 +255,8 @@ export default function CartPage() {
                               {/* Available Add-ons */}
                               {(() => {
                                 const isJutti = item.name.toLowerCase().includes('jutti');
-                                const allAddons = isJutti ? [] : [{ id: 'express', name: 'Express 3 Day Delivery', price: 999 }];
-                                const availableAddons = allAddons.filter(a => !item.addons.some(selected => selected.id === a.id));
+                                const allAddons = isJutti ? [] : availableDbAddons;
+                                const availableAddons = allAddons.filter(a => !item.addons.some((selected: any) => selected.id === a.id));
                                 
                                 if (availableAddons.length === 0) return null;
 
@@ -275,13 +311,13 @@ export default function CartPage() {
                     {(() => {
                       // Only show cross-sell if there is a Women's collection clothing item in the cart
                       const hasWomensItem = items.some(cartItem => {
-                        const catalogItem = CATALOG.find(c => c.id === cartItem.productId);
+                        const catalogItem = catalogItems.find(c => c.id === cartItem.productId);
                         return catalogItem?.category === 'Women';
                       });
 
                       if (!hasWomensItem) return null;
 
-                      const crossSellJuttis = ALL_JUTTIS;
+                      const crossSellJuttis = allJuttis;
                       return (
                         <div className="mt-12 mb-4 bg-white p-6 rounded-2xl shadow-sm border border-[#C5A55A]/30 relative overflow-hidden">
                           <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A55A]/10 rounded-bl-full -z-10" />
@@ -421,24 +457,67 @@ export default function CartPage() {
   )
 }
 
-function OrderSummaryContent({ items, cartTotal, step, onProceed }: { items: any[], cartTotal: number, step: 'cart'|'checkout', onProceed: () => void }) {
-  const [discountCode, setDiscountCode] = useState('')
+function OrderSummaryContent({ 
+  items, 
+  cartTotal, 
+  step, 
+  onProceed,
+  discountCode,
+  setDiscountCode,
+  promoError,
+  setPromoError,
+  promoSuccess,
+  setPromoSuccess,
+  promoData,
+  setPromoData,
+  isApplyingPromo,
+  setIsApplyingPromo
+}: any) {
   const isFreeEligible = cartTotal >= 1000;
   
-  const visitCharge = isFreeEligible ? 0 : 500;
-  const deliveryCharge = isFreeEligible ? 0 : 100;
+  let visitCharge = isFreeEligible ? 0 : 500;
+  let deliveryCharge = isFreeEligible ? 0 : 100;
+  let customDiscount = 0;
+
+  if (promoData) {
+    if (promoData.discount_type === 'free_visit') visitCharge = 0;
+    if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
+    if (promoData.discount_type === 'fixed_amount') customDiscount = promoData.discount_amount;
+    if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (promoData.discount_amount / 100);
+  }
   
-  const finalTotal = cartTotal + visitCharge + deliveryCharge;
-  const totalSavings = isFreeEligible ? 600 : 0;
+  const finalTotal = cartTotal + visitCharge + deliveryCharge - customDiscount;
+  const totalSavings = (isFreeEligible ? 600 : 0) + customDiscount;
   
   const amountToFree = 1000 - cartTotal;
+
+  const handleApplyPromo = async () => {
+    if (!discountCode.trim()) return
+    setIsApplyingPromo(true)
+    setPromoError('')
+    setPromoSuccess('')
+    
+    // Dynamically import validatePromoCode to keep client bundle clean
+    const { validatePromoCode } = await import('@/app/actions/admin')
+    
+    const res = await validatePromoCode(discountCode, '', cartTotal)
+    
+    if (res.error) {
+      setPromoError(res.error)
+      setPromoData(null)
+    } else {
+      setPromoSuccess(`Promo code applied!`)
+      setPromoData(res.promo)
+    }
+    setIsApplyingPromo(false)
+  }
 
   return (
     <>
       <h3 className="text-xl font-serif font-bold text-gray-900 mb-6">Order Summary</h3>
       
       {/* Discount Code Input */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-2">
         <input 
           type="text" 
           value={discountCode}
@@ -446,10 +525,16 @@ function OrderSummaryContent({ items, cartTotal, step, onProceed }: { items: any
           placeholder="Discount code" 
           className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none text-sm uppercase transition-colors"
         />
-        <button className="px-5 py-2 bg-[#1a1a1a] text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm">
-          Apply
+        <button 
+          onClick={handleApplyPromo}
+          disabled={isApplyingPromo}
+          className="px-5 py-2 bg-[#1a1a1a] text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm disabled:opacity-70"
+        >
+          {isApplyingPromo ? '...' : 'Apply'}
         </button>
       </div>
+      {promoError && <p className="text-xs text-red-500 mb-4">{promoError}</p>}
+      {promoSuccess && <p className="text-xs text-green-600 font-bold mb-4">{promoSuccess}</p>}
 
       {/* Progress to Free */}
       {!isFreeEligible && cartTotal > 0 && (
@@ -464,7 +549,7 @@ function OrderSummaryContent({ items, cartTotal, step, onProceed }: { items: any
       )}
       <div className="space-y-4 text-sm text-gray-600 mb-6">
         <div className="space-y-3 pb-4 border-b border-gray-100">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <div key={item.cartItemId} className="flex justify-between items-start text-xs">
               <div className="flex flex-col">
                 <span className="font-medium text-gray-800">{item.name} {item.quantity > 1 && `(x${item.quantity})`}</span>
