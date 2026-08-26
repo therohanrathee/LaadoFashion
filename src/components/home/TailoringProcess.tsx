@@ -33,15 +33,15 @@ export default function TailoringProcess() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden" ref={ref}>
+    <section className="py-24 bg-white relative" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           <motion.div 
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative w-full max-w-[420px] xl:max-w-[480px] mx-auto lg:ml-0"
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <Image 
@@ -49,7 +49,7 @@ export default function TailoringProcess() {
                 alt="Master tailor cutting fabric" 
                 fill 
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
                 <div>
@@ -60,9 +60,9 @@ export default function TailoringProcess() {
             </div>
             
             {/* Floating badge */}
-            <div className="absolute -right-6 -bottom-6 bg-white p-6 rounded-xl shadow-xl max-w-[200px] border border-gray-100 hidden md:block">
-              <div className="text-4xl font-serif text-[#E91E63] font-bold mb-1">15+</div>
-              <div className="text-sm text-gray-600 font-medium leading-snug">Years of bespoke tailoring mastery</div>
+            <div className="absolute -right-4 -bottom-4 lg:-right-8 lg:-bottom-8 bg-white p-5 lg:p-6 rounded-xl shadow-xl max-w-[180px] lg:max-w-[200px] border border-gray-100 hidden md:block z-10">
+              <div className="text-3xl lg:text-4xl font-serif text-[#E91E63] font-bold mb-1">20+</div>
+              <div className="text-xs lg:text-sm text-gray-600 font-medium leading-snug">Years of bespoke tailoring mastery</div>
             </div>
           </motion.div>
 
