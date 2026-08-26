@@ -195,7 +195,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded-lg border border-gray-200">
                   <h4 className="font-semibold text-sm mb-3">Launch New Promo Code</h4>
-                  <form action={async (formData) => {
+                  <form id="promo_form" action={async (formData) => {
                     const data = {
                       code: formData.get('code')?.toString().toUpperCase(),
                       discount_type: formData.get('discount_type'),
@@ -211,7 +211,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                       if (res.error) {
                         alert('Error creating promo: ' + res.error)
                       } else {
-                        window.location.reload()
+                        (document.getElementById('promo_form') as HTMLFormElement).reset()
                       }
                     }
                   }} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
@@ -386,7 +386,6 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               }
               
               setCatalogModal({ isOpen: false, mode: 'create', item: null })
-              window.location.reload() // Quick refresh to show new data
             }}>
               <div className="p-6 space-y-4 overflow-y-auto">
                 <div>
@@ -443,7 +442,6 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                             onClick={async () => {
                               if (confirm('Delete this add-on?')) {
                                 await deleteAddon(addon.id)
-                                window.location.reload()
                               }
                             }}
                             className="text-red-500 hover:text-red-700 text-xs font-semibold px-2"
@@ -471,7 +469,6 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                             nameInput.value = ''
                             priceInput.value = ''
                             await createAddon({ name, price: Number(price), catalog_item_id: catalogModal.item.id, is_active: true })
-                            window.location.reload()
                           }
                         }}
                         className="bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-semibold px-3 rounded transition-colors"
@@ -491,7 +488,6 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                       if (confirm('Are you sure you want to delete this product?')) {
                         await deleteCatalogItem(catalogModal.item.id)
                         setCatalogModal({ isOpen: false, mode: 'create', item: null })
-                        window.location.reload()
                       }
                     }}
                     className="text-red-600 hover:text-red-800 text-sm font-medium px-2 py-1"
