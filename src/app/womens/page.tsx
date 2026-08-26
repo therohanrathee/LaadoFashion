@@ -18,12 +18,12 @@ export default async function WomensCollectionPage() {
       <main className="flex-grow pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em]">Exquisite Designs</span>
+            <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em]">Boutique Stitching Near You</span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">
-              Women's Tailoring
+              Women's Tailoring in Gurugram
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
-              Discover our exclusive range of beautifully crafted women's wear, blending traditional elegance with contemporary styling. Custom tailored for the perfect fit.
+            <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              Discover our exclusive range of beautifully crafted women's wear. From Anarkali suit stitching near you to custom bridal lehengas, we provide premium boutique fashion at your doorstep.
             </p>
           </div>
 

@@ -41,7 +41,7 @@ export default function HeroSection() {
           <div className="text-left w-full mt-4 lg:mt-0 max-w-xl lg:max-w-none">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="inline-flex items-center gap-2 bg-[#E91E63]/20 lg:bg-[#E91E63]/5 border border-[#E91E63]/30 lg:border-[#E91E63]/10 rounded-full px-4 py-2 mb-6 backdrop-blur-sm lg:backdrop-blur-none">
               <span className="w-2 h-2 rounded-full bg-[#E91E63] animate-pulse" />
-              <span className="text-[#E91E63] text-xs md:text-sm tracking-wide font-semibold uppercase">Doorstep Tailoring Service</span>
+              <span className="text-[#E91E63] text-xs md:text-sm tracking-wide font-semibold uppercase">Gurugram's #1 Doorstep Tailoring Service</span>
             </motion.div>
 
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl lg:text-[4rem] font-serif font-bold leading-[1.08] mb-6 text-white lg:text-[#1a1a1a] dark:lg:text-white">
@@ -52,11 +52,11 @@ export default function HeroSection() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8">
                <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20">
                   <Ruler className="w-4 h-4 text-white lg:text-[#C5A55A]" />
-                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Home Measurement</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Gurugram Home Measurement</span>
                </div>
                <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20">
                   <Scissors className="w-4 h-4 text-[#E91E63]" />
-                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Custom Stitched</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Custom Stitched Suits & Lehengas</span>
                </div>
                <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20 hidden sm:flex">
                   <Truck className="w-4 h-4 text-white lg:text-[#C5A55A]" />
@@ -65,7 +65,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-base lg:text-lg text-gray-200 lg:text-gray-600 dark:lg:text-gray-300 font-light max-w-sm sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
-              We bring the master tailor to your living room. Skip the boutique visits and get perfectly fitted bespoke clothing crafted exclusively for you.
+              We bring the master tailor to your living room in Gurugram. Skip the boutique visits and get professional 2-piece suits, bridal lehengas, and bespoke stitching crafted exclusively for you.
             </motion.p>
 
             {/* CTA Area */}

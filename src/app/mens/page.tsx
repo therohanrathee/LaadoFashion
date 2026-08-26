@@ -18,12 +18,12 @@ export default async function MensCollectionPage() {
       <main className="flex-grow pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Sharp & Sophisticated</span>
+            <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Master Tailoring Near You</span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">
-              Men's Tailoring
+              Premium Men's Tailoring in Gurugram
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
-              Explore our premium men's tailoring services. From classic formal suits to intricate traditional wear, we stitch to perfection.
+            <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              Explore our bespoke men's tailoring services near you. From classic 2-piece suit stitching to intricate traditional sherwanis, we provide professional stitching at your doorstep.
             </p>
           </div>
 
