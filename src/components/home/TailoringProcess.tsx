@@ -51,10 +51,10 @@ export default function TailoringProcess() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                <div>
-                  <div className="text-[#C5A55A] font-semibold tracking-wider text-sm mb-2 uppercase">The Art of Tailoring</div>
-                  <h3 className="text-white text-3xl font-serif">Crafted to your exact proportions.</h3>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 lg:p-8">
+                <div className="max-w-[70%]">
+                  <div className="text-[#C5A55A] font-semibold tracking-wider text-xs lg:text-sm mb-2 uppercase">The Art of Tailoring</div>
+                  <h3 className="text-white text-2xl lg:text-3xl font-serif leading-snug">Crafted to your exact proportions.</h3>
                 </div>
               </div>
             </div>
@@ -76,17 +76,19 @@ export default function TailoringProcess() {
               Not just ready-made. <br/>
               <span className="italic font-light text-gray-500">True Custom Tailoring.</span>
             </h2>
-            <p className="text-gray-600 text-lg mb-10 leading-relaxed">
+            <p className="text-gray-600 text-base lg:text-lg mb-10 leading-relaxed">
               We bring the premium boutique experience directly to your living room. Our garments aren&apos;t pulled from a rack—they are brought to life from scratch, uniquely patterned and stitched just for you.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-10">
               {features.map((feature, i) => (
                 <div key={i} className="flex flex-col">
-                  <div className="w-12 h-12 rounded-full bg-[#C5A55A]/10 flex items-center justify-center mb-4">
-                    {feature.icon}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-[#C5A55A]/10 flex items-center justify-center shrink-0">
+                      {feature.icon}
+                    </div>
+                    <h4 className="text-[#1a1a1a] font-semibold text-lg">{feature.title}</h4>
                   </div>
-                  <h4 className="text-[#1a1a1a] font-semibold text-lg mb-2">{feature.title}</h4>
                   <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
                 </div>
               ))}
