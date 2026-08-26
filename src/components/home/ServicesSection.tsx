@@ -16,7 +16,7 @@ const allJuttis = [
     accent: '#C5A55A',
     bg: 'bg-gradient-to-br from-[#C5A55A]/20 to-white/60 dark:to-[#141414]/60 backdrop-blur-sm',
     border: 'border-[#C5A55A]/20',
-    image: `/images/juttis/leather/IMG_85${id}.png`,
+    image: `/images/juttis/leather/IMG_85${id}_v2.webp`,
   })),
   ...[34,35,36,37].map(id => ({
     id: `jutti-handcrafted-${id}`,
@@ -27,7 +27,7 @@ const allJuttis = [
     accent: '#E91E63',
     bg: 'bg-gradient-to-br from-[#E91E63]/20 to-white/60 dark:to-[#141414]/60 backdrop-blur-sm',
     border: 'border-[#E91E63]/20',
-    image: `/images/juttis/plastic/IMG_85${id}.png`,
+    image: `/images/juttis/plastic/IMG_85${id}_v2.webp`,
   }))
 ]
 
