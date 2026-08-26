@@ -9,7 +9,7 @@ export default function ThreadAnimation() {
 
   useEffect(() => {
     const updatePath = () => {
-      const w = window.innerWidth
+      const w = document.documentElement.clientWidth
       const h = document.documentElement.scrollHeight
       setDimensions({ w, h })
 

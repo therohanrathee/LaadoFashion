@@ -7,10 +7,10 @@ import SplitBookButton from '@/components/ui/SplitBookButton'
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-black lg:bg-[#FAF8F5] pt-[80px] min-h-[calc(100vh-80px)] flex items-center">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-center">
       
-      {/* Mobile Background Image (Full Bleed) */}
-      <div className="absolute inset-0 z-0 lg:hidden block">
+      {/* Mobile Background Image (Starts below the header to prevent muddying the translucent navbar) */}
+      <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-black">
         <Image 
           src="/images/home/mobile_hero_tailor_v4.jpg" 
           alt="Master tailor" 
