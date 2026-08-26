@@ -19,8 +19,10 @@ export default function Home() {
   useEffect(() => {
     async function loadCatalog() {
       const catalog = await fetchCatalogItems()
-      setWomensCatalog(catalog.filter(item => item.category === 'Women'))
-      setMensCatalog(catalog.filter(item => item.category === 'Men'))
+      // Hide inactive items UNLESS they are Juttis
+      const visibleCatalog = catalog.filter(item => item.isActive || item.name.toLowerCase().includes('jutti'))
+      setWomensCatalog(visibleCatalog.filter(item => item.category === 'Women'))
+      setMensCatalog(visibleCatalog.filter(item => item.category === 'Men'))
     }
     loadCatalog()
   }, [])

@@ -8,7 +8,8 @@ import ProductCard from '@/components/cart/ProductCard'
 
 export default async function MensCollectionPage() {
   const catalog = await fetchCatalogItems()
-  const mensCatalog = catalog.filter(item => item.category === 'Men')
+  const visibleCatalog = catalog.filter(item => item.isActive || item.name.toLowerCase().includes('jutti'))
+  const mensCatalog = visibleCatalog.filter(item => item.category === 'Men')
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] flex flex-col">

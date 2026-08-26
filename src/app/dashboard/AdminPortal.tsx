@@ -353,12 +353,26 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               <button onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
             <form action={async (formData) => {
+              let imageUrl = formData.get('existing_image_url')?.toString() || ''
+              const imageFile = formData.get('imageFile') as File | null
+              
+              if (imageFile && imageFile.size > 0) {
+                const { uploadImage } = await import('@/app/actions/upload')
+                const uploadRes = await uploadImage(formData)
+                if (uploadRes.url) {
+                  imageUrl = uploadRes.url
+                } else {
+                  alert(uploadRes.error)
+                  return
+                }
+              }
+
               const data = {
                 name: formData.get('name'),
                 category: formData.get('category'),
                 base_price: Number(formData.get('base_price')),
                 original_price: formData.get('original_price') ? Number(formData.get('original_price')) : null,
-                image_url: formData.get('image_url'),
+                image_url: imageUrl,
                 is_active: formData.get('is_active') === 'on'
               }
               
@@ -395,8 +409,16 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                  <input type="text" name="image_url" required defaultValue={catalogModal.item?.image_url} className="w-full border-gray-200 rounded-lg p-2.5 text-sm focus:ring-[#E91E63] focus:border-[#E91E63]" placeholder="/images/catalog/..." />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+                  {catalogModal.item?.image_url && (
+                    <div className="mb-2 flex items-center gap-3">
+                      <img src={catalogModal.item.image_url} alt="Current" className="w-12 h-12 object-cover rounded border border-gray-200" />
+                      <span className="text-xs text-gray-500">Current Image</span>
+                      <input type="hidden" name="existing_image_url" value={catalogModal.item.image_url} />
+                    </div>
+                  )}
+                  <input type="file" name="imageFile" accept="image/*" className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E91E63]/10 file:text-[#E91E63] hover:file:bg-[#E91E63]/20" />
+                  <p className="text-xs text-gray-400 mt-2">New images will be automatically compressed and optimized.</p>
                 </div>
                 <div className="flex items-center gap-2 pt-2">
                   <input type="checkbox" name="is_active" id="is_active_modal" defaultChecked={catalogModal.mode === 'create' ? true : catalogModal.item?.is_active} className="rounded border-gray-300 text-[#E91E63] focus:ring-[#E91E63]" />
