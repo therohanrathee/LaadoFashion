@@ -46,14 +46,14 @@ export default function CartDrawer() {
             animate={isMobile ? { y: 0 } : { x: 0 }}
             exit={isMobile ? { y: '100%' } : { x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed z-[101] w-full max-w-md bg-white/80 backdrop-blur-3xl shadow-2xl flex flex-col border-white/50 overflow-hidden bottom-0 inset-x-0 h-[85vh] rounded-t-3xl md:bottom-auto md:inset-y-0 md:right-0 md:left-auto md:h-full md:rounded-none md:border-l"
+            className="fixed z-[101] w-full max-w-md bg-white/80 dark:bg-[#141414]/90 backdrop-blur-3xl shadow-2xl flex flex-col border-white/50 dark:border-white/10 overflow-hidden bottom-0 inset-x-0 h-[85vh] rounded-t-3xl md:bottom-auto md:inset-y-0 md:right-0 md:left-auto md:h-full md:rounded-none md:border-l"
           >
         {/* Header */}
-        <div className="px-6 py-5 border-b border-gray-200/50 flex items-center justify-between bg-transparent">
-          <h2 className="text-xl font-serif font-bold text-gray-900">Your Cart</h2>
+        <div className="px-6 py-5 border-b border-gray-200/50 dark:border-white/10 flex items-center justify-between bg-transparent">
+          <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-white">Your Cart</h2>
           <button 
             onClick={() => setIsCartOpen(false)}
-            className="p-2 -mr-2 text-gray-500 hover:text-gray-900 transition-colors rounded-full hover:bg-black/5"
+            className="p-2 -mr-2 text-gray-500 hover:text-gray-900 dark:text-white transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/5"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 6 6 18M6 6l12 12"/>
@@ -65,7 +65,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 bg-transparent">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-gray-300">
+              <div className="w-16 h-16 bg-gray-50 dark:bg-white/5 rounded-full flex items-center justify-center text-gray-300 dark:text-gray-600">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
                 </svg>
@@ -80,10 +80,10 @@ export default function CartDrawer() {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.cartItemId} className="flex gap-4 p-4 border border-gray-100 rounded-xl bg-gray-50/50 relative group">
+              <div key={item.cartItemId} className="flex gap-4 p-4 border border-gray-100 dark:border-white/10 rounded-xl bg-gray-50/50 dark:bg-white/5 relative group">
                 <button 
                   onClick={() => removeItem(item.cartItemId)}
-                  className="absolute -top-2 -right-2 bg-white border border-gray-200 text-gray-400 hover:text-red-500 w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                  className="absolute -top-2 -right-2 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 text-gray-400 hover:text-red-500 w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
                 </button>
@@ -92,14 +92,14 @@ export default function CartDrawer() {
                 
                 <div className="flex-1 flex flex-col justify-between py-1">
                   <div>
-                    <h3 className="font-semibold text-gray-900 text-sm leading-tight">{item.name}</h3>
-                    <p className="text-xs text-gray-500 mt-1">₹{item.basePrice}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">{item.name}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">₹{item.basePrice}</p>
                   </div>
                   
                   {item.addons.length > 0 && (
                     <div className="mt-2 space-y-1">
                       {item.addons.map(addon => (
-                        <div key={addon.id} className="flex justify-between items-center text-[11px] bg-white border border-gray-200 px-2 py-1 rounded-md text-gray-600">
+                        <div key={addon.id} className="flex justify-between items-center text-[11px] bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 px-2 py-1 rounded-md text-gray-600 dark:text-gray-300">
                           <span>{addon.name}</span>
                           <span className="font-medium">+₹{addon.price}</span>
                         </div>
@@ -108,7 +108,7 @@ export default function CartDrawer() {
                   )}
 
                   <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center border border-gray-200 rounded-md bg-white">
+                    <div className="flex items-center border border-gray-200 dark:border-white/10 rounded-md bg-white dark:bg-[#1a1a1a]">
                       <button onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)} className="px-2 py-0.5 text-gray-500 hover:text-[#E91E63] transition-colors">-</button>
                       <span className="text-xs font-semibold px-2 w-6 text-center">{item.quantity}</span>
                       <button onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)} className="px-2 py-0.5 text-gray-500 hover:text-[#E91E63] transition-colors">+</button>
@@ -126,10 +126,10 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="p-6 bg-transparent border-t border-gray-200/50">
+          <div className="p-6 bg-transparent border-t border-gray-200/50 dark:border-white/10">
             <div className="flex justify-between items-center mb-6">
-              <span className="text-gray-600 font-medium">Subtotal</span>
-              <span className="text-2xl font-bold text-gray-900">₹{cartTotal}</span>
+              <span className="text-gray-600 dark:text-gray-300 font-medium">Subtotal</span>
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">₹{cartTotal}</span>
             </div>
             
             <Link 

@@ -10,7 +10,7 @@ export default function CTASection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative pb-28 pt-12 md:pb-36 md:pt-16 px-6 bg-[#f5f0ea] overflow-hidden">
+    <section className="relative pb-28 pt-12 md:pb-36 md:pt-16 px-6 bg-[#f5f0ea] dark:bg-[#0a0a0a] overflow-hidden">
       {/* Decorative ring */}
       <motion.div 
         animate={{ rotate: 360 }}
@@ -30,10 +30,10 @@ export default function CTASection() {
           transition={{ duration: 0.8 }}
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Get Started Today</span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1a1a1a] mt-4 mb-6 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-6 leading-tight">
             Ready for the <span className="text-[#E91E63] italic">perfect fit</span>?
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
             Book a home measurement today. Our runner will visit you, take your measurements, 
             and your custom-stitched garment will be delivered to your doorstep.
           </p>

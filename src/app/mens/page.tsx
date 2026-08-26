@@ -12,17 +12,17 @@ export default async function MensCollectionPage() {
   const mensCatalog = visibleCatalog.filter(item => item.category === 'Men')
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
       <main className="flex-grow pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Sharp & Sophisticated</span>
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">
               Men's Tailoring
             </h1>
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
               Explore our premium men's tailoring services. From classic formal suits to intricate traditional wear, we stitch to perfection.
             </p>
           </div>

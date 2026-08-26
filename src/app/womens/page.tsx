@@ -12,17 +12,17 @@ export default async function WomensCollectionPage() {
   const womensCatalog = visibleCatalog.filter(item => item.category === 'Women' && !item.name.toLowerCase().includes('jutti'))
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
       <main className="flex-grow pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em]">Exquisite Designs</span>
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">
               Women's Tailoring
             </h1>
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
               Discover our exclusive range of beautifully crafted women's wear, blending traditional elegance with contemporary styling. Custom tailored for the perfect fit.
             </p>
           </div>

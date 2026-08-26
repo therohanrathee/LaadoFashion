@@ -115,7 +115,7 @@ export default function HowItWorks() {
   const togglePause = () => setUserPaused(!userPaused)
 
   return (
-    <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] overflow-hidden w-full">
+    <section id="how-it-works" className="relative py-24 md:py-32 bg-[#FAF8F5] dark:bg-[#0a0a0a] overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-6 relative z-20" ref={ref}>
         {/* Section header */}
         <motion.div
@@ -125,8 +125,8 @@ export default function HowItWorks() {
           className="text-center mb-12 lg:mb-16"
         >
           <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">The Process</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">How It Works</h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">How It Works</h2>
+          <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-lg leading-relaxed">
             From selection to doorstep delivery — your custom garment in four seamless steps.
           </p>
         </motion.div>
@@ -191,10 +191,10 @@ export default function HowItWorks() {
 
         {/* Apple-style Progress Indicator */}
         <div className="flex justify-center mt-6">
-          <div className="flex items-center gap-4 bg-gray-200/50 backdrop-blur-md px-6 py-3 rounded-full">
+          <div className="flex items-center gap-4 bg-gray-200/50 dark:bg-white/10 backdrop-blur-md px-6 py-3 rounded-full">
             <button 
               onClick={togglePause}
-              className="text-gray-500 hover:text-gray-900 transition-colors focus:outline-none"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors focus:outline-none"
               aria-label={userPaused ? "Play carousel" : "Pause carousel"}
             >
               {userPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
@@ -203,7 +203,7 @@ export default function HowItWorks() {
               {steps.map((_, idx) => (
                 <div 
                   key={idx} 
-                  className="h-1.5 rounded-full bg-gray-300 overflow-hidden transition-all duration-300" 
+                  className="h-1.5 rounded-full bg-gray-300 dark:bg-gray-700 overflow-hidden transition-all duration-300" 
                   style={{ width: activeIndex === idx ? '32px' : '8px' }}
                 >
                   {activeIndex === idx && isPlaying && (
@@ -212,11 +212,11 @@ export default function HowItWorks() {
                       initial={{ width: '0%' }}
                       animate={{ width: '100%' }}
                       transition={{ duration: 4, ease: 'linear' }}
-                      className="h-full bg-gray-600"
+                      className="h-full bg-gray-600 dark:bg-gray-300"
                     />
                   )}
                   {activeIndex === idx && !isPlaying && (
-                    <div className="h-full w-full bg-gray-600" />
+                    <div className="h-full w-full bg-gray-600 dark:bg-gray-300" />
                   )}
                 </div>
               ))}

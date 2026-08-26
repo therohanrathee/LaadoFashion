@@ -29,7 +29,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="relative bg-[#FAF8F5]">
+    <div className="relative bg-background">
       {/* Sticky navigation */}
       <Navbar />
 
@@ -49,7 +49,7 @@ export default function Home() {
             subtitle="Exquisite Designs"
             description="Our top picks of beautifully crafted women's wear."
             items={womensCatalog}
-            bgClass="bg-[#FAF8F5]"
+            bgClass="bg-[#FAF8F5] dark:bg-[#0a0a0a]"
             accentColor="#E91E63"
           />
           
@@ -58,7 +58,7 @@ export default function Home() {
             subtitle="Sharp & Sophisticated"
             description="Premium tailored formal and traditional menswear."
             items={mensCatalog}
-            bgClass="bg-white"
+            bgClass="bg-white dark:bg-[#141414]"
             accentColor="#C5A55A"
           />
 

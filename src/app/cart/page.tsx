@@ -153,25 +153,25 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-background flex flex-col overflow-hidden">
       <Navbar />
       
       <main className="flex-grow pt-32 pb-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             {step === 'checkout' && (
-              <button onClick={() => setStep('cart')} className="text-gray-400 hover:text-gray-900 transition-colors">
+              <button onClick={() => setStep('cart')} className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:text-white transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               </button>
             )}
-            <h1 className="text-4xl font-serif font-bold text-gray-900">
+            <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white">
               {step === 'cart' ? 'Shopping Cart' : 'Checkout Details'}
             </h1>
           </div>
 
           {items.length === 0 ? (
-            <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100">
-              <p className="text-gray-500 mb-6 text-lg">Your cart is currently empty.</p>
+            <div className="text-center py-20 bg-white dark:bg-[#141414] rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
+              <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-6 text-lg">Your cart is currently empty.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xs sm:max-w-none mx-auto px-6 sm:px-0">
                 <Link href="/womens" className="w-full sm:w-auto bg-[#E91E63] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#C2185B] transition-colors">
                   Shop Women's
@@ -191,7 +191,7 @@ export default function CartPage() {
                     layout
                     key="summary"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-fit sticky top-32 lg:col-span-1 w-full"
+                    className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 h-fit sticky top-32 lg:col-span-1 w-full"
                   >
                     <OrderSummaryContent items={items} cartTotal={cartTotal} step={step} onProceed={() => setStep('checkout')} />
                   </motion.div>
@@ -212,15 +212,15 @@ export default function CartPage() {
                       const itemTotalPrice = (item.basePrice + item.addons.reduce((s, a) => s + a.price, 0)) * item.quantity;
                       
                       return (
-                        <div key={item.cartItemId} className="flex gap-4 sm:gap-6 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 relative">
-                          <img src={item.image} alt={item.name} className="w-24 h-32 sm:w-32 sm:h-40 shrink-0 object-cover rounded-xl bg-gray-50" />
+                        <div key={item.cartItemId} className="flex gap-4 sm:gap-6 bg-white dark:bg-[#141414] p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 relative">
+                          <img src={item.image} alt={item.name} className="w-24 h-32 sm:w-32 sm:h-40 shrink-0 object-cover rounded-xl bg-gray-50 dark:bg-[#0a0a0a]" />
                           
                           <div className="flex-1 flex flex-col min-w-0">
                             {/* Header Row: Title & Total Price */}
                             <div className="flex justify-between items-start gap-2">
                               <div className="min-w-0">
-                                <h3 className="text-lg sm:text-xl font-serif font-bold text-gray-900 truncate">{item.name}</h3>
-                                <p className="text-gray-500 mt-0.5 sm:mt-1 text-xs sm:text-sm">₹{item.basePrice} (Base Price)</p>
+                                <h3 className="text-lg sm:text-xl font-serif font-bold text-gray-900 dark:text-white truncate">{item.name}</h3>
+                                <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 mt-0.5 sm:mt-1 text-xs sm:text-sm">₹{item.basePrice} (Base Price)</p>
                               </div>
                               <div className="text-lg sm:text-2xl font-bold text-[#E91E63] shrink-0">
                                 ₹{itemTotalPrice}
@@ -232,16 +232,16 @@ export default function CartPage() {
                               {/* Selected Add-ons */}
                               {item.addons.length > 0 && (
                                 <div>
-                                  <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5 sm:mb-2">Selected Add-ons</p>
+                                  <p className="text-[10px] sm:text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5 sm:mb-2">Selected Add-ons</p>
                                   <ul className="space-y-2">
                                     {item.addons.map(addon => (
-                                      <li key={addon.id} className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-gray-700 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-gray-100 w-full">
+                                      <li key={addon.id} className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-[#0a0a0a] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-gray-100 dark:border-white/5 w-full">
                                         <svg className="text-[#E91E63] shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                         <span className="flex-1 leading-tight">{addon.name}</span>
                                         <span className="font-semibold shrink-0">+₹{addon.price}</span>
                                         <button 
                                           onClick={() => removeAddon(item.cartItemId, addon.id)}
-                                          className="text-gray-400 hover:text-red-500 transition-colors p-1 shrink-0"
+                                          className="text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors p-1 shrink-0"
                                           title="Remove Add-on"
                                         >
                                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -262,10 +262,10 @@ export default function CartPage() {
 
                                 return (
                                   <div>
-                                    <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5 sm:mb-2">Available Add-ons</p>
+                                    <p className="text-[10px] sm:text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5 sm:mb-2">Available Add-ons</p>
                                     <ul className="space-y-2">
                                       {availableAddons.map(addon => (
-                                        <li key={addon.id} className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-gray-700 bg-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-dashed border-gray-300 w-full hover:border-[#E91E63] transition-colors cursor-pointer" onClick={() => addAddon(item.cartItemId, addon)}>
+                                        <li key={addon.id} className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-[#141414] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-dashed border-gray-300 dark:border-white/20 w-full hover:border-[#E91E63] transition-colors cursor-pointer" onClick={() => addAddon(item.cartItemId, addon)}>
                                           <button 
                                             className="text-[#E91E63] hover:text-[#C2185B] transition-colors p-1 shrink-0 bg-rose-50 rounded-md"
                                             title="Add Add-on"
@@ -273,7 +273,7 @@ export default function CartPage() {
                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                                           </button>
                                           <span className="flex-1 leading-tight">{addon.name}</span>
-                                          <span className="font-semibold shrink-0 text-gray-500">+₹{addon.price}</span>
+                                          <span className="font-semibold shrink-0 text-gray-500 dark:text-gray-400 dark:text-gray-500">+₹{addon.price}</span>
                                         </li>
                                       ))}
                                     </ul>
@@ -286,15 +286,15 @@ export default function CartPage() {
 
                             {/* Footer Row: Quantity & Remove Item (Dustbin) */}
                             <div className="flex justify-between items-end mt-4 sm:mt-6">
-                              <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-white">
-                                <button onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)} className="px-3 py-1.5 bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors">-</button>
-                                <span className="px-4 py-1.5 font-semibold text-gray-900 min-w-[3rem] text-center">{item.quantity}</span>
-                                <button onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)} className="px-3 py-1.5 bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors">+</button>
+                              <div className="flex items-center border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden bg-white dark:bg-[#141414]">
+                                <button onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)} className="px-3 py-1.5 bg-gray-50 dark:bg-[#0a0a0a] text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:bg-white/5 transition-colors">-</button>
+                                <span className="px-4 py-1.5 font-semibold text-gray-900 dark:text-white min-w-[3rem] text-center">{item.quantity}</span>
+                                <button onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)} className="px-3 py-1.5 bg-gray-50 dark:bg-[#0a0a0a] text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:bg-white/5 transition-colors">+</button>
                               </div>
                               
                               <button 
                                 onClick={() => removeItem(item.cartItemId)}
-                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                className="p-2 text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                                 title="Remove Item"
                               >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -319,23 +319,23 @@ export default function CartPage() {
 
                       const crossSellJuttis = allJuttis;
                       return (
-                        <div className="mt-12 mb-4 bg-white p-6 rounded-2xl shadow-sm border border-[#C5A55A]/30 relative overflow-hidden">
+                        <div className="mt-12 mb-4 bg-white dark:bg-[#141414] p-6 rounded-2xl shadow-sm border border-[#C5A55A]/30 relative overflow-hidden">
                           <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A55A]/10 rounded-bl-full -z-10" />
-                          <h3 className="text-xl font-serif font-bold text-gray-900 mb-1">Complete Your Look ✨</h3>
-                          <p className="text-sm text-gray-500 mb-6">Add matching handcrafted Juttis to your outfit</p>
+                          <h3 className="text-xl font-serif font-bold text-gray-900 dark:text-white mb-1">Complete Your Look ✨</h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-6">Add matching handcrafted Juttis to your outfit</p>
                           
                           <div className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide">
                             {crossSellJuttis.map(jutti => (
-                              <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-[#FAF8F5]/50">
-                                <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-white border border-gray-50 flex-none">
+                              <div key={jutti.id} className="flex-none w-40 sm:w-64 border border-gray-100 dark:border-white/5 rounded-xl p-3 sm:p-4 flex flex-col gap-3 snap-start hover:border-[#C5A55A]/50 transition-colors bg-background/50">
+                                <div className="h-28 sm:h-48 w-full relative rounded-lg overflow-hidden bg-white dark:bg-[#141414] border border-gray-50 flex-none">
                                   <img src={jutti.image} alt={jutti.name} className="object-contain w-full h-full mix-blend-multiply p-2" />
                                 </div>
                                 <div>
-                                  <h4 className="text-sm sm:text-base font-bold text-gray-800 line-clamp-1">{jutti.name}</h4>
+                                  <h4 className="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 line-clamp-1">{jutti.name}</h4>
                                   <div className="flex items-center gap-2 mt-1">
                                     <span className="font-bold sm:text-lg text-[#E91E63]">₹{jutti.basePrice}</span>
                                     {jutti.originalPrice && (
-                                      <span className="text-xs sm:text-sm text-gray-400 line-through">₹{jutti.originalPrice}</span>
+                                      <span className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 line-through">₹{jutti.originalPrice}</span>
                                     )}
                                   </div>
                                 </div>
@@ -348,7 +348,7 @@ export default function CartPage() {
                                     addons: [],
                                     quantity: 1
                                   }, e)}
-                                  className="mt-auto w-full py-2 sm:py-2.5 bg-white border border-[#C5A55A] text-[#C5A55A] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
+                                  className="mt-auto w-full py-2 sm:py-2.5 bg-white dark:bg-[#141414] border border-[#C5A55A] text-[#C5A55A] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:bg-[#C5A55A] hover:text-white transition-colors"
                                 >
                                   ADD
                                 </button>
@@ -367,7 +367,7 @@ export default function CartPage() {
                     layout
                     key="summary"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-fit sticky top-32 lg:col-span-1 w-full"
+                    className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 h-fit sticky top-32 lg:col-span-1 w-full"
                   >
                     <OrderSummaryContent items={items} cartTotal={cartTotal} step={step} onProceed={() => setStep('checkout')} />
                   </motion.div>
@@ -384,22 +384,22 @@ export default function CartPage() {
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     className="lg:col-span-2 w-full"
                   >
-                    <form onSubmit={handleConfirmOrder} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+                    <form onSubmit={handleConfirmOrder} className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 space-y-6">
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="text-sm font-semibold text-gray-700">Full Name *</label>
-                          <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="Enter your full name" />
+                          <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name *</label>
+                          <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="Enter your full name" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-sm font-semibold text-gray-700">Phone Number *</label>
-                          <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="10-digit mobile number" />
+                          <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Phone Number *</label>
+                          <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="10-digit mobile number" />
                         </div>
                       </div>
 
                       <div className="space-y-2">
                         <div className="flex justify-between items-end">
-                          <label className="text-sm font-semibold text-gray-700">Delivery Address *</label>
+                          <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Delivery Address *</label>
                           <button 
                             type="button" 
                             onClick={handleGetLocation}
@@ -421,22 +421,22 @@ export default function CartPage() {
                             )}
                           </button>
                         </div>
-                        <textarea required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all h-24 resize-none" placeholder="Enter complete house/flat no, street, landmark..." />
+                        <textarea required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all h-24 resize-none" placeholder="Enter complete house/flat no, street, landmark..." />
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-700 flex items-center justify-between">
-                          <span>Email Address <span className="text-gray-400 font-normal">(Optional)</span></span>
+                        <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center justify-between">
+                          <span>Email Address <span className="text-gray-400 dark:text-gray-500 font-normal">(Optional)</span></span>
                         </label>
-                        <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="Enter email for tracking updates" />
+                        <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all" placeholder="Enter email for tracking updates" />
                         <p className="text-xs text-[#C5A55A] font-medium mt-1">Providing your email ensures you receive live tracking numbers and updates!</p>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-700 flex items-center justify-between">
-                          <span>Additional Remarks <span className="text-gray-400 font-normal">(Optional)</span></span>
+                        <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center justify-between">
+                          <span>Additional Remarks <span className="text-gray-400 dark:text-gray-500 font-normal">(Optional)</span></span>
                         </label>
-                        <textarea value={formData.remarks} onChange={e => setFormData({...formData, remarks: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all h-20 resize-none" placeholder="Any specific instructions for the tailor or delivery runner?" />
+                        <textarea value={formData.remarks} onChange={e => setFormData({...formData, remarks: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none transition-all h-20 resize-none" placeholder="Any specific instructions for the tailor or delivery runner?" />
                       </div>
 
                       <button type="submit" disabled={isSubmitting} className="w-full bg-[#E91E63] text-white py-4 rounded-xl font-bold text-lg tracking-wide hover:bg-[#C2185B] disabled:opacity-70 disabled:cursor-not-allowed transition-colors shadow-md mt-4">
@@ -514,7 +514,7 @@ function OrderSummaryContent({
 
   return (
     <>
-      <h3 className="text-xl font-serif font-bold text-gray-900 mb-6">Order Summary</h3>
+      <h3 className="text-xl font-serif font-bold text-gray-900 dark:text-white mb-6">Order Summary</h3>
       
       {/* Discount Code Input */}
       <div className="flex gap-2 mb-2">
@@ -523,7 +523,7 @@ function OrderSummaryContent({
           value={discountCode}
           onChange={(e) => setDiscountCode(e.target.value)}
           placeholder="Discount code" 
-          className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none text-sm uppercase transition-colors"
+          className="flex-1 px-4 py-2 border border-gray-200 dark:border-white/10 rounded-lg focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none text-sm uppercase transition-colors"
         />
         <button 
           onClick={handleApplyPromo}
@@ -547,17 +547,17 @@ function OrderSummaryContent({
           </div>
         </div>
       )}
-      <div className="space-y-4 text-sm text-gray-600 mb-6">
-        <div className="space-y-3 pb-4 border-b border-gray-100">
+      <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
+        <div className="space-y-3 pb-4 border-b border-gray-100 dark:border-white/5">
           {items.map((item: any) => (
             <div key={item.cartItemId} className="flex justify-between items-start text-xs">
               <div className="flex flex-col">
-                <span className="font-medium text-gray-800">{item.name} {item.quantity > 1 && `(x${item.quantity})`}</span>
+                <span className="font-medium text-gray-800 dark:text-gray-200">{item.name} {item.quantity > 1 && `(x${item.quantity})`}</span>
                 {item.addons.map((addon: any) => (
-                  <span key={addon.id} className="text-gray-400 text-[10px]">+ {addon.name}</span>
+                  <span key={addon.id} className="text-gray-400 dark:text-gray-500 text-[10px]">+ {addon.name}</span>
                 ))}
               </div>
-              <span className="font-medium text-gray-900">
+              <span className="font-medium text-gray-900 dark:text-white">
                 ₹{(item.basePrice + item.addons.reduce((s:number, a:any) => s+a.price, 0)) * item.quantity}
               </span>
             </div>
@@ -570,11 +570,11 @@ function OrderSummaryContent({
           </div>
           {isFreeEligible ? (
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 line-through text-xs">₹500</span>
+              <span className="text-gray-400 dark:text-gray-500 line-through text-xs">₹500</span>
               <span className="font-bold text-green-600">FREE</span>
             </div>
           ) : (
-            <span className="font-medium text-gray-900">₹500</span>
+            <span className="font-medium text-gray-900 dark:text-white">₹500</span>
           )}
         </div>
 
@@ -582,21 +582,21 @@ function OrderSummaryContent({
           <span>Delivery Charge</span>
           {isFreeEligible ? (
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 line-through text-xs">₹100</span>
+              <span className="text-gray-400 dark:text-gray-500 line-through text-xs">₹100</span>
               <span className="font-bold text-green-600">FREE</span>
             </div>
           ) : (
-            <span className="font-medium text-gray-900">₹100</span>
+            <span className="font-medium text-gray-900 dark:text-white">₹100</span>
           )}
         </div>
       </div>
 
-      <div className="border-t border-gray-100 pt-6 mb-6">
+      <div className="border-t border-gray-100 dark:border-white/5 pt-6 mb-6">
         <div className="flex justify-between items-end mb-4">
-          <span className="font-bold text-gray-900 text-lg">Total</span>
+          <span className="font-bold text-gray-900 dark:text-white text-lg">Total</span>
           <div className="text-right">
             {isFreeEligible && (
-              <div className="text-xs text-gray-400 line-through mb-1 font-medium">₹{cartTotal + 600}</div>
+              <div className="text-xs text-gray-400 dark:text-gray-500 line-through mb-1 font-medium">₹{cartTotal + 600}</div>
             )}
             <span className="font-bold text-[#E91E63] text-3xl">₹{finalTotal}</span>
           </div>

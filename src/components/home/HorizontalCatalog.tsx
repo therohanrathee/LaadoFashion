@@ -28,8 +28,8 @@ export default function HorizontalCatalog({ title, subtitle, description, items,
         className="max-w-7xl mx-auto text-center mb-12 px-6 relative z-5"
       >
         <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>{subtitle}</span>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">{title}</h2>
-        <p className="text-gray-500 max-w-xl mx-auto text-lg leading-relaxed inline-block px-4 py-1 rounded-full">
+        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">{title}</h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-lg leading-relaxed inline-block px-4 py-1 rounded-full">
           {description}
         </p>
       </motion.div>

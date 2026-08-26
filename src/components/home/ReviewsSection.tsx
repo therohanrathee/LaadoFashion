@@ -46,7 +46,7 @@ const SCROLLING_REVIEWS = [...REVIEWS, ...REVIEWS]
 
 export default function ReviewsSection() {
   return (
-    <section className="relative py-24 bg-[#FAF8F5] overflow-hidden">
+    <section className="relative py-24 bg-[#FAF8F5] dark:bg-[#0a0a0a] overflow-hidden">
       {/* Background Orbs to make the glassmorphic blur visible */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[20%] left-[10%] w-[40%] h-[60%] rounded-full bg-[#E91E63]/[0.08] blur-[120px]" />
@@ -55,10 +55,10 @@ export default function ReviewsSection() {
 
       <div className="relative z-5 max-w-7xl mx-auto px-6 mb-12 text-center">
         <span className="text-[#C5A55A] text-sm font-semibold uppercase tracking-[0.2em]">Testimonials</span>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-4 mb-4">
+        <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mt-4 mb-4">
           Loved by Our Customers
         </h2>
-        <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">
           See what our clients have to say about their custom tailoring experience with us.
         </p>
       </div>
@@ -66,10 +66,10 @@ export default function ReviewsSection() {
       {/* Marquee Container */}
       <div className="relative z-20 w-full flex overflow-hidden py-4">
         {/* Left Fade */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#FAF8F5] dark:from-[#0a0a0a] to-transparent z-10" />
         
         {/* Right Fade */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#FAF8F5] to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#FAF8F5] dark:from-[#0a0a0a] to-transparent z-10" />
 
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
@@ -83,7 +83,7 @@ export default function ReviewsSection() {
           {SCROLLING_REVIEWS.map((review, index) => (
             <div 
               key={index} 
-              className="w-80 md:w-96 shrink-0 bg-white/5 backdrop-blur-md border border-white/40 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
+              className="w-80 md:w-96 shrink-0 bg-white/5 dark:bg-[#1a1a1a] backdrop-blur-md border border-white/40 dark:border-white/5 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)] flex flex-col"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -91,8 +91,8 @@ export default function ReviewsSection() {
                     {review.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 text-sm">{review.name}</h3>
-                    <p className="text-xs text-gray-500">{review.date}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{review.name}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{review.date}</p>
                   </div>
                 </div>
                 {/* Google "G" Logo Icon */}
@@ -117,7 +117,7 @@ export default function ReviewsSection() {
                 ))}
               </div>
               
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                 "{review.text}"
               </p>
             </div>

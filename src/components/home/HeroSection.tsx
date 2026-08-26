@@ -7,7 +7,7 @@ import SplitBookButton from '@/components/ui/SplitBookButton'
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF8F5] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-center">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] dark:bg-[#0a0a0a] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-center">
       
       {/* Mobile Background Image (Starts below the header to prevent muddying the translucent navbar) */}
       <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-black">
@@ -24,7 +24,7 @@ export default function HeroSection() {
       </div>
 
       {/* Desktop Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#f3ece2]/50 via-[#FAF8F5] to-[#FAF8F5] hidden lg:block z-0" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f3ece2]/50 via-[#FAF8F5] to-[#FAF8F5] dark:from-black dark:via-[#0a0a0a] dark:to-[#0a0a0a] hidden lg:block z-0" />
       <div 
         className="absolute inset-0 opacity-[0.04] hidden lg:block"
         style={{ backgroundImage: `radial-gradient(circle, #E91E63 0.8px, transparent 0.8px)`, backgroundSize: '32px 32px' }}
@@ -44,27 +44,27 @@ export default function HeroSection() {
               <span className="text-[#E91E63] text-xs md:text-sm tracking-wide font-semibold uppercase">Doorstep Tailoring Service</span>
             </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl lg:text-[4rem] font-serif font-bold leading-[1.08] mb-6 text-white lg:text-[#1a1a1a]">
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="text-5xl sm:text-6xl lg:text-[4rem] font-serif font-bold leading-[1.08] mb-6 text-white lg:text-[#1a1a1a] dark:lg:text-white">
               Laado Fashion<br className="hidden sm:block" /><span className="text-[#C5A55A]">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
             </motion.h1>
 
             {/* Trust Indicators / Infographic Bar */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8">
-               <div className="flex items-center gap-2 bg-white/10 lg:bg-white backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100">
+               <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20">
                   <Ruler className="w-4 h-4 text-white lg:text-[#C5A55A]" />
-                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700">Home Measurement</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Home Measurement</span>
                </div>
-               <div className="flex items-center gap-2 bg-white/10 lg:bg-white backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100">
+               <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20">
                   <Scissors className="w-4 h-4 text-[#E91E63]" />
-                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700">Custom Stitched</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">Custom Stitched</span>
                </div>
-               <div className="flex items-center gap-2 bg-white/10 lg:bg-white backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 hidden sm:flex">
+               <div className="flex items-center gap-2 bg-white/10 lg:bg-white dark:lg:bg-white/10 backdrop-blur-md lg:backdrop-blur-none px-3 py-2 rounded-lg shadow-sm border border-white/20 lg:border-gray-100 dark:lg:border-white/20 hidden sm:flex">
                   <Truck className="w-4 h-4 text-white lg:text-[#C5A55A]" />
-                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700">7-Day Delivery</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white lg:text-gray-700 dark:lg:text-gray-200">7-Day Delivery</span>
                </div>
             </motion.div>
 
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-base lg:text-lg text-gray-200 lg:text-gray-600 font-light max-w-sm sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-base lg:text-lg text-gray-200 lg:text-gray-600 dark:lg:text-gray-300 font-light max-w-sm sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
               We bring the master tailor to your living room. Skip the boutique visits and get perfectly fitted bespoke clothing crafted exclusively for you.
             </motion.p>
 
@@ -86,8 +86,8 @@ export default function HeroSection() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.2 }} className="mt-10 lg:mt-12 flex gap-8">
               {[ { number: '650+', label: 'Happy Clients' }, { number: '4.9★', label: 'Google Rating' } ].map((stat, i) => (
                 <div key={i}>
-                  <div className="text-2xl lg:text-3xl font-serif font-bold text-white lg:text-[#1a1a1a]">{stat.number}</div>
-                  <div className="text-[10px] lg:text-xs text-gray-400 lg:text-gray-500 uppercase tracking-wider mt-1">{stat.label}</div>
+                  <div className="text-2xl lg:text-3xl font-serif font-bold text-white lg:text-[#1a1a1a] dark:lg:text-white">{stat.number}</div>
+                  <div className="text-[10px] lg:text-xs text-gray-400 lg:text-gray-500 dark:lg:text-gray-400 uppercase tracking-wider mt-1">{stat.label}</div>
                 </div>
               ))}
             </motion.div>

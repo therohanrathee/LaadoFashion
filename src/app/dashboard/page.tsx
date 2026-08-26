@@ -110,17 +110,17 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
-        <h1 className="font-serif font-bold text-[#1a1a1a] text-xl tracking-tight whitespace-nowrap">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] dark:bg-[#0a0a0a]">
+      <header className="bg-white dark:bg-[#141414] dark:bg-[#141414] shadow-sm px-6 py-4 flex justify-between items-center">
+        <h1 className="font-serif font-bold text-[#1a1a1a] dark:text-white dark:text-white text-xl tracking-tight whitespace-nowrap">
           Laado Fashion <span className="text-[#C5A55A] font-sans px-0.5 text-sm">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
         </h1>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300">
             {profile?.full_name} ({profile?.role})
           </span>
           <form action={logout}>
-            <button className="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded">
+            <button className="text-sm bg-gray-100 dark:bg-white/5 dark:bg-white dark:bg-[#141414]/5 hover:bg-gray-200 dark:bg-white/10 dark:bg-white dark:bg-[#141414]/10 px-3 py-1 rounded">
               Logout
             </button>
           </form>

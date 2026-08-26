@@ -7,6 +7,13 @@
   --foreground: #1a1a1a;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #f3f4f6;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -15,8 +22,8 @@
 }
 
 body {
-  background: #FAF8F5;
-  color: #1a1a1a;
+  background: var(--background);
+  color: var(--foreground);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }

@@ -41,21 +41,21 @@ function TrackContent() {
   }
 
   return (
-    <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-      <h1 className="text-3xl font-serif font-bold text-[#1a1a1a] mb-2 text-center">Track Order</h1>
-      <p className="text-gray-500 text-center mb-8 text-sm">
+    <div className="max-w-md w-full bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
+      <h1 className="text-3xl font-serif font-bold text-[#1a1a1a] dark:text-white mb-2 text-center">Track Order</h1>
+      <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-center mb-8 text-sm">
         Enter the tracking ID from your confirmation email.
       </p>
       
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-700">Order ID</label>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Order ID</label>
           <input
             type="text"
             placeholder="e.g. 123e4567-e89b-12d3..."
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] font-mono text-sm"
+            className="w-full border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] font-mono text-sm"
           />
         </div>
         
@@ -75,8 +75,8 @@ function TrackContent() {
       )}
 
       {status && (
-        <div className="mt-8 pt-6 border-t border-gray-100">
-          <h3 className="font-semibold text-gray-900 mb-4">Current Status:</h3>
+        <div className="mt-8 pt-6 border-t border-gray-100 dark:border-white/5">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Current Status:</h3>
           <div className="bg-pink-50 border border-pink-100 rounded-xl p-5">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded-full bg-[#E91E63] flex items-center justify-center text-white shrink-0">
@@ -89,7 +89,7 @@ function TrackContent() {
                  status === 'delivered' ? 'Delivered' : status}
               </h4>
             </div>
-            <p className="text-gray-600 text-sm pl-11">
+            <p className="text-gray-600 dark:text-gray-300 text-sm pl-11">
               {status === 'pending_measurement' ? 'Our runner will contact you soon to visit your home, collect fabric, and take measurements.' :
                'Your order is progressing smoothly.'}
             </p>
@@ -102,7 +102,7 @@ function TrackContent() {
 
 export default function TrackPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5] flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
       <main className="flex-grow flex items-center justify-center pt-32 pb-12 px-4">

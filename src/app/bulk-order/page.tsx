@@ -26,7 +26,7 @@ export default function BulkOrderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
       <main className="flex-grow pt-32 pb-20 px-6">
@@ -34,10 +34,10 @@ export default function BulkOrderPage() {
           
           {/* Contact Information Side */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mb-6">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mb-6">
               Bulk Orders & Contact
             </h1>
-            <p className="text-gray-600 text-lg mb-12">
+            <p className="text-gray-600 dark:text-gray-300 text-lg mb-12">
               Whether you're looking for wedding trousseaus or large boutique orders, our team is ready to deliver premium quality at scale.
             </p>
 
@@ -50,9 +50,9 @@ export default function BulkOrderPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Phone Numbers</h3>
-                  <a href="tel:+917011917290" className="block text-gray-600 hover:text-[#E91E63]">+91 7011917290</a>
-                  <a href="tel:+919716299990" className="block text-gray-600 hover:text-[#E91E63]">+91 9716299990</a>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">Phone Numbers</h3>
+                  <a href="tel:+917011917290" className="block text-gray-600 dark:text-gray-300 hover:text-[#E91E63]">+91 7011917290</a>
+                  <a href="tel:+919716299990" className="block text-gray-600 dark:text-gray-300 hover:text-[#E91E63]">+91 9716299990</a>
                 </div>
               </div>
 
@@ -65,22 +65,22 @@ export default function BulkOrderPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                  <a href="mailto:contact@laadoboutique.in" className="text-gray-600 hover:text-[#E91E63]">contact@laadoboutique.in</a>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">Email</h3>
+                  <a href="mailto:contact@laadoboutique.in" className="text-gray-600 dark:text-gray-300 hover:text-[#E91E63]">contact@laadoboutique.in</a>
                 </div>
               </div>
 
               {/* Address */}
               <div className="flex items-start gap-4">
-                <div className="bg-[#1a1a1a]/5 p-3 rounded-full text-gray-700">
+                <div className="bg-[#1a1a1a]/5 p-3 rounded-full text-gray-700 dark:text-gray-300">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
                     <circle cx="12" cy="10" r="3"/>
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Visit Us</h3>
-                  <p className="text-gray-600 mb-2">Laado Boutique, Ashok Vihar, Gurugram, India</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">Visit Us</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-2">Laado Boutique, Ashok Vihar, Gurugram, India</p>
                   <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-[#C5A55A] hover:text-[#E91E63]">
                     Get Directions &rarr;
                   </a>
@@ -90,8 +90,8 @@ export default function BulkOrderPage() {
           </div>
 
           {/* Form Side */}
-          <div className="bg-white p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100">
-            <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">Send an Inquiry</h2>
+          <div className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 dark:border-white/5">
+            <h2 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-6">Send an Inquiry</h2>
             
             {status === 'success' ? (
               <div className="bg-green-50 border border-green-200 text-green-800 p-6 rounded-xl text-center">
@@ -119,52 +119,52 @@ export default function BulkOrderPage() {
                 )}
                 
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Name</label>
+                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Name</label>
                   <input 
                     type="text" 
                     id="name" 
                     name="name" 
                     required
                     disabled={status === 'loading'}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
                     placeholder="Your Full Name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Phone Number <span className="text-red-500">*</span></label>
                   <input 
                     type="tel" 
                     id="phone" 
                     name="phone" 
                     required
                     disabled={status === 'loading'}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
                     placeholder="Your Phone Number"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">Email Address <span className="text-gray-400 font-normal">(Optional)</span></label>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Email Address <span className="text-gray-400 dark:text-gray-500 font-normal">(Optional)</span></label>
                   <input 
                     type="email" 
                     id="email" 
                     name="email" 
                     disabled={status === 'loading'}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all"
                     placeholder="you@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="details" className="block text-sm font-semibold text-gray-700 mb-2">Brief Details</label>
+                  <label htmlFor="details" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Brief Details</label>
                   <textarea 
                     id="details" 
                     name="details" 
                     required
                     disabled={status === 'loading'}
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all resize-none"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all resize-none"
                     placeholder="Tell us about your bulk order requirements..."
                   ></textarea>
                 </div>

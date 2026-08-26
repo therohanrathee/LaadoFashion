@@ -33,13 +33,13 @@ export default function RunnerPortal({ orders }: { orders: Order[] }) {
       <h2 className="text-2xl font-semibold mb-4">Your Assigned Tasks</h2>
       
       {orders.length === 0 ? (
-        <div className="bg-white p-6 rounded shadow-sm border text-gray-500">
+        <div className="bg-white dark:bg-[#141414] dark:bg-[#141414] p-6 rounded shadow-sm border text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500">
           You have no tasks assigned currently.
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {orders.map(order => (
-            <div key={order.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div key={order.id} className="bg-white dark:bg-[#141414] dark:bg-[#141414] p-6 rounded-lg shadow-sm border border-gray-200 dark:border-white/10 dark:border-white/10">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-semibold text-lg">{order.customer.full_name}</h3>
@@ -47,13 +47,13 @@ export default function RunnerPortal({ orders }: { orders: Order[] }) {
                     {order.customer.phone}
                   </a>
                 </div>
-                <span className="bg-gray-100 px-2 py-1 text-xs rounded text-gray-600 font-medium">
+                <span className="bg-gray-100 dark:bg-white/5 dark:bg-white dark:bg-[#141414]/5 px-2 py-1 text-xs rounded text-gray-600 dark:text-gray-300 dark:text-gray-300 font-medium">
                   {order.status.replace(/_/g, ' ').toUpperCase()}
                 </span>
               </div>
               
               <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-2">{order.address}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-300 mb-2">{order.address}</p>
                 <button 
                   onClick={() => handleDirections(order.address)}
                   className="text-sm text-blue-600 hover:underline flex items-center gap-1"

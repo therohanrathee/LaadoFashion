@@ -33,15 +33,15 @@ export default function TailoringProcess() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-16 lg:py-24 bg-white relative" ref={ref}>
+    <section className="py-16 lg:py-24 bg-white dark:bg-[#0a0a0a] relative" ref={ref}>
       <div className="max-w-7xl mx-auto px-6 relative z-20">
         
         {/* Mobile Title (Appears above the image) */}
         <div className="lg:hidden text-center mb-10">
           <span className="text-[#E91E63] text-xs font-semibold uppercase tracking-[0.2em] mb-3 block">Bespoke Services</span>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1a1a1a] leading-tight">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1a1a1a] dark:text-white leading-tight">
             Not just ready-made. <br/>
-            <span className="italic font-light text-gray-500">True Custom Tailoring.</span>
+            <span className="italic font-light text-gray-500 dark:text-gray-400">True Custom Tailoring.</span>
           </h2>
         </div>
 
@@ -71,9 +71,9 @@ export default function TailoringProcess() {
             </div>
             
             {/* Floating badge */}
-            <div className="absolute -right-2 -top-4 sm:-right-4 sm:-top-4 lg:-right-6 lg:-top-6 bg-white p-3 sm:p-4 lg:p-5 rounded-xl lg:rounded-2xl shadow-xl lg:shadow-2xl border border-gray-100 z-10">
+            <div className="absolute -right-2 -top-4 sm:-right-4 sm:-top-4 lg:-right-6 lg:-top-6 bg-white dark:bg-[#1a1a1a] p-3 sm:p-4 lg:p-5 rounded-xl lg:rounded-2xl shadow-xl lg:shadow-2xl border border-gray-100 dark:border-white/10 z-10">
               <div className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#E91E63] font-bold mb-0.5 lg:mb-1">20+</div>
-              <div className="text-[9px] sm:text-[10px] lg:text-xs text-gray-800 font-bold uppercase tracking-wider leading-tight">Years of Experience</div>
+              <div className="text-[9px] sm:text-[10px] lg:text-xs text-gray-800 dark:text-gray-300 font-bold uppercase tracking-wider leading-tight">Years of Experience</div>
             </div>
           </motion.div>
 
@@ -87,25 +87,25 @@ export default function TailoringProcess() {
             {/* Desktop Title */}
             <div className="hidden lg:block">
               <span className="text-[#E91E63] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Bespoke Services</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] dark:text-white mb-6 leading-tight">
                 Not just ready-made. <br/>
-                <span className="italic font-light text-gray-500">True Custom Tailoring.</span>
+                <span className="italic font-light text-gray-500 dark:text-gray-400">True Custom Tailoring.</span>
               </h2>
             </div>
             
-            <p className="text-gray-600 text-base lg:text-lg mb-10 leading-relaxed text-center lg:text-left">
+            <p className="text-gray-600 dark:text-gray-300 text-base lg:text-lg mb-10 leading-relaxed text-center lg:text-left">
               We bring the premium boutique experience directly to your living room. Our garments aren&apos;t pulled from a rack—they are brought to life from scratch, uniquely patterned and stitched just for you.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-x-8 lg:gap-y-10">
               {features.map((feature, i) => (
-                <div key={i} className="flex gap-4 lg:flex-col items-start lg:items-stretch bg-gray-50/50 lg:bg-transparent p-4 rounded-2xl lg:p-0 lg:rounded-none border border-gray-100/50 lg:border-none">
+                <div key={i} className="flex gap-4 lg:flex-col items-start lg:items-stretch bg-gray-50/50 dark:bg-white/5 lg:bg-transparent lg:dark:bg-transparent p-4 rounded-2xl lg:p-0 lg:rounded-none border border-gray-100/50 dark:border-white/5 lg:border-none lg:dark:border-none">
                   <div className="w-12 h-12 lg:w-10 lg:h-10 rounded-full bg-[#C5A55A]/10 flex items-center justify-center shrink-0">
                     {feature.icon}
                   </div>
                   <div>
-                    <h4 className="text-[#1a1a1a] font-semibold text-base lg:text-lg mb-1 lg:mb-3 mt-0.5 lg:mt-0">{feature.title}</h4>
-                    <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+                    <h4 className="text-[#1a1a1a] dark:text-white font-semibold text-base lg:text-lg mb-1 lg:mb-3 mt-0.5 lg:mt-0">{feature.title}</h4>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               ))}

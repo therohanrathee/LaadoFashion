@@ -17,9 +17,9 @@ interface ProductCardProps {
 export default function ProductCard({ item }: ProductCardProps) {
   return (
     <div className="w-full group relative">
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white border border-gray-100 flex flex-col">
+      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white dark:bg-[#141414] border border-gray-100 dark:border-white/5 flex flex-col">
         {/* Image Container */}
-        <div className="relative w-full bg-gray-50">
+        <div className="relative w-full bg-gray-50 dark:bg-black">
           <img 
             src={item.image} 
             alt={item.name} 
@@ -30,17 +30,17 @@ export default function ProductCard({ item }: ProductCardProps) {
         
           {/* Text Area Below Image */}
         <div className="px-4 py-4 flex flex-col gap-1.5 flex-grow justify-between relative">
-          <h3 className="text-[14px] md:text-[15px] font-sans font-semibold tracking-tight text-gray-900 leading-tight pr-8">
+          <h3 className="text-[14px] md:text-[15px] font-sans font-semibold tracking-tight text-gray-900 dark:text-gray-100 leading-tight pr-8">
             {item.name}
           </h3>
           
           <div className="flex items-baseline gap-1.5 mt-1 pr-8">
             {item.originalPrice && (
-              <span className="text-[10px] md:text-xs font-medium text-gray-400 line-through decoration-gray-400 mr-1">
+              <span className="text-[10px] md:text-xs font-medium text-gray-400 dark:text-gray-500 line-through decoration-gray-400 dark:decoration-gray-500 mr-1">
                 ₹{item.originalPrice}
               </span>
             )}
-            <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500">From</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500 dark:text-gray-400">From</span>
             <span className="text-[16px] md:text-lg font-bold text-[#E91E63]">₹{item.basePrice}</span>
           </div>
 
@@ -61,8 +61,8 @@ export default function ProductCard({ item }: ProductCardProps) {
         
         {/* Inactive Overlay */}
         {item.isActive === false && (
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-30 flex items-center justify-center">
-            <span className="bg-white px-4 py-2 rounded-lg text-sm font-bold text-gray-700 shadow-sm border border-gray-100 transform -rotate-12">
+          <div className="absolute inset-0 bg-white/60 dark:bg-black/60 backdrop-blur-[2px] z-30 flex items-center justify-center">
+            <span className="bg-white dark:bg-[#1a1a1a] px-4 py-2 rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 shadow-sm border border-gray-100 dark:border-white/10 transform -rotate-12">
               {item.category === 'Jutti' ? 'Out of stock' : 'Not available currently'}
             </span>
           </div>
