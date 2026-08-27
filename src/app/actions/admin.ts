@@ -116,8 +116,8 @@ export async function validatePromoCode(code: string, customerId: string, cartTo
   }
   
   // 3. Check Minimum Order Amount
-  if (promo.min_order_amount && cartTotal < promo.min_order_amount) {
-    return { error: `This code requires a minimum order of ₹${promo.min_order_amount}.` }
+  if (promo.min_cart_value && cartTotal < promo.min_cart_value) {
+    return { error: `This code requires a minimum order of ₹${promo.min_cart_value}.` }
   }
   
   // 4. Check Global Usage Limit
