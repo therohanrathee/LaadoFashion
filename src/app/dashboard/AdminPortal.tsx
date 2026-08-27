@@ -275,7 +275,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                         <td className="px-4 py-3 font-mono font-bold text-[#E91E63]">{promo.code}</td>
                         <td className="px-4 py-3">
                           <span className="capitalize">{promo.discount_type.replace('_', ' ')}</span>
-                          {promo.discount_amount && ` (₹${promo.discount_amount})`}
+                          {promo.discount_value && ` (₹${promo.discount_value})`}
                         </td>
                         <td className="px-4 py-3 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500">
                           {promo.min_order_amount && <div>Min: ₹{promo.min_order_amount}</div>}

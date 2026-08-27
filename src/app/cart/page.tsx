@@ -82,7 +82,7 @@ export default function CartPage() {
       if (promoData.discount_type === 'free_visit') visitCharge = 0;
       if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
       
-      const discountAmount = Number(promoData.discount_amount) || 0;
+      const discountAmount = Number(promoData.discount_value) || 0;
       
       if (promoData.discount_type === 'fixed_amount') customDiscount = discountAmount;
       if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (discountAmount / 100);
@@ -537,7 +537,7 @@ function OrderSummaryContent({
     if (promoData.discount_type === 'free_visit') visitCharge = 0;
     if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
     
-    const discountAmount = Number(promoData.discount_amount) || 0;
+    const discountAmount = Number(promoData.discount_value) || 0;
     
     if (promoData.discount_type === 'fixed_amount') customDiscount = discountAmount;
     if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (discountAmount / 100);
