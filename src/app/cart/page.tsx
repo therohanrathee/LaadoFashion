@@ -72,20 +72,24 @@ export default function CartPage() {
     setIsSubmitting(true)
     
     const isFreeEligible = cartTotal >= 1000;
+    const onlyJuttis = items.length > 0 && items.every((item: any) => item.name.toLowerCase().includes('jutti'));
     
-    let visitCharge = isFreeEligible ? 0 : 500;
+    let visitCharge = isFreeEligible || onlyJuttis ? 0 : 500;
     let deliveryCharge = isFreeEligible ? 0 : 100;
     let customDiscount = 0;
 
     if (promoData) {
       if (promoData.discount_type === 'free_visit') visitCharge = 0;
       if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
-      if (promoData.discount_type === 'fixed_amount') customDiscount = promoData.discount_amount;
-      if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (promoData.discount_amount / 100);
+      
+      const discountAmount = Number(promoData.discount_amount) || 0;
+      
+      if (promoData.discount_type === 'fixed_amount') customDiscount = discountAmount;
+      if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (discountAmount / 100);
     }
     
     const finalTotal = cartTotal + visitCharge + deliveryCharge - customDiscount;
-    const discountApplied = (isFreeEligible ? 600 : 0) + customDiscount;
+    const discountApplied = (isFreeEligible ? 600 : 0) + customDiscount + (onlyJuttis && !isFreeEligible ? 500 : 0);
 
     const supabase = createClient()
     
@@ -523,20 +527,24 @@ function OrderSummaryContent({
   setIsApplyingPromo
 }: any) {
   const isFreeEligible = cartTotal >= 1000;
+  const onlyJuttis = items.length > 0 && items.every((item: any) => item.name.toLowerCase().includes('jutti'));
   
-  let visitCharge = isFreeEligible ? 0 : 500;
+  let visitCharge = isFreeEligible || onlyJuttis ? 0 : 500;
   let deliveryCharge = isFreeEligible ? 0 : 100;
   let customDiscount = 0;
 
   if (promoData) {
     if (promoData.discount_type === 'free_visit') visitCharge = 0;
     if (promoData.discount_type === 'free_delivery') deliveryCharge = 0;
-    if (promoData.discount_type === 'fixed_amount') customDiscount = promoData.discount_amount;
-    if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (promoData.discount_amount / 100);
+    
+    const discountAmount = Number(promoData.discount_amount) || 0;
+    
+    if (promoData.discount_type === 'fixed_amount') customDiscount = discountAmount;
+    if (promoData.discount_type === 'percentage') customDiscount = cartTotal * (discountAmount / 100);
   }
   
   const finalTotal = cartTotal + visitCharge + deliveryCharge - customDiscount;
-  const totalSavings = (isFreeEligible ? 600 : 0) + customDiscount;
+  const totalSavings = (isFreeEligible ? 600 : 0) + customDiscount + (onlyJuttis && !isFreeEligible ? 500 : 0);
   
   const amountToFree = 1000 - cartTotal;
 
