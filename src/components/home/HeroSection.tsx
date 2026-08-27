@@ -10,17 +10,19 @@ export default function HeroSection() {
     <section className="relative w-full overflow-hidden bg-[#FAF8F5] dark:bg-[#0a0a0a] pt-[72px] lg:pt-[80px] min-h-[calc(100vh-72px)] lg:min-h-[calc(100vh-80px)] flex items-start lg:items-center">
       
       {/* Mobile Background Image (Starts below the header to prevent muddying the translucent navbar) */}
-      <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-black">
+      <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-[#0a0a0a]">
         <Image 
-          src="/images/home/mobile_hero_tailor_v5.jpg" 
+          src="/images/home/hero_sewing_machine.jpg" 
           alt="Master tailor" 
           fill 
-          className="object-cover"
+          className="object-cover object-[75%_bottom]"
           priority
           sizes="100vw"
         />
         {/* Gradient to darken the left side for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/90 via-[#0a0a0a]/50 to-transparent" />
+        {/* Gradient to darken the top for text readability and seamless transition */}
+        <div className="absolute top-0 left-0 right-0 h-[60%] bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent" />
       </div>
 
       {/* Desktop Background elements */}
