@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <rect width="500" height="500" fill="#0a0a0a"/>
+  <!-- Elegant Circle -->
+  <circle cx="250" cy="250" r="200" fill="none" stroke="#C5A55A" stroke-width="8"/>
+  <circle cx="250" cy="250" r="185" fill="none" stroke="#C5A55A" stroke-width="2" stroke-dasharray="10 10"/>
+  <!-- Needle -->
+  <path d="M 230 150 L 240 370 L 250 150 Z" fill="#E91E63"/>
+  <circle cx="240" cy="170" r="3" fill="#0a0a0a"/>
+  <!-- Thread -->
+  <path d="M 240 170 C 180 100, 320 100, 260 250 C 200 400, 320 400, 270 300" fill="none" stroke="#C5A55A" stroke-width="4"/>
+  <!-- Text -->
+  <text x="250" y="420" font-family="Georgia, serif" font-size="42" fill="#ffffff" text-anchor="middle" font-weight="bold" letter-spacing="4">LAADO</text>
+  <text x="250" y="455" font-family="Arial, sans-serif" font-size="16" fill="#C5A55A" text-anchor="middle" letter-spacing="8">FASHION &amp; BOUTIQUE</text>
+</svg>
