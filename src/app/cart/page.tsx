@@ -139,8 +139,7 @@ export default function CartPage() {
       discount_applied: discountApplied,
       total_amount: finalTotal,
       status: 'pending_measurement',
-      promo_code_id: promoData?.id || null,
-      promo_code_code: promoData?.code || null
+      promo_code_id: promoData?.id || null
     }]).select()
 
     if (error) {
