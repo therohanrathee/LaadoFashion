@@ -105,6 +105,20 @@ export default function CartPage() {
       customerId = crypto.randomUUID();
     }
 
+    // 2. Re-validate Promo Code with actual customer details
+    if (promoData) {
+      const { validatePromoCode } = await import('@/app/actions/admin')
+      const promoRes = await validatePromoCode(promoData.code, customerId, cartTotal)
+      
+      if (promoRes.error) {
+        alert(`Promo Code Ineligible: ${promoRes.error}`)
+        setPromoError(promoRes.error)
+        setPromoData(null)
+        setIsSubmitting(false)
+        return
+      }
+    }
+
     const { data, error } = await supabase.from('orders').insert([{
       customer_id: customerId,
       customer_name: formData.name,
