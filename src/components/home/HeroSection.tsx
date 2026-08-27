@@ -64,8 +64,8 @@ export default function HeroSection() {
                </div>
             </motion.div>
 
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-base lg:text-lg text-gray-200 lg:text-gray-600 dark:lg:text-gray-300 font-light max-w-sm sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
-              We bring the master tailor to your living room in Gurugram. Skip the boutique visits and get professional 2-piece suits, bridal lehengas, and bespoke stitching crafted exclusively for you.
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="text-base lg:text-lg text-gray-200 lg:text-gray-600 dark:lg:text-gray-300 font-light max-w-[280px] sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
+              Premium bespoke tailoring at your doorstep in Gurugram. Custom suits and bridal lehengas, crafted exclusively for you.
             </motion.p>
 
             {/* CTA Area */}
