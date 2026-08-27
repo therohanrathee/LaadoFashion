@@ -207,7 +207,22 @@ export default function CartPage() {
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 h-fit sticky top-32 lg:col-span-1 w-full"
                   >
-                    <OrderSummaryContent items={items} cartTotal={cartTotal} step={step} onProceed={() => setStep('checkout')} />
+                    <OrderSummaryContent 
+                      items={items} 
+                      cartTotal={cartTotal} 
+                      step={step} 
+                      onProceed={() => setStep('checkout')} 
+                      discountCode={discountCode}
+                      setDiscountCode={setDiscountCode}
+                      promoError={promoError}
+                      setPromoError={setPromoError}
+                      promoSuccess={promoSuccess}
+                      setPromoSuccess={setPromoSuccess}
+                      promoData={promoData}
+                      setPromoData={setPromoData}
+                      isApplyingPromo={isApplyingPromo}
+                      setIsApplyingPromo={setIsApplyingPromo}
+                    />
                   </motion.div>
                 )}
 
@@ -388,7 +403,22 @@ export default function CartPage() {
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 h-fit sticky top-32 lg:col-span-1 w-full"
                   >
-                    <OrderSummaryContent items={items} cartTotal={cartTotal} step={step} onProceed={() => setStep('checkout')} />
+                    <OrderSummaryContent 
+                      items={items} 
+                      cartTotal={cartTotal} 
+                      step={step} 
+                      onProceed={() => setStep('checkout')} 
+                      discountCode={discountCode}
+                      setDiscountCode={setDiscountCode}
+                      promoError={promoError}
+                      setPromoError={setPromoError}
+                      promoSuccess={promoSuccess}
+                      setPromoSuccess={setPromoSuccess}
+                      promoData={promoData}
+                      setPromoData={setPromoData}
+                      isApplyingPromo={isApplyingPromo}
+                      setIsApplyingPromo={setIsApplyingPromo}
+                    />
                   </motion.div>
                 )}
 
