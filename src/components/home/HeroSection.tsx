@@ -12,10 +12,10 @@ export default function HeroSection() {
       {/* Mobile Background Image (Starts below the header to prevent muddying the translucent navbar) */}
       <div className="absolute top-[72px] lg:top-0 left-0 right-0 bottom-0 z-0 lg:hidden block bg-[#0a0a0a]">
         <Image 
-          src="/images/home/hero_sewing_machine.jpg" 
+          src="/images/home/mobile_hero_tailor_v6.jpg" 
           alt="Master tailor" 
           fill 
-          className="object-cover object-[75%_bottom]"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
