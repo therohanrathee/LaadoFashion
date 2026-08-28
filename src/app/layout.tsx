@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     "safari suit stitching", "western dress stitching", "online tailor Gurugram",
     "best ladies tailor in Gurugram", "best gents tailor in Gurugram"
   ],
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: [
+      { url: '/apple-touch-icon.png' },
+      { url: '/apple-icon.png' }
+    ],
+  },
   alternates: {
     canonical: '/',
   },
