@@ -1,12 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { savePushSubscription } from '@/app/actions/push'
+
+// Utility to convert Base64 string to Uint8Array
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+  const rawData = window.atob(base64)
+  const outputArray = new Uint8Array(rawData.length)
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i)
+  }
+  return outputArray
+}
 
 export default function NotificationManager({ userId, userRole }: { userId: string, userRole: string }) {
   const [permission, setPermission] = useState<NotificationPermission>('default')
   const [showBanner, setShowBanner] = useState(false)
-  const supabase = createClient()
 
   useEffect(() => {
     if (!('Notification' in window)) return
@@ -17,13 +28,29 @@ export default function NotificationManager({ userId, userRole }: { userId: stri
     }
 
     if (Notification.permission === 'granted') {
-      setupRealtimeSubscriptions()
+      subscribeUserToPush()
     }
+  }, [userId])
 
-    return () => {
-      supabase.removeAllChannels()
+  const subscribeUserToPush = async () => {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return
+
+    try {
+      // 1. Register the Service Worker
+      const registration = await navigator.serviceWorker.register('/sw.js')
+      
+      // 2. Wait until SW is active (or check existing)
+      const subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!)
+      })
+      
+      // 3. Send subscription to server
+      await savePushSubscription(JSON.parse(JSON.stringify(subscription)))
+    } catch (error) {
+      console.error('Error subscribing to push notifications', error)
     }
-  }, [userId, userRole])
+  }
 
   const requestPermission = async () => {
     if (!('Notification' in window)) return
@@ -33,54 +60,20 @@ export default function NotificationManager({ userId, userRole }: { userId: stri
     
     if (result === 'granted') {
       setShowBanner(false)
-      new Notification('Laado Fashion', {
-        body: 'Notifications are now enabled!',
-        icon: '/icon.png'
-      })
-      setupRealtimeSubscriptions()
+      await subscribeUserToPush()
+      
+      // Test Notification via Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+          registration.showNotification('Laado Fashion', {
+            body: 'Background push notifications are now active!',
+            icon: '/icon.png'
+          })
+        })
+      }
     } else {
       setShowBanner(false)
     }
-  }
-
-  const setupRealtimeSubscriptions = () => {
-    const channel = supabase.channel('dashboard-notifications')
-
-    if (userRole === 'admin') {
-      // Listen for NEW normal orders
-      channel.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
-        new Notification('New Order Received!', {
-          body: `Order #${payload.new.id.split('-')[0]} has been placed.`,
-          icon: '/icon.png'
-        })
-      })
-
-      // Listen for NEW bulk orders
-      channel.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bulk_orders' }, (payload) => {
-        new Notification('New Bulk Order Request!', {
-          body: `A new bulk order request has been submitted.`,
-          icon: '/icon.png'
-        })
-      })
-    }
-
-    if (userRole === 'runner') {
-      // Listen for ASSIGNMENTS
-      channel.on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, (payload) => {
-        const oldRecord = payload.old
-        const newRecord = payload.new
-        
-        // If it was just assigned to THIS runner
-        if (newRecord.runner_id === userId && oldRecord.runner_id !== userId) {
-          new Notification('New Assignment!', {
-            body: `You have been assigned a new order in your queue.`,
-            icon: '/icon.png'
-          })
-        }
-      })
-    }
-
-    channel.subscribe()
   }
 
   if (!showBanner) return null

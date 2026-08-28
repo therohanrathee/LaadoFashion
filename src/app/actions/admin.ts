@@ -12,11 +12,18 @@ export async function updateOrderStatus(orderId: string, status: string) {
   return { success: true }
 }
 
+import { notifyRunnerAssignment } from './notify'
+
 export async function assignOrderStaff(orderId: string, staffId: string, type: 'runner' | 'tailor') {
   const supabase = await createClient()
   const column = type === 'runner' ? 'runner_id' : 'tailor_id'
   const { error } = await supabase.from('orders').update({ [column]: staffId || null }).eq('id', orderId)
   if (error) return { error: error.message }
+  
+  if (type === 'runner' && staffId) {
+    await notifyRunnerAssignment(staffId).catch(console.error)
+  }
+  
   revalidatePath('/dashboard')
   return { success: true }
 }

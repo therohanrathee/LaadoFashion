@@ -154,6 +154,11 @@ export default function CartPage() {
       return
     }
 
+    // Notify admins of new order (runs in background)
+    import('@/app/actions/notify').then(({ notifyAdminsNewOrder }) => {
+      notifyAdminsNewOrder(data[0].id)
+    })
+
     // Attempt to send email if provided (runs in background)
     if (formData.email) {
       import('@/app/actions/email').then(({ sendOrderConfirmationEmail }) => {

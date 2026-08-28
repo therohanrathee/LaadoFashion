@@ -46,6 +46,8 @@ export async function reclusterOrders() {
   const clusters = kMeansClustering(ordersToCluster, k)
 
   // 4. Assign clusters to runners
+  const { notifyRunnerAssignment } = await import('./notify')
+
   for (let i = 0; i < k; i++) {
     const runnerId = runners[i].id
     const cluster = clusters[i]
@@ -58,6 +60,8 @@ export async function reclusterOrders() {
         .from('orders')
         .update({ runner_id: runnerId })
         .in('id', orderIds)
+        
+      await notifyRunnerAssignment(runnerId).catch(console.error)
     }
   }
   
