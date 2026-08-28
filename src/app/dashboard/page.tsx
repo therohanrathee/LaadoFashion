@@ -28,7 +28,7 @@ export default async function DashboardPage() {
   if (profile?.role === 'runner') {
     const { data } = await supabase
       .from('orders')
-      .select('id, status, delivery_address, total_amount, customer_name, customer_phone')
+      .select('id, status, delivery_address, total_amount, customer_name, customer_phone, cart_items, location_lat, location_lng')
       .eq('runner_id', user.id)
       .neq('status', 'delivered') // Hide completed from runner dashboard
     
