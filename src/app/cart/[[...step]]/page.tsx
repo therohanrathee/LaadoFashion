@@ -22,6 +22,20 @@ export default function CartPage() {
     setStep(currentUrlStep)
   }, [currentUrlStep])
 
+  // Auto-scroll to checkout form on mobile when proceeding
+  useEffect(() => {
+    if (step === 'checkout') {
+      setTimeout(() => {
+        const el = document.getElementById('checkout-form')
+        if (el) {
+          // Adjust scroll position to account for the sticky header
+          const y = el.getBoundingClientRect().top + window.scrollY - 100
+          window.scrollTo({ top: y, behavior: 'smooth' })
+        }
+      }, 150) // Allow Framer Motion animation to render the form first
+    }
+  }, [step])
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [catalogItems, setCatalogItems] = useState<any[]>([])
   const [availableDbAddons, setAvailableDbAddons] = useState<CatalogAddon[]>([])
@@ -62,7 +76,6 @@ export default function CartPage() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         })
-        setFormData(prev => ({ ...prev, remarks: prev.remarks + ` [Location: ${position.coords.latitude}, ${position.coords.longitude}]` }))
         setIsGettingLocation(false)
       },
       (error) => {
@@ -447,7 +460,7 @@ export default function CartPage() {
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     className="lg:col-span-2 w-full"
                   >
-                    <form onSubmit={handleConfirmOrder} className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 space-y-6">
+                    <form id="checkout-form" onSubmit={handleConfirmOrder} className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 space-y-6">
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
