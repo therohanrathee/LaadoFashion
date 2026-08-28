@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
 import RunnerPortal from './RunnerPortal'
 import AdminPortal from './AdminPortal'
+import NotificationManager from '@/components/admin/NotificationManager'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -111,6 +112,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] dark:bg-[#0a0a0a]">
+      <NotificationManager userId={user.id} userRole={profile?.role || 'customer'} />
       <header className="bg-white dark:bg-[#141414] dark:bg-[#141414] shadow-sm px-6 py-4 flex justify-between items-center">
         <h1 className="font-serif font-bold text-[#1a1a1a] dark:text-white dark:text-white text-xl tracking-tight whitespace-nowrap">
           Laado Fashion <span className="text-[#C5A55A] font-sans px-0.5 text-sm">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
