@@ -29,6 +29,10 @@ interface CartContextType {
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
   cartTotal: number;
+  discountCode: string;
+  setDiscountCode: (code: string) => void;
+  promoData: any;
+  setPromoData: (data: any) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -36,6 +40,8 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [discountCode, setDiscountCode] = useState('')
+  const [promoData, setPromoData] = useState<any>(null)
 
   // Calculate total
   const cartTotal = items.reduce((total, item) => {
@@ -96,7 +102,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       clearCart,
       isCartOpen,
       setIsCartOpen,
-      cartTotal
+      cartTotal,
+      discountCode,
+      setDiscountCode,
+      promoData,
+      setPromoData
     }}>
       {children}
     </CartContext.Provider>

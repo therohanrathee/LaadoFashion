@@ -29,15 +29,16 @@ export async function reclusterOrders() {
   // pending_measurement, stitching_complete, returned
   const { data: orders } = await supabase
     .from('orders')
-    .select('id, latitude, longitude, status')
+    .select('id, location_lat, location_lng, status')
     .in('status', ['pending_measurement', 'stitching_complete', 'returned'])
+    .is('runner_id', null)
 
-  if (!orders || orders.length === 0) return { success: true, message: 'No orders to assign' }
+  if (!orders || orders.length === 0) return { success: true, message: 'No unassigned orders to cluster' }
 
   const ordersToCluster = orders.map(o => ({
     id: o.id,
-    lat: Number(o.latitude),
-    lng: Number(o.longitude)
+    lat: Number(o.location_lat),
+    lng: Number(o.location_lng)
   }))
 
   // 3. Cluster

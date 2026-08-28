@@ -58,8 +58,8 @@ export default async function DashboardPage() {
         cart_items,
         customer_name,
         customer_phone,
-        runner:runner_id(full_name),
-        tailor:tailor_id(full_name)
+        runner:runner_id(id, full_name),
+        tailor:tailor_id(id, full_name)
       `)
       .order('created_at', { ascending: false })
     

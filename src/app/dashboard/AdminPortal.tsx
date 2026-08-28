@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { reclusterOrders } from '@/app/actions/runner'
 import { updateOrderStatus, assignOrderStaff, updateCatalogItem, createCatalogItem, deleteCatalogItem, updatePromoCode, createAddon, deleteAddon } from '@/app/actions/admin'
 import OrderCard from '@/components/admin/OrderCard'
@@ -15,6 +15,12 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
   // Catalog Modal State
   const [catalogModal, setCatalogModal] = useState<{isOpen: boolean, mode: 'create' | 'edit', item: any | null}>({ isOpen: false, mode: 'create', item: null })
 
+  const [localOrders, setLocalOrders] = useState(orders)
+
+  useEffect(() => {
+    setLocalOrders(orders)
+  }, [orders])
+
   const handleRecluster = async () => {
     setLoading(true)
     setMessage('')
@@ -28,14 +34,19 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
   }
 
   const handleStatusChange = async (orderId: string, status: string) => {
+    setLocalOrders((prev: any) => prev.map((o: any) => o.id === orderId ? { ...o, status } : o))
     await updateOrderStatus(orderId, status)
   }
 
   const handleAssignRunner = async (orderId: string, runnerId: string) => {
+    const runner = employees.find((e: any) => e.id === runnerId) || null
+    setLocalOrders((prev: any) => prev.map((o: any) => o.id === orderId ? { ...o, runner } : o))
     await assignOrderStaff(orderId, runnerId, 'runner')
   }
 
   const handleAssignTailor = async (orderId: string, tailorId: string) => {
+    const tailor = employees.find((e: any) => e.id === tailorId) || null
+    setLocalOrders((prev: any) => prev.map((o: any) => o.id === orderId ? { ...o, tailor } : o))
     await assignOrderStaff(orderId, tailorId, 'tailor')
   }
 
@@ -62,7 +73,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white dark:bg-[#141414] dark:bg-[#141414] p-6 rounded-xl shadow-sm border border-gray-100 dark:border-white/5 dark:border-white/5">
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-1">Total Orders</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">{orders.length}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white dark:text-white">{localOrders.length}</p>
         </div>
         <div className="bg-white dark:bg-[#141414] dark:bg-[#141414] p-6 rounded-xl shadow-sm border border-gray-100 dark:border-white/5 dark:border-white/5">
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-1">Pending Measurement</p>
@@ -123,10 +134,10 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
           <div className="p-4 bg-gray-50 dark:bg-[#0a0a0a] dark:bg-[#0a0a0a]/50">
             {activeTab === 'orders' && (
               <div className="space-y-4">
-                {orders.length === 0 ? (
+                {localOrders.length === 0 ? (
                   <div className="p-8 text-center text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500">No orders found.</div>
                 ) : (
-                  orders.map((order: any) => (
+                  localOrders.map((order: any) => (
                     <OrderCard 
                       key={order.id} 
                       order={order} 

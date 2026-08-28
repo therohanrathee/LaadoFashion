@@ -11,7 +11,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { fetchCatalogItems, fetchAddons, CatalogAddon } from '@/app/actions/catalog'
 
 export default function CartPage() {
-  const { items, addItem, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal } = useCart()
+  const { items, addItem, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal, discountCode, setDiscountCode, promoData, setPromoData } = useCart()
   const params = useParams()
   const currentUrlStep = params.step?.[0] === 'checkout' ? 'checkout' : 'cart'
   const [step, setStep] = useState<'cart' | 'checkout'>(currentUrlStep)
@@ -42,10 +42,8 @@ export default function CartPage() {
   })
   
   // Promo Code State
-  const [discountCode, setDiscountCode] = useState('')
   const [promoError, setPromoError] = useState('')
   const [promoSuccess, setPromoSuccess] = useState('')
-  const [promoData, setPromoData] = useState<any>(null)
   const [isApplyingPromo, setIsApplyingPromo] = useState(false)
   
   const [locationCoords, setLocationCoords] = useState<{lat: number, lng: number} | null>(null)
