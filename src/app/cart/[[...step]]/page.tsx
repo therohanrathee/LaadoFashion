@@ -7,13 +7,21 @@ import Footer from '@/components/home/Footer'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { fetchCatalogItems, fetchAddons, CatalogAddon } from '@/app/actions/catalog'
 
 export default function CartPage() {
   const { items, addItem, removeItem, updateQuantity, removeAddon, addAddon, clearCart, cartTotal } = useCart()
-  const [step, setStep] = useState<'cart' | 'checkout'>('cart')
+  const params = useParams()
+  const currentUrlStep = params.step?.[0] === 'checkout' ? 'checkout' : 'cart'
+  const [step, setStep] = useState<'cart' | 'checkout'>(currentUrlStep)
   const router = useRouter()
+  
+  // Keep local state in sync if URL changes (e.g. back button)
+  useEffect(() => {
+    setStep(currentUrlStep)
+  }, [currentUrlStep])
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [catalogItems, setCatalogItems] = useState<any[]>([])
   const [availableDbAddons, setAvailableDbAddons] = useState<CatalogAddon[]>([])
@@ -177,7 +185,7 @@ export default function CartPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             {step === 'checkout' && (
-              <button onClick={() => setStep('cart')} className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:text-white transition-colors">
+              <button onClick={() => router.push('/cart')} className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:text-white transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               </button>
             )}
@@ -214,7 +222,7 @@ export default function CartPage() {
                       items={items} 
                       cartTotal={cartTotal} 
                       step={step} 
-                      onProceed={() => setStep('checkout')} 
+                      onProceed={() => router.push('/cart/checkout')} 
                       discountCode={discountCode}
                       setDiscountCode={setDiscountCode}
                       promoError={promoError}
@@ -410,7 +418,7 @@ export default function CartPage() {
                       items={items} 
                       cartTotal={cartTotal} 
                       step={step} 
-                      onProceed={() => setStep('checkout')} 
+                      onProceed={() => router.push('/cart/checkout')} 
                       discountCode={discountCode}
                       setDiscountCode={setDiscountCode}
                       promoError={promoError}
