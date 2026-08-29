@@ -4,8 +4,12 @@ import { createClient } from '@/lib/supabase/server'
 import { sendPushNotification } from './push'
 
 export async function notifyAdminsNewOrder(orderId: string) {
-  const supabase = await createClient()
-  const { data: admins } = await supabase.from('profiles').select('id').eq('role', 'admin')
+  const { createClient: createSupabaseClient } = await import('@supabase/supabase-js')
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+  const { data: admins } = await supabaseAdmin.from('profiles').select('id').eq('role', 'admin')
   
   if (admins && admins.length > 0) {
     const adminIds = admins.map(a => a.id)
@@ -28,8 +32,12 @@ export async function notifyRunnerAssignment(runnerId: string) {
 }
 
 export async function notifyAdminsNewLead(customerName: string) {
-  const supabase = await createClient()
-  const { data: admins } = await supabase.from('profiles').select('id').eq('role', 'admin')
+  const { createClient: createSupabaseClient } = await import('@supabase/supabase-js')
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+  const { data: admins } = await supabaseAdmin.from('profiles').select('id').eq('role', 'admin')
   
   if (admins && admins.length > 0) {
     const adminIds = admins.map(a => a.id)
