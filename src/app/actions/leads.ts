@@ -6,14 +6,14 @@ import { notifyAdminsNewLead } from './notify'
 export async function submitLead(formData: { name: string, phone: string, requirements: string, interested_in?: string }) {
   const supabase = await createClient()
   
-  // Create an admin client to bypass RLS for inserts if needed, 
-  // but public insert is enabled via RLS anyway.
-  const { error, data } = await supabase.from('leads').insert([{
+  // RLS allows anonymous inserts, but does NOT allow anonymous selects.
+  // Therefore, we must omit .select() to prevent an RLS violation on the return payload.
+  const { error } = await supabase.from('leads').insert([{
     name: formData.name,
     phone: formData.phone,
     requirements: formData.requirements,
     interested_in: formData.interested_in || null
-  }]).select()
+  }])
 
   if (error) {
     console.error("Lead submission error:", error)
@@ -21,9 +21,7 @@ export async function submitLead(formData: { name: string, phone: string, requir
   }
 
   // Notify admins in the background
-  if (data && data.length > 0) {
-    notifyAdminsNewLead(formData.name).catch(console.error)
-  }
+  notifyAdminsNewLead(formData.name).catch(console.error)
 
   return { success: true }
 }
