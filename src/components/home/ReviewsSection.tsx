@@ -4,27 +4,21 @@ import { motion } from 'framer-motion'
 
 const REVIEWS = [
   {
-    name: 'Anjali Desai',
-    date: '3 weeks ago',
-    text: 'Perfect fit without the need for alterations. I was looking for a good boutique in Gurugram and Laado Fashion exceeded my expectations. They delivered my custom-stitched lehenga exactly on time.',
+    name: 'Sunita',
+    date: 'an hour ago',
+    text: 'Best boutique in Ashok vihar and Fully satisfied after stitching my suit with unique design',
     rating: 5,
   },
   {
-    name: 'Simran Kaur',
-    date: '1 month ago',
-    text: 'Loved the convenience and quality! They offer doorstep measurement which is a huge time saver. The team is very professional and the delivery was prompt.',
+    name: 'Riya Phogat',
+    date: 'a day ago',
+    text: 'Great service! Designs are made as shown and loved their work.',
     rating: 5,
   },
   {
-    name: 'Neha Gupta',
-    date: '2 months ago',
-    text: 'Specialists in custom-stitched suits! I ordered a bespoke suit and their 7-day delivery service is incredible. The finishing on my outfit is beautiful.',
-    rating: 5,
-  },
-  {
-    name: 'Priya Sharma',
-    date: '2 weeks ago',
-    text: 'Premium quality stitching at reasonable prices. The home measurement service is the best part. No more multiple trips to the tailor, highly recommend them in Gurugram!',
+    name: 'Rohan Rathee',
+    date: '1 week ago',
+    text: 'Excellent Products and Services',
     rating: 5,
   },
 ]
