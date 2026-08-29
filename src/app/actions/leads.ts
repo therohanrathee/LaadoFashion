@@ -20,8 +20,8 @@ export async function submitLead(formData: { name: string, phone: string, requir
     return { success: false, error: error.message }
   }
 
-  // Notify admins in the background
-  notifyAdminsNewLead(formData.name).catch(console.error)
+  // Await the notification to ensure Vercel serverless functions don't kill the process before it sends
+  await notifyAdminsNewLead(formData.name).catch(console.error)
 
   return { success: true }
 }
