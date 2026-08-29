@@ -29,11 +29,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center h-12">
         {/* Logo */}
         <div className="flex-none">
-          <Link href="/" className="flex items-center gap-2 group cursor-pointer z-50 relative">
-            <div className="w-8 h-8 rounded-full bg-[#1a1a1a] dark:bg-white flex items-center justify-center overflow-hidden shrink-0">
-              <span className="text-[#C5A55A] font-serif text-lg font-bold leading-none select-none -translate-y-[1px]">L</span>
-            </div>
-            <span className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-[#1a1a1a] dark:text-white whitespace-nowrap">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity shrink-0 cursor-pointer z-50 relative" aria-label="Home">
+            <span className="font-serif font-bold text-[#1a1a1a] dark:text-white text-[12px] sm:text-[14px] md:text-xl tracking-tight whitespace-nowrap">
               Laado Fashion <span className="text-[#C5A55A] font-sans px-0.5 text-[10px] md:text-sm">&amp;</span> <span className="italic font-medium text-[#E91E63]">Boutique</span>
             </span>
           </Link>
