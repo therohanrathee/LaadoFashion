@@ -4,39 +4,27 @@ import { motion } from 'framer-motion'
 
 const REVIEWS = [
   {
-    name: 'Priya Sharma',
-    date: '2 weeks ago',
-    text: 'Absolutely brilliant service! The runner came exactly on time for measurements, and the stitching quality of my Anarkali suit is flawless. Will definitely order again.',
-    rating: 5,
-  },
-  {
     name: 'Anjali Desai',
-    date: '1 month ago',
-    text: 'I was skeptical about online tailoring, but Laado Boutique changed my mind. Perfect fit on the very first try without any alterations needed. Highly recommended!',
+    date: '3 weeks ago',
+    text: 'Perfect fit without the need for alterations. I was looking for a good boutique in Gurugram and Laado Fashion exceeded my expectations. They delivered my custom-stitched lehenga exactly on time.',
     rating: 5,
   },
   {
     name: 'Simran Kaur',
-    date: '3 weeks ago',
-    text: 'Loved the convenience. I didn\'t have to step out of my house. The team is very professional and the delivery was prompt. The finishing on my blouse is beautiful.',
+    date: '1 month ago',
+    text: 'Loved the convenience and quality! They offer doorstep measurement which is a huge time saver. The team is very professional and the delivery was prompt.',
     rating: 5,
   },
   {
     name: 'Neha Gupta',
     date: '2 months ago',
-    text: 'Great experience! The bespoke tailoring service is a lifesaver for working women like me. The fabric handling and embroidery work is top-notch.',
-    rating: 4,
-  },
-  {
-    name: 'Kritika Verma',
-    date: '1 week ago',
-    text: 'Superb fitting and very polite staff. The tailor perfectly understood the neck design I wanted for my Kurti. It looks amazing.',
+    text: 'Specialists in custom-stitched suits! I ordered a bespoke suit and their 7-day delivery service is incredible. The finishing on my outfit is beautiful.',
     rating: 5,
   },
   {
-    name: 'Megha Singh',
-    date: '3 months ago',
-    text: 'Premium quality stitching at reasonable prices. The home measurement service is the best part. No more multiple trips to the tailor!',
+    name: 'Priya Sharma',
+    date: '2 weeks ago',
+    text: 'Premium quality stitching at reasonable prices. The home measurement service is the best part. No more multiple trips to the tailor, highly recommend them in Gurugram!',
     rating: 5,
   },
 ]
