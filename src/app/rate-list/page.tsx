@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function RateListPage() {
   const catalog = await fetchCatalogItems()
-  const visibleCatalog = catalog.filter(item => item.isActive !== false && item.category !== 'Jutti')
+  const visibleCatalog = catalog.filter(item => item.isActive !== false && !item.category?.toLowerCase().includes('jutti'))
 
   // Group by category
   const grouped = visibleCatalog.reduce((acc, item) => {
