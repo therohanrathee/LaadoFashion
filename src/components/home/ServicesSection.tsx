@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
-import AddToCartButton from '@/components/cart/AddToCartButton'
+import EnquireButton from '@/components/ui/EnquireButton'
 
 // Generate the 10 leather juttis and 4 plastic juttis based on the processed files
 const allJuttis = [
@@ -100,7 +100,7 @@ export default function ServicesSection() {
                       <span className="font-bold text-xl leading-none text-gray-900 dark:text-white">{jutti.price}</span>
                     </div>
                   </div>
-                  <AddToCartButton 
+                  <EnquireButton 
                     item={{
                       id: jutti.id,
                       name: jutti.title,

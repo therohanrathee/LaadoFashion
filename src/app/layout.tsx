@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
-import CartDrawer from "@/components/cart/CartDrawer";
+import { EnquiryProvider } from "@/context/EnquiryContext";
+import EnquiryDrawer from "@/components/ui/EnquiryDrawer";
 import Script from "next/script";
 import { Analytics } from '@vercel/analytics/next';
 
@@ -161,10 +161,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <CartProvider>
+        <EnquiryProvider>
           {children}
-          <CartDrawer />
-        </CartProvider>
+          <EnquiryDrawer />
+        </EnquiryProvider>
         <Analytics />
       </body>
     </html>

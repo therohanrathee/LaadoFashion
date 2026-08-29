@@ -46,6 +46,7 @@ export default async function DashboardPage() {
   let adminCatalog: any[] = []
   let adminPromos: any[] = []
   let adminAddons: any[] = []
+  let adminLeads: any[] = []
   
   if (profile?.role === 'admin') {
     // Fetch all orders with inline customer details and assigned staff details
@@ -108,6 +109,13 @@ export default async function DashboardPage() {
       .select('*')
       .order('name', { ascending: true })
     adminAddons = addonsData || []
+
+    // Fetch Leads
+    const { data: leadsData } = await supabase
+      .from('leads')
+      .select('*')
+      .order('created_at', { ascending: false })
+    adminLeads = leadsData || []
   }
 
   return (
@@ -137,7 +145,7 @@ export default async function DashboardPage() {
           </div>
         )}
         
-        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} bulkOrders={bulkOrders} catalog={adminCatalog} promos={adminPromos} addons={adminAddons} />}
+        {profile?.role === 'admin' && <AdminPortal orders={adminOrders} employees={employees} bulkOrders={bulkOrders} catalog={adminCatalog} promos={adminPromos} addons={adminAddons} leads={adminLeads} />}
 
         {profile?.role === 'runner' && <RunnerPortal orders={runnerOrders} />}
 

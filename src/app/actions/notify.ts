@@ -26,3 +26,18 @@ export async function notifyRunnerAssignment(runnerId: string) {
     '/dashboard'
   )
 }
+
+export async function notifyAdminsNewLead(customerName: string) {
+  const supabase = await createClient()
+  const { data: admins } = await supabase.from('profiles').select('id').eq('role', 'admin')
+  
+  if (admins && admins.length > 0) {
+    const adminIds = admins.map(a => a.id)
+    await sendPushNotification(
+      adminIds, 
+      'New Enquiry Received! 📝', 
+      `You just got a new lead from ${customerName}.`,
+      '/dashboard'
+    )
+  }
+}

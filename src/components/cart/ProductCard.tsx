@@ -1,6 +1,6 @@
 'use client'
 
-import AddToCartButton from '@/components/cart/AddToCartButton'
+import EnquireButton from '@/components/ui/EnquireButton'
 
 interface ProductCardProps {
   item: {
@@ -50,14 +50,14 @@ export default function ProductCard({ item }: ProductCardProps) {
           {/* Persistent Add to Cart Button (All devices) */}
           <div className="absolute bottom-4 right-4 z-20">
             {item.isActive !== false && (
-              <AddToCartButton 
+              <EnquireButton 
                 item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
                 className="bg-[#E91E63] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14"/><path d="M12 5v14"/>
                 </svg>
-              </AddToCartButton>
+              </EnquireButton>
             )}
           </div>
         </div>

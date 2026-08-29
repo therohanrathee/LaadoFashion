@@ -3,23 +3,26 @@
 import { useState, useEffect } from 'react'
 import { reclusterOrders } from '@/app/actions/runner'
 import { updateOrderStatus, assignOrderStaff, updateCatalogItem, createCatalogItem, deleteCatalogItem, updatePromoCode, createAddon, deleteAddon } from '@/app/actions/admin'
+import { updateLeadStatus } from '@/app/actions/leads'
 import OrderCard from '@/components/admin/OrderCard'
 
-export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [], addons = [] }: any) {
+export default function AdminPortal({ orders = [], employees = [], bulkOrders = [], catalog = [], promos = [], addons = [], leads = [] }: any) {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   
-  const [activeTab, setActiveTab] = useState<'orders' | 'catalog' | 'promos' | 'bulk_orders'>('orders')
+  const [activeTab, setActiveTab] = useState<'orders' | 'catalog' | 'promos' | 'bulk_orders' | 'leads'>('orders')
   const [newPromoType, setNewPromoType] = useState('fixed_amount')
   
   // Catalog Modal State
   const [catalogModal, setCatalogModal] = useState<{isOpen: boolean, mode: 'create' | 'edit', item: any | null}>({ isOpen: false, mode: 'create', item: null })
 
   const [localOrders, setLocalOrders] = useState(orders)
+  const [localLeads, setLocalLeads] = useState(leads)
 
   useEffect(() => {
     setLocalOrders(orders)
-  }, [orders])
+    setLocalLeads(leads)
+  }, [orders, leads])
 
   const handleRecluster = async () => {
     setLoading(true)
@@ -36,6 +39,11 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
   const handleStatusChange = async (orderId: string, status: string) => {
     setLocalOrders((prev: any) => prev.map((o: any) => o.id === orderId ? { ...o, status } : o))
     await updateOrderStatus(orderId, status)
+  }
+
+  const handleLeadStatusChange = async (leadId: string, status: string) => {
+    setLocalLeads((prev: any) => prev.map((l: any) => l.id === leadId ? { ...l, status } : l))
+    await updateLeadStatus(leadId, status)
   }
 
   const handleAssignRunner = async (orderId: string, runnerId: string) => {
@@ -127,7 +135,10 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               Promos
             </button>
             <button onClick={() => setActiveTab('bulk_orders')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'bulk_orders' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white dark:bg-[#141414] dark:bg-[#141414]' : 'text-gray-600 dark:text-gray-300 dark:text-gray-300 hover:text-gray-900 dark:text-white dark:text-white'}`}>
-              Inquiries ({bulkOrders.length})
+              Bulk Orders ({bulkOrders.length})
+            </button>
+            <button onClick={() => setActiveTab('leads')} className={`px-5 py-4 font-semibold text-sm whitespace-nowrap transition-colors ${activeTab === 'leads' ? 'text-[#E91E63] border-b-2 border-[#E91E63] bg-white dark:bg-[#141414] dark:bg-[#141414]' : 'text-gray-600 dark:text-gray-300 dark:text-gray-300 hover:text-gray-900 dark:text-white dark:text-white'}`}>
+              Leads ({localLeads.length})
             </button>
           </div>
 
@@ -333,6 +344,55 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                         </td>
                         <td className="px-4 py-3">
                           <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm whitespace-pre-wrap">{bo.details}</p>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {activeTab === 'leads' && (
+              <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-white/10">
+                <table className="w-full text-sm text-left bg-white dark:bg-[#141414]">
+                  <thead className="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-[#0a0a0a]">
+                    <tr>
+                      <th className="px-4 py-3">Date</th>
+                      <th className="px-4 py-3">Customer</th>
+                      <th className="px-4 py-3">Requirements</th>
+                      <th className="px-4 py-3">Interested In</th>
+                      <th className="px-4 py-3">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {localLeads.length === 0 ? (
+                      <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No leads found.</td></tr>
+                    ) : localLeads.map((lead: any) => (
+                      <tr key={lead.id} className="hover:bg-gray-50 dark:bg-[#0a0a0a]">
+                        <td className="px-4 py-3 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                          {new Date(lead.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="font-medium text-gray-900 dark:text-white">{lead.name}</div>
+                          <div className="text-[#E91E63] font-bold text-xs mt-1"><a href={`tel:${lead.phone}`}>{lead.phone}</a></div>
+                        </td>
+                        <td className="px-4 py-3">
+                          <p className="text-gray-700 dark:text-gray-300 text-sm whitespace-pre-wrap">{lead.requirements || '-'}</p>
+                        </td>
+                        <td className="px-4 py-3 text-gray-900 dark:text-white">
+                          {lead.interested_in ? <span className="px-2 py-1 bg-gray-100 dark:bg-white/10 rounded text-xs font-semibold">{lead.interested_in}</span> : '-'}
+                        </td>
+                        <td className="px-4 py-3">
+                          <select 
+                            value={lead.status}
+                            onChange={(e) => handleLeadStatusChange(lead.id, e.target.value)}
+                            className="text-xs font-semibold rounded border border-gray-200 dark:border-white/10 px-2 py-1 bg-white dark:bg-[#141414] text-gray-900 dark:text-white"
+                          >
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="converted">Converted to Order</option>
+                            <option value="rejected">Rejected</option>
+                          </select>
                         </td>
                       </tr>
                     ))}
