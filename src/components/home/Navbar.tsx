@@ -67,6 +67,10 @@ export default function Navbar() {
               <Link href="/mens" className="text-sm font-semibold tracking-wider text-gray-800 dark:text-gray-200 hover:text-[#E91E63] dark:hover:text-[#E91E63] transition-colors uppercase">
                 Men&apos;s
               </Link>
+              <span className="text-gray-300 dark:text-gray-600 text-sm">|</span>
+              <Link href="/bulk-order" className="text-sm font-semibold tracking-wider text-gray-800 dark:text-gray-200 hover:text-[#E91E63] dark:hover:text-[#E91E63] transition-colors uppercase">
+                Bulk Order
+              </Link>
             </div>
 
             <Link 
