@@ -87,7 +87,7 @@ export default function ServicesSection() {
                   <span className="text-[10px] uppercase tracking-[0.2em] font-semibold" style={{ color: `${jutti.accent}` }}>
                     {jutti.type} Collection
                   </span>
-                  <h3 className="text-lg font-sans font-semibold tracking-tight mt-1 mb-2 text-[#1a1a1a]">
+                  <h3 className="text-lg font-sans font-semibold tracking-tight mt-1 mb-2 text-[#1a1a1a] dark:text-white">
                     {jutti.title}
                   </h3>
                 </div>

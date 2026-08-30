@@ -64,15 +64,6 @@ export default function Home() {
             accentColor="#C5A55A"
           />
 
-          <HorizontalCatalog 
-            title="Handcrafted Designer Juttis"
-            subtitle="Walk in Elegance"
-            description="Premium, handcrafted genuine leather juttis with intricate detailing for both casual and festive occasions."
-            items={juttisCatalog}
-            bgClass="bg-[#FAF8F5] dark:bg-[#0a0a0a]"
-            accentColor="#E91E63"
-          />
-
           <ServicesSection />
           <ReviewsSection />
           <CTASection />
