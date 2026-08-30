@@ -82,7 +82,7 @@ export default function BulkOrderPage() {
           </div>
 
           {/* Form Side */}
-          <div className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 dark:border-white/5">
+          <div className="bg-white dark:bg-[#141414] p-8 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-black/40 border border-gray-100 dark:border-white/5">
             <h2 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-3 md:mb-6">Send an Inquiry</h2>
             
             {status === 'success' ? (
