@@ -31,7 +31,7 @@ export default function EnquiryDrawer() {
         setIsSuccess(false)
         setFormData({ name: '', phone: '', requirements: '' })
         setInterestedItem(null)
-      }, 3000)
+      }, 8000)
     } else {
       alert("Failed to submit enquiry. Please try again or contact us directly.")
     }
@@ -74,6 +74,17 @@ export default function EnquiryDrawer() {
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white">Enquiry Sent!</h3>
                   <p className="text-gray-600 dark:text-gray-400">Our master tailor will contact you shortly to discuss your requirements.</p>
+                  
+                  <div className="mt-8 pt-8 border-t border-gray-100 dark:border-white/10 w-full text-center">
+                    <p className="text-sm text-gray-500 mb-3">While you wait, explore our pricing:</p>
+                    <Link 
+                      href="/rate-list" 
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="text-[#E91E63] font-semibold hover:underline"
+                    >
+                      View our Rate List →
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -153,16 +164,7 @@ export default function EnquiryDrawer() {
                     </button>
                   </form>
                   
-                  <div className="pt-6 border-t border-gray-100 dark:border-white/10 text-center">
-                    <p className="text-sm text-gray-500 mb-3">Just looking for prices?</p>
-                    <Link 
-                      href="/rate-list" 
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="text-[#E91E63] font-semibold hover:underline"
-                    >
-                      View our Rate List →
-                    </Link>
-                  </div>
+
                 </div>
               )}
             </div>
