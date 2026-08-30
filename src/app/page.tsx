@@ -16,14 +16,16 @@ import { useState, useEffect } from 'react'
 export default function Home() {
   const [womensCatalog, setWomensCatalog] = useState<any[]>([])
   const [mensCatalog, setMensCatalog] = useState<any[]>([])
+  const [juttisCatalog, setJuttisCatalog] = useState<any[]>([])
   
   useEffect(() => {
     async function loadCatalog() {
       const catalog = await fetchCatalogItems()
       // Hide inactive items UNLESS they are Juttis
       const visibleCatalog = catalog.filter(item => item.isActive || item.name.toLowerCase().includes('jutti'))
-      setWomensCatalog(visibleCatalog.filter(item => item.category === 'Women'))
+      setWomensCatalog(visibleCatalog.filter(item => item.category === 'Women' && !item.name.toLowerCase().includes('jutti')))
       setMensCatalog(visibleCatalog.filter(item => item.category === 'Men'))
+      setJuttisCatalog(visibleCatalog.filter(item => item.name.toLowerCase().includes('jutti')))
     }
     loadCatalog()
   }, [])
@@ -60,6 +62,15 @@ export default function Home() {
             items={mensCatalog}
             bgClass="bg-white dark:bg-[#141414]"
             accentColor="#C5A55A"
+          />
+
+          <HorizontalCatalog 
+            title="Handcrafted Designer Juttis"
+            subtitle="Walk in Elegance"
+            description="Premium, handcrafted genuine leather juttis with intricate detailing for both casual and festive occasions."
+            items={juttisCatalog}
+            bgClass="bg-[#FAF8F5] dark:bg-[#0a0a0a]"
+            accentColor="#E91E63"
           />
 
           <ServicesSection />
