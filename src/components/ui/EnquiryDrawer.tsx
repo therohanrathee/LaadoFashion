@@ -118,10 +118,14 @@ export default function EnquiryDrawer() {
                       <input 
                         required 
                         type="tel" 
+                        pattern="[0-9]{10}"
+                        minLength={10}
+                        maxLength={10}
                         value={formData.phone}
-                        onChange={e => setFormData({...formData, phone: e.target.value})}
+                        onChange={e => setFormData({...formData, phone: e.target.value.replace(/\D/g, '').slice(0, 10)})}
                         className="w-full px-4 py-3 bg-white dark:bg-[#141414] border border-gray-200 dark:border-white/10 rounded-xl focus:border-[#E91E63] focus:ring-1 focus:ring-[#E91E63] outline-none"
-                        placeholder="+91"
+                        placeholder="10-digit mobile number"
+                        title="Please enter a valid 10-digit mobile number"
                       />
                     </div>
 
