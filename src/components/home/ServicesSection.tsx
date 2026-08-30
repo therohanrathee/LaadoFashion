@@ -36,7 +36,7 @@ export default function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative pt-28 pb-12 md:pt-36 md:pb-16 bg-[#f5f0ea] dark:bg-[#0a0a0a] overflow-hidden" ref={ref}>
+    <section id="juttis" className="relative pt-28 pb-12 md:pt-36 md:pb-16 bg-[#f5f0ea] dark:bg-[#0a0a0a] overflow-hidden" ref={ref}>
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
