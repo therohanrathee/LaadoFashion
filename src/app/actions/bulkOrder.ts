@@ -22,6 +22,22 @@ export async function submitBulkOrder(formData: FormData) {
     const phone = formData.get('phone') as string
     const email = formData.get('email') as string
     const details = formData.get('details') as string
+    const token = formData.get('cf-turnstile-response') as string
+
+    if (!token) return { success: false, error: 'Please verify that you are human.' }
+    
+    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: token
+      })
+    })
+    const verifyData = await verifyRes.json()
+    if (!verifyData.success) {
+      return { success: false, error: 'CAPTCHA verification failed.' }
+    }
 
     if (!name || !phone || !details) {
       return { success: false, error: 'Name, Phone, and Details are required.' }

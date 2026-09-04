@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Navbar from '@/components/home/Navbar'
+import { Turnstile } from '@marsidev/react-turnstile'
 import Footer from '@/components/home/Footer'
 import { submitBulkOrder } from '@/app/actions/bulkOrder'
 
@@ -19,6 +20,7 @@ export default function BulkOrderPage() {
 
     if (result.success) {
       setStatus('success')
+      setToken(null)
     } else {
       setStatus('error')
       setErrorMessage(result.error || 'Something went wrong. Please try again.')
@@ -158,6 +160,13 @@ export default function BulkOrderPage() {
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A55A]/50 focus:border-[#C5A55A] transition-all resize-none"
                     placeholder="Tell us about your bulk order requirements..."
                   ></textarea>
+                </div>
+
+                <div className="mb-4 flex justify-center">
+                  <Turnstile
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={(t) => setToken(t)}
+                  />
                 </div>
 
                 <button 

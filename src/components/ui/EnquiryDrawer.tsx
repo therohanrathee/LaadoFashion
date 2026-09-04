@@ -6,16 +6,19 @@ import { useEnquiry } from '@/context/EnquiryContext'
 import Link from 'next/link'
 import { submitLead } from '@/app/actions/leads'
 import Image from 'next/image'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function EnquiryDrawer() {
   const { isDrawerOpen, setIsDrawerOpen, interestedItem, setInterestedItem } = useEnquiry()
   
   const [formData, setFormData] = useState({ name: '', phone: '', requirements: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [token, setToken] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!token) { alert('Please verify you are human'); return; }
     setIsSubmitting(true)
     
     const res = await submitLead({
@@ -31,6 +34,7 @@ export default function EnquiryDrawer() {
         setIsSuccess(false)
         setFormData({ name: '', phone: '', requirements: '' })
         setInterestedItem(null)
+        setToken(null)
       }, 8000)
     } else {
       alert("Failed to submit enquiry. Please try again or contact us directly.")
@@ -103,7 +107,8 @@ export default function EnquiryDrawer() {
                       </div>
                       <button 
                         type="button" 
-                        onClick={() => setInterestedItem(null)}
+                        onClick={() => setInterestedItem(null)
+        setToken(null)}
                         className="ml-auto text-gray-400 hover:text-red-500 text-sm"
                       >
                         Remove
@@ -151,6 +156,12 @@ export default function EnquiryDrawer() {
                       />
                     </div>
 
+                    <div className="mb-4 flex justify-center">
+                      <Turnstile
+                        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                        onSuccess={(t) => setToken(t)}
+                      />
+                    </div>
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
