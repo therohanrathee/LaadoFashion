@@ -107,8 +107,10 @@ export default function EnquiryDrawer() {
                       </div>
                       <button 
                         type="button" 
-                        onClick={() => setInterestedItem(null)
-        setToken(null)}
+                        onClick={() => {
+                          setInterestedItem(null)
+                          setToken(null)
+                        }}
                         className="ml-auto text-gray-400 hover:text-red-500 text-sm"
                       >
                         Remove
