@@ -23,6 +23,7 @@ export default function EnquiryDrawer() {
     
     const res = await submitLead({
       ...formData,
+      token: token,
       interested_in: interestedItem ? interestedItem.name : undefined
     })
 

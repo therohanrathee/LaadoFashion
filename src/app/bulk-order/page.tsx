@@ -9,6 +9,7 @@ import { submitBulkOrder } from '@/app/actions/bulkOrder'
 export default function BulkOrderPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [token, setToken] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
