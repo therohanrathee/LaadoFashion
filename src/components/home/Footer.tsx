@@ -68,7 +68,13 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs">© {new Date().getFullYear()} Laado Fashion & Boutique. All rights reserved.</p>
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <p className="text-xs">© {new Date().getFullYear()} Laado Fashion & Boutique. All rights reserved.</p>
+            <div className="flex gap-4 text-xs text-white/60">
+              <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms-and-conditions" className="hover:text-white transition-colors">Terms & Conditions</Link>
+            </div>
+          </div>
           <p className="text-xs text-white/30">Crafted with ❤️ for every stitch</p>
         </div>
       </div>
