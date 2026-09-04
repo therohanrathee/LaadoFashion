@@ -49,7 +49,6 @@ export default function BulkOrderPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-sm md:text-base text-gray-900 dark:text-white mb-0.5 md:mb-1">Phone</h3>
-                  <a href="tel:+917011917290" className="block text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-[#E91E63]">+91 7011917290</a>
                   <a href="tel:+919716299990" className="block text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-[#E91E63]">+91 9716299990</a>
                 </div>
               </div>
