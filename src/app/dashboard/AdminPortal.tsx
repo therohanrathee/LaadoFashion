@@ -15,7 +15,7 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
   
   // Catalog Modal State
   const [catalogModal, setCatalogModal] = useState<{isOpen: boolean, mode: 'create' | 'edit', item: any | null}>({ isOpen: false, mode: 'create', item: null })
-
+  const [isSavingCatalog, setIsSavingCatalog] = useState(false)
   const [localOrders, setLocalOrders] = useState(orders)
   const [localLeads, setLocalLeads] = useState(leads)
 
@@ -437,36 +437,42 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
               <button onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-300">✕</button>
             </div>
             <form className="flex flex-col flex-1 min-h-0 overflow-hidden" action={async (formData) => {
-              let imageUrl = formData.get('existing_image_url')?.toString() || ''
-              const imageFile = formData.get('imageFile') as File | null
-              
-              if (imageFile && imageFile.size > 0) {
-                const { uploadImage } = await import('@/app/actions/upload')
-                const uploadRes = await uploadImage(formData)
-                if (uploadRes.url) {
-                  imageUrl = uploadRes.url
-                } else {
-                  alert(uploadRes.error)
-                  return
+              setIsSavingCatalog(true)
+              try {
+                let imageUrl = formData.get('existing_image_url')?.toString() || ''
+                const imageFile = formData.get('imageFile') as File | null
+                
+                if (imageFile && imageFile.size > 0) {
+                  const { uploadImage } = await import('@/app/actions/upload')
+                  const uploadRes = await uploadImage(formData)
+                  if (uploadRes.url) {
+                    imageUrl = uploadRes.url
+                  } else {
+                    alert(uploadRes.error)
+                    setIsSavingCatalog(false)
+                    return
+                  }
                 }
-              }
 
-              const data = {
-                name: formData.get('name'),
-                category: formData.get('category'),
-                base_price: Number(formData.get('base_price')),
-                original_price: formData.get('original_price') ? Number(formData.get('original_price')) : null,
-                image_url: imageUrl,
-                is_active: formData.get('is_active') === 'on'
+                const data = {
+                  name: formData.get('name'),
+                  category: formData.get('category'),
+                  base_price: Number(formData.get('base_price')),
+                  original_price: formData.get('original_price') ? Number(formData.get('original_price')) : null,
+                  image_url: imageUrl,
+                  is_active: formData.get('is_active') === 'on'
+                }
+                
+                if (catalogModal.mode === 'create') {
+                  await createCatalogItem(data)
+                } else {
+                  await updateCatalogItem(catalogModal.item.id, data)
+                }
+                
+                setCatalogModal({ isOpen: false, mode: 'create', item: null })
+              } finally {
+                setIsSavingCatalog(false)
               }
-              
-              if (catalogModal.mode === 'create') {
-                await createCatalogItem(data)
-              } else {
-                await updateCatalogItem(catalogModal.item.id, data)
-              }
-              
-              setCatalogModal({ isOpen: false, mode: 'create', item: null })
             }}>
               <div className="p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
                 <div>
@@ -581,8 +587,19 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                 
                 <div className="flex gap-3">
                   <button type="button" onClick={() => setCatalogModal({ isOpen: false, mode: 'create', item: null })} className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Cancel</button>
-                  <button type="submit" className="bg-[#E91E63] text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-[#C2185B] transition-colors">
-                    {catalogModal.mode === 'create' ? 'Create Product' : 'Save Changes'}
+                  <button 
+                    type="submit" 
+                    disabled={isSavingCatalog}
+                    className="bg-[#E91E63] flex items-center justify-center min-w-[140px] text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-[#C2185B] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {isSavingCatalog ? (
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : (
+                      catalogModal.mode === 'create' ? 'Create Product' : 'Save Changes'
+                    )}
                   </button>
                 </div>
               </div>
