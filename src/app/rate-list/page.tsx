@@ -2,6 +2,7 @@ import Navbar from '@/components/home/Navbar'
 import Footer from '@/components/home/Footer'
 import { fetchCatalogItems } from '@/app/actions/catalog'
 import Image from 'next/image'
+import EnquireButton from '@/components/ui/EnquireButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -69,7 +70,7 @@ export default async function RateListPage() {
             {Object.entries(structured).map(([category, subcategories]) => {
               if (Object.keys(subcategories).length === 0) return null;
               return (
-                <div key={category} className="space-y-8">
+                <div key={category} id={category} className="space-y-8 scroll-mt-32">
                   <div className="flex items-center gap-4">
                     <h2 className="text-3xl font-serif font-bold text-[#1a1a1a] dark:text-white">
                       {category}'s Tailoring
@@ -100,6 +101,15 @@ export default async function RateListPage() {
                                   )}
                                 </div>
                               </div>
+                              
+                              <EnquireButton 
+                                item={{ id: item.id, name: item.name, basePrice: item.basePrice, image: item.image }} 
+                                className="bg-[#E91E63] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform flex-shrink-0"
+                              >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M5 12h14"/><path d="M12 5v14"/>
+                                </svg>
+                              </EnquireButton>
                             </div>
                           ))}
                         </div>
@@ -162,6 +172,17 @@ export default async function RateListPage() {
         </div>
       </main>
       <Footer />
+      
+      {/* Sticky Scroll to Men's Button */}
+      <a 
+        href="#Men" 
+        className="fixed bottom-6 right-6 z-40 bg-[#1a1a1a] dark:bg-white text-white dark:text-black px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform"
+      >
+        <span className="text-sm font-bold font-sans">Go to Men's</span>
+        <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
     </div>
   )
 }
