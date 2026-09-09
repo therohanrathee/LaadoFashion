@@ -18,8 +18,8 @@ export default function ProductCard({ item }: ProductCardProps) {
   const isJutti = item.category === 'Jutti';
 
   return (
-    <div className="w-full group relative">
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white/70 dark:bg-[#141414]/70 backdrop-blur-sm border border-gray-100 dark:border-white/5 flex flex-col">
+    <div className="w-full group relative isolation-isolate translate-z-0">
+      <div className="relative w-full rounded-2xl overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-2xl bg-white/70 dark:bg-[#141414]/70 backdrop-blur-sm border border-gray-100 dark:border-white/5 flex flex-col translate-z-0">
         {/* Image Container */}
         <div className="relative w-full bg-gray-50/50 dark:bg-transparent">
           <img 
