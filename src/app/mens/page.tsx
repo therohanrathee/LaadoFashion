@@ -27,10 +27,10 @@ export default async function MensCollectionPage() {
             </p>
           </div>
 
-          {/* Responsive Masonry Grid using CSS Columns */}
-          <div className="columns-2 md:columns-4 gap-4">
+          {/* Standard CSS Grid instead of buggy CSS Columns */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {mensCatalog.map((item) => (
-              <div key={item.id} className="break-inside-avoid mb-4 inline-block w-full translate-z-0">
+              <div key={item.id} className="w-full">
                 <ProductCard item={item} />
               </div>
             ))}
