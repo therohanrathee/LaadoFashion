@@ -3,6 +3,7 @@ import Footer from '@/components/home/Footer'
 import { fetchCatalogItems } from '@/app/actions/catalog'
 import Image from 'next/image'
 import EnquireButton from '@/components/ui/EnquireButton'
+import ScrollToMensButton from '@/components/ui/ScrollToMensButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -172,17 +173,7 @@ export default async function RateListPage() {
         </div>
       </main>
       <Footer />
-      
-      {/* Sticky Scroll to Men's Button */}
-      <a 
-        href="#Men" 
-        className="fixed bottom-6 right-6 z-40 bg-[#1a1a1a] dark:bg-white text-white dark:text-black px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform"
-      >
-        <span className="text-sm font-bold font-sans">Go to Men's</span>
-        <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </a>
+      <ScrollToMensButton />
     </div>
   )
 }
