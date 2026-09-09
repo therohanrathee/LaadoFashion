@@ -28,9 +28,9 @@ export default async function WomensCollectionPage() {
           </div>
 
           {/* Responsive Masonry Grid using CSS Columns */}
-          <div className="columns-2 md:columns-4 gap-4 space-y-4">
+          <div className="columns-2 md:columns-4 gap-4">
             {womensCatalog.map((item) => (
-              <div key={item.id} className="break-inside-avoid">
+              <div key={item.id} className="break-inside-avoid mb-4">
                 <ProductCard item={item} />
               </div>
             ))}
