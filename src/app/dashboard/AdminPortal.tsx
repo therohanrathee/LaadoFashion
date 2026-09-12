@@ -373,7 +373,14 @@ export default function AdminPortal({ orders = [], employees = [], bulkOrders = 
                           {new Date(lead.created_at).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-3">
-                          <div className="font-medium text-gray-900 dark:text-white">{lead.name}</div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-gray-900 dark:text-white">{lead.name}</span>
+                            {lead.source_website && lead.source_website !== 'LaadoFashion' && (
+                              <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 text-[10px] font-bold uppercase tracking-wider">
+                                {lead.source_website}
+                              </span>
+                            )}
+                          </div>
                           <div className="text-[#E91E63] font-bold text-xs mt-1"><a href={`tel:${lead.phone}`}>{lead.phone}</a></div>
                         </td>
                         <td className="px-4 py-3">
